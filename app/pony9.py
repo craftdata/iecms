@@ -8,64 +8,29 @@ from pony.orm import *
 
 db = Database()
 
-class RefTypeMixin(object):
-    name = Required(str)
-    code = Optional(str)
-    description = Optional(str)
-    notes = Optional(LongStr )
 
-class PersonMixin(object):
-    first_name = Required(str)
-    last_name = Required(str)
-    other_names = Optional(str)
-    dob = Optional(datetime, default=lambda: datetime.now() )
-
-class ContactMixin(object):
-    mobile = Optional(str, index=True)
-    other_mobile = Optional(str)
-    fixed_line = Optional(str, 30)
-    other_fixed_line = Optional(str, 20)
-    email = Optional(str, 60)
-    other_email = Optional(str, 60)
-    address_line_1 = Optional(str, 200)
-    address_line_2 = Optional(str, 200)
-    zipcode = Optional(str, 30)
-    town = Optional(str, 40)
-    country = Optional(str, 5, default='Kenya')
-    facebook = Optional(str, 40 )
-    twitter = Optional(str, 40 )
-    instagram = Optional(str, 40)
-    whatsapp = Optional(bool)
-    other_whatsapp = Optional(bool)
-    fax = Optional(str, 30 )
-    gcode = Optional(str, 40 )
-    okhi = Optional(str, 40)
-
-
-
-
-class County(db.Entity, RefTypeMixin):
+class County(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
     subcounties = Set('Subcounty')
     country = Required('Country')
 
 
-class Subcounty(db.Entity, RefTypeMixin):
+class Subcounty(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
     county = Required(County)
     wards = Set('Ward')
 
 
-class Ward(db.Entity, RefTypeMixin):
+class Ward(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
     subcounty = Required(Subcounty)
     towns = Set('Town')
 
 
-class Town(db.Entity, RefTypeMixin):
+class Town(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
     wards = Set(Ward)
@@ -75,13 +40,13 @@ class Town(db.Entity, RefTypeMixin):
     prisons = Set('Prison')
 
 
-class Country(db.Entity, RefTypeMixin):
+class Country(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     counties = Set(County)
     Name = Optional(str)
 
 
-class PoliceStation(db.Entity, RefTypeMixin):
+class PoliceStation(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
     town = Optional(Town)
@@ -93,15 +58,16 @@ class PoliceStation(db.Entity, RefTypeMixin):
     commitals = Set('Commital')
 
 
-class PoliceOfficer(db.Entity, PersonMixin):
+class PoliceOfficer(db.Entity):
     """PersonMixin, ContactMixin"""
     id = PrimaryKey(int, auto=True)
     Assigned_Station = Set(PoliceStation, reverse='police_officers')
     police_rank = Required('PoliceOfficerRank')
     ServiceNumber = Required(str, 100, unique=True)
     complaint_recorded = Set('Complaint')
-    investigating_cases = Set('Investigating_officer')
     station_command = Set(PoliceStation, reverse='officer_commanding')
+    request_expert_testimonies = Set('ExpertTestimony')
+    investigation_diaries = Set('InvestigationDiary')
 
 
 class Complaint(db.Entity):
@@ -141,14 +107,6 @@ class Complaint(db.Entity):
     close_reason = Optional(LongStr)
 
 
-class Investigating_officer(db.Entity):
-    police_officers = PrimaryKey(PoliceOfficer)
-    date_Assigned = Optional(datetime, default=lambda: datetime.now())
-    Lead_Investigator = Optional(int)
-    investigation_entries = Set('InvestigationDiary')
-    expert_Request = Set('ExpertTestimony')
-
-
 class ComplaintCategory(db.Entity):
     """Human Trafficking, Gender Based Violence, Committed by a Minor, """
     id = PrimaryKey(int, auto=True)
@@ -158,9 +116,10 @@ class ComplaintCategory(db.Entity):
     notification_registers = Set('NotificationRegister')
 
 
-class Party(db.Entity, PersonMixin):
+class Party(db.Entity):
     """PersonMixin, ContactMixin"""
-    complaints = PrimaryKey(Complaint)
+    id = PrimaryKey(int)
+    complaints = Required(Complaint)
     Statement = Optional(str, 1000)
     StatementDate = Optional(datetime, default=lambda: datetime.now())
     complaint_role = Required('ComplaintRole')
@@ -197,7 +156,7 @@ class ComplaintRole(db.Entity):
     parties = Set(Party)
 
 
-class Lawyer(db.Entity, PersonMixin, ContactMixin):
+class Lawyer(db.Entity):
     """PersonMixin, ContactMixin"""
     id = PrimaryKey(int, auto=True)
     law_firm = Optional('LawFirm')
@@ -210,7 +169,7 @@ class Lawyer(db.Entity, PersonMixin, ContactMixin):
     bills = Set('Bill')
 
 
-class LawFirm(db.Entity, RefTypeMixin):
+class LawFirm(db.Entity):
     """PlaceMixin, ContactMixin"""
     id = PrimaryKey(int, auto=True)
     court_cases = Set('CourtCase')
@@ -229,6 +188,7 @@ class Crime(db.Entity):
 
 
 class InstanceCrime(db.Entity):
+    id = PrimaryKey(int)
     parties = Required(Party)
     crimes = Required(Crime)
     crime_detail = Optional(str)
@@ -238,15 +198,13 @@ class InstanceCrime(db.Entity):
     place_of_crime = Optional(str)
     place_note = Optional(str)
     issues = Set('Issue')
-    PrimaryKey(parties, crimes)
 
 
 class InvestigationDiary(db.Entity):
     id = PrimaryKey(int, auto=True)
-    complaint = Required(Complaint)
-    investigating_officers = Set(Investigating_officer)
-    CSI_equipment = Set('CSI_Equipment')
     Activity = Optional(str)
+    CSI_equipment = Set('CSI_Equipment')
+    complaint = Required(Complaint)
     Location = Optional(str)
     Outcome = Optional(str)
     EquipmentResults = Optional(str)
@@ -276,6 +234,7 @@ class InvestigationDiary(db.Entity):
     warrant_docx = Optional(str)
     warrant_upload_date = Optional(str)
     diagrams = Set('Diagram')
+    police_officers = Set(PoliceOfficer)
 
 
 class CSI_Equipment(db.Entity):
@@ -287,13 +246,12 @@ class CSI_Equipment(db.Entity):
 class Exhibit(db.Entity):
     id = PrimaryKey(int, auto=True)
     investigation_entry = Required(InvestigationDiary)
-    Photo = Optional(str)
     Exhibit_No = Optional(str)
     docx = Optional(str)
     seizure = Required('Seizure')
 
 
-class Vehicle(db.Entity, RefTypeMixin):
+class Vehicle(db.Entity):
     id = PrimaryKey(int, auto=True)
     police_station = Required(PoliceStation)
     investigation_entries = Set(InvestigationDiary)
@@ -302,7 +260,7 @@ class Vehicle(db.Entity, RefTypeMixin):
     regNo = Optional(str, 100)
 
 
-class Expert(db.Entity, PersonMixin, ContactMixin):
+class Expert(db.Entity):
     """personMixin, ContactMixin
 """
     id = PrimaryKey(int, auto=True)
@@ -314,16 +272,16 @@ class Expert(db.Entity, PersonMixin, ContactMixin):
 
 
 class ExpertTestimony(db.Entity):
-    Requesting_officer = Required(Investigating_officer)
     investigation_entries = Required(InvestigationDiary)
     experts = Required(Expert)
     Task_Given = Optional(LongStr)
     Summary_of_Facts = Optional(LongStr)
     Statement = Optional(str)
-    Testimony_Date = Optional(datetime)
     Task_Request_Date = Optional(date)
-    docx = Optional(str)
+    Testimony_Date = Optional(datetime)
     validated = Optional(bool)
+    requesting_police_officer = Optional(PoliceOfficer)
+    court_case = Optional('CourtCase')
     PrimaryKey(investigation_entries, experts)
 
 
@@ -369,7 +327,7 @@ class Seizure(db.Entity):
     immovable = Optional(bool)
 
 
-class WarrantType(db.Entity, RefTypeMixin):
+class WarrantType(db.Entity):
     """RefTypeMixin"""
     id = PrimaryKey(int, auto=True)
     warrant_issued = Set(InvestigationDiary)
@@ -424,7 +382,7 @@ class Issue(db.Entity):
     Debt_amount = Optional(Decimal)
 
 
-class Prosecutor(db.Entity, ContactMixin, PersonMixin):
+class Prosecutor(db.Entity):
     id = PrimaryKey(int, auto=True)
     prosecutor_team = Optional('ProsecutorTeam')
     issues = Set(Issue)
@@ -432,13 +390,13 @@ class Prosecutor(db.Entity, ContactMixin, PersonMixin):
     lawyer = Required(Lawyer)
 
 
-class ProsecutorTeam(db.Entity, RefTypeMixin):
+class ProsecutorTeam(db.Entity):
     id = PrimaryKey(int, auto=True)
     prosecutors = Set(Prosecutor)
     complaints = Set(Complaint)
 
 
-class Court(db.Entity, RefTypeMixin):
+class Court(db.Entity):
     """ContactMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
     court_rank = Required('CourtRank')
@@ -450,13 +408,13 @@ class Court(db.Entity, RefTypeMixin):
     till_number = Optional(str)
 
 
-class CourtRank(db.Entity, RefTypeMixin):
+class CourtRank(db.Entity):
     """supreme, appeal, high court, magistrates court, kadhi court"""
     id = PrimaryKey(int, auto=True)
     courts = Set(Court)
 
 
-class JudicialOfficer(db.Entity, PersonMixin, ContactMixin):
+class JudicialOfficer(db.Entity):
     """PersonMixin, ContactMixin"""
     id = PrimaryKey(int, auto=True)
     courts = Set(Court)
@@ -473,7 +431,7 @@ class JudicialOfficer(db.Entity, PersonMixin, ContactMixin):
     bill_assessment = Set('Bill', reverse='assessing_registrar')
 
 
-class JudicialRank(db.Entity, RefTypeMixin):
+class JudicialRank(db.Entity):
     """Supreme Court, Judge, Magistrate"""
     id = PrimaryKey(int, auto=True)
     judicial_officers = Set(JudicialOfficer)
@@ -526,6 +484,7 @@ class CourtCase(db.Entity):
     notification_registers = Set('NotificationRegister')
     active = Optional(bool, hidden=True)  # Only if the court fees have been paid
     active_date = Optional(datetime, default=lambda: datetime.now())
+    expert_testimonies = Set(ExpertTestimony)
 
 
 class Hearing(db.Entity):
@@ -556,7 +515,7 @@ class Hearing(db.Entity):
     notification_registers = Set('NotificationRegister')
 
 
-class LegalReference(db.Entity, RefTypeMixin):
+class LegalReference(db.Entity):
     """Statutes, Precedent, Court Position"""
     id = PrimaryKey(int, auto=True)
     ref = Required(str)
@@ -571,7 +530,7 @@ class LegalReference(db.Entity, RefTypeMixin):
     interpretation = Optional(str)
 
 
-class PartyType(db.Entity, RefTypeMixin):
+class PartyType(db.Entity):
     id = PrimaryKey(int, auto=True)
     parties = Set(Party)
 
@@ -627,7 +586,7 @@ class Document(db.Entity):
     citation = Optional(str)
 
 
-class FeeType(db.Entity, RefTypeMixin):
+class FeeType(db.Entity):
     id = PrimaryKey(int, auto=True)
     filing_fee_type = Required('FeeClass')
     Amount = Optional(Decimal)
@@ -641,14 +600,14 @@ class FeeType(db.Entity, RefTypeMixin):
     account_type = Required('AccountType')
 
 
-class FeeClass(db.Entity, RefTypeMixin):
+class FeeClass(db.Entity):
     id = PrimaryKey(int, auto=True)
     filing_fees = Set(FeeType)
     fee_types = Set('FeeClass', reverse='fee_type')
     fee_type = Optional('FeeClass', reverse='fee_types')
 
 
-class CaseCategory(db.Entity, RefTypeMixin):
+class CaseCategory(db.Entity):
     id = PrimaryKey(int, auto=True)
     court_cases = Set(CourtCase)
     case_categories = Set('CaseCategory', reverse='subcategory')
@@ -656,13 +615,13 @@ class CaseCategory(db.Entity, RefTypeMixin):
     case_category_checklists = Set('CaseCategoryChecklist')
 
 
-class JudicialRole(db.Entity, RefTypeMixin):
+class JudicialRole(db.Entity):
     """Judge, Magistrate, Registrar"""
     id = PrimaryKey(int, auto=True)
     judicial_officers = Set(JudicialOfficer)
 
 
-class ScheduleStatusType(db.Entity, RefTypeMixin):
+class ScheduleStatusType(db.Entity):
     """Completed, Adjourned, Judgement"""
     id = PrimaryKey(int, auto=True)  # Adjourned
     hearing = Set(Hearing)
@@ -683,14 +642,14 @@ class Transcript(db.Entity):
     hearing = Required(Hearing)
 
 
-class HearingType(db.Entity, RefTypeMixin):
+class HearingType(db.Entity):
     id = PrimaryKey(int, auto=True)
     hearing = Set(Hearing)
     hearing_types = Set('HearingType', reverse='hearing_type')
     hearing_type = Optional('HearingType', reverse='hearing_types')
 
 
-class Prison(db.Entity, RefTypeMixin):
+class Prison(db.Entity):
     id = PrimaryKey(int, auto=True)
     town = Required(Town)
     commitals = Set('Commital')
@@ -734,7 +693,7 @@ class Commital(db.Entity):
     releasing_officer = Required('PrisonOfficer', reverse='release_commitals')
 
 
-class CommitalType(db.Entity, RefTypeMixin):
+class CommitalType(db.Entity):
     """RefTypeMixin"""
     id = PrimaryKey(int, auto=True)
     commitals = Set(Commital)
@@ -759,19 +718,18 @@ class EconomicClass(db.Entity):
     description = Optional(str, 100)
 
 
-class Religion(db.Entity, RefTypeMixin):
+class Religion(db.Entity):
     """RefTypeMixin"""
     id = PrimaryKey(int, auto=True)
     biodata = Set(Biodata)
 
 
-class CellType(db.Entity, RefTypeMixin):
+class CellType(db.Entity):
     id = PrimaryKey(int, auto=True)
-    dimensions = Optional(str)
     commitals = Set(Commital)
 
 
-class NextOfKin(db.Entity, PersonMixin, ContactMixin):
+class NextOfKin(db.Entity):
     """PersonMixin"""
     id = PrimaryKey(int, auto=True)
     biodata = Required(Biodata)
@@ -791,25 +749,27 @@ class PersonalEffect(db.Entity):
     personal_effects_category = Required('PersonalEffectsCategory')
 
 
-class PersonalEffectsCategory(db.Entity, RefTypeMixin):
+class PersonalEffectsCategory(db.Entity):
     """RefTypeMixin"""
     id = PrimaryKey(int, auto=True)
     personal_effects = Set(PersonalEffect)
 
 
-class DocumentType(db.Entity, RefTypeMixin):
+class DocumentType(db.Entity):
     """RefTypeMixin, Summons, Orders, Warrants"""
     id = PrimaryKey(int, auto=True)
     documents = Set(Document)
 
 
-class ExpertType(db.Entity, RefTypeMixin):
+class ExpertType(db.Entity):
     """RefTypeMixin"""
     id = PrimaryKey(int, auto=True)
     experts = Set(Expert)
+    expert_type = Optional('ExpertType', reverse='expert_type_category')
+    expert_type_category = Set('ExpertType', reverse='expert_type')
 
 
-class CaseLinkType(db.Entity, RefTypeMixin):
+class CaseLinkType(db.Entity):
     """Appeal, Combination, Reintroduction"""
     id = PrimaryKey(int, auto=True)
     court_cases = Set(CourtCase)
@@ -824,7 +784,7 @@ class PoliceOfficerRank(db.Entity):
     sequence = Optional(int)
 
 
-class PoliceStationRank(db.Entity, RefTypeMixin):
+class PoliceStationRank(db.Entity):
     """RefTypeMixin"""
     id = PrimaryKey(int, auto=True)
     police_stations = Set(PoliceStation)
@@ -850,7 +810,7 @@ class Bill(db.Entity):
     validation_date = Optional(datetime, default=lambda: datetime.now())
 
 
-class ReleaseType(db.Entity, RefTypeMixin):
+class ReleaseType(db.Entity):
     id = PrimaryKey(int, auto=True)
     commitals = Set(Commital)
 
@@ -866,7 +826,7 @@ class PrisonOfficer(db.Entity):
     health_events = Set('HealthEvent')
 
 
-class PrisonOfficerRank(db.Entity, RefTypeMixin):
+class PrisonOfficerRank(db.Entity):
     id = PrimaryKey(int, auto=True)
     prison_officers = Set(PrisonOfficer)
 
@@ -882,7 +842,7 @@ class HealthEvent(db.Entity):
     notification_registers = Set('NotificationRegister')
 
 
-class HealthEventType(db.Entity, RefTypeMixin):
+class HealthEventType(db.Entity):
     id = PrimaryKey(int, auto=True)
     health_events = Set(HealthEvent)
 
@@ -920,7 +880,7 @@ class DocTemplate(db.Entity):
     icon = Optional(str)
 
 
-class TemplateType(db.Entity, RefTypeMixin):
+class TemplateType(db.Entity):
     id = PrimaryKey(int, auto=True)
     doc_templates = Set(DocTemplate)
     parent_template_types = Set('TemplateType', reverse='template_type')
@@ -958,7 +918,7 @@ class NotificationRegister(db.Entity):
     party = Optional(Party)
 
 
-class NotificationType(db.Entity, RefTypeMixin):
+class NotificationType(db.Entity):
     """SMS, email, Phone, Voice,"""
     id = PrimaryKey(int, auto=True)
     notification_registers = Set(NotificationRegister)
@@ -1002,7 +962,7 @@ class CaseCategoryChecklist(db.Entity):
     PrimaryKey(case_checklists, case_categories)
 
 
-class AccountType(db.Entity, RefTypeMixin):
+class AccountType(db.Entity):
     id = PrimaryKey(int, auto=True)
     court_accounts = Set('CourtAccount')
     feetypes = Set(FeeType)

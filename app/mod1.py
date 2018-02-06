@@ -41,8 +41,8 @@ from .mixins import *
 make_versioned()
 make_searchable()
 
-Base = declarative_base()
-metadata = Base.metadata
+# Base = declarative_base()
+# metadata = Base.metadata
     
 from sqlalchemy import BigInteger, Boolean, Column, Date, DateTime, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, Numeric, String, Table, Text, Time
 from sqlalchemy.schema import FetchedValue
@@ -51,7 +51,7 @@ from sqlalchemy.dialects.postgresql.base import INTERVAL
 from flask_sqlalchemy import SQLAlchemy
 
 #ENDIMP
-db = SQLAlchemy()
+# db = SQLAlchemy()
 
 
 #STARTCLASS
@@ -59,7 +59,7 @@ class Accounttype(Model):
     __versioned__ = {}
     __tablename__ = 'accounttype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -142,11 +142,11 @@ class Bill(Model):
          Index('idx_bill__court_account_courts_court_account_account__types', 'court_account_courts', 'court_account_account__types')
     )
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     assessing_registrar =  Column( ForeignKey('judicialofficer.id'), nullable=False, index=True)
     receiving_registrar =  Column( ForeignKey('judicialofficer.id'), nullable=False, index=True)
     lawyer_paying =  Column( ForeignKey('lawyer.id'), index=True)
-    party_paying =  Column( ForeignKey('party.complaints'), index=True)
+    party_paying =  Column( ForeignKey('party.id'), index=True)
     documents =  Column( ForeignKey('document.id'), index=True)
     date_of_payment =  Column( DateTime)
     paid =  Column( Boolean)
@@ -158,13 +158,13 @@ class Bill(Model):
     validated =  Column( Boolean)
     validation_date =  Column( DateTime)
 
-    judicialofficer =  relationship('Judicialofficer', primaryjoin='Bill.assessing_registrar == Judicialofficer.id', backref='judicialofficer_bills')
+    judicialofficer =  relationship('Judicialofficer', primaryjoin='Bill.assessing_registrar == Judicialofficer.id', backref='bills')
     court1 =  relationship('Court', primaryjoin='Bill.court == Court.id', backref='bills')
     courtaccount =  relationship('Courtaccount', primaryjoin='and_(Bill.court_account_courts == Courtaccount.courts, Bill.court_account_account__types == Courtaccount.account__types)', backref='bills')
     document =  relationship('Document', primaryjoin='Bill.documents == Document.id', backref='bills')
     lawyer =  relationship('Lawyer', primaryjoin='Bill.lawyer_paying == Lawyer.id', backref='bills')
-    party =  relationship('Party', primaryjoin='Bill.party_paying == Party.complaints', backref='bills')
-    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Bill.receiving_registrar == Judicialofficer.id', backref='judicialofficer_bills_0')
+    party =  relationship('Party', primaryjoin='Bill.party_paying == Party.id', backref='bills')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Bill.receiving_registrar == Judicialofficer.id', backref='bills_0')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -243,7 +243,7 @@ class Billdetail(Model):
     __versioned__ = {}
     __tablename__ = 'billdetail'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     receipt_id =  Column( ForeignKey('bill.id'), nullable=False, index=True)
     feetype =  Column( ForeignKey('feetype.id'), nullable=False, index=True)
     purpose =  Column( Text, nullable=False)
@@ -328,20 +328,20 @@ class Billdetail(Model):
 
 
 #STARTCLASS
-class Biodatum(Model):
+class Biodata(Model):
     __versioned__ = {}
     __tablename__ = 'biodata'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
-    party =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    party =  Column( ForeignKey('party.id'), nullable=False, index=True)
     economic_class =  Column( ForeignKey('economicclass.id'), index=True)
     religion =  Column( ForeignKey('religion.id'), index=True)
     photo =  Column( LargeBinary)
     health_status =  Column( Text, nullable=False)
 
-    economicclas =  relationship('Economicclas', primaryjoin='Biodatum.economic_class == Economicclas.id', backref='biodata')
-    party1 =  relationship('Party', primaryjoin='Biodatum.party == Party.complaints', backref='biodata')
-    religion1 =  relationship('Religion', primaryjoin='Biodatum.religion == Religion.id', backref='biodata')
+    economicclass =  relationship('Economicclass', primaryjoin='Biodata.economic_class == Economicclass.id', backref='biodatas')
+    party1 =  relationship('Party', primaryjoin='Biodata.party == Party.id', backref='biodatas')
+    religion1 =  relationship('Religion', primaryjoin='Biodata.religion == Religion.id', backref='biodatas')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -420,7 +420,7 @@ class Casecategory(Model):
     __versioned__ = {}
     __tablename__ = 'casecategory'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     subcategory =  Column( ForeignKey('casecategory.id'), index=True)
 
     parent =  relationship('Casecategory', remote_side=[id], primaryjoin='Casecategory.subcategory == Casecategory.id', backref='casecategories')
@@ -501,7 +501,7 @@ class Casecategory(Model):
 
 #STARTCLASS
 t_casecategory_courtcase =  Table(
-    'casecategory_courtcase',
+    'casecategory_courtcase', Model.metadata,
      Column('casecategory',  ForeignKey('casecategory.id'), primary_key=True, nullable=False),
      Column('courtcase',  ForeignKey('courtcase.id'), primary_key=True, nullable=False, index=True)
 )
@@ -511,7 +511,7 @@ t_casecategory_courtcase =  Table(
 
 #STARTCLASS
 t_casecategorychecklist =  Table(
-    'casecategorychecklist',
+    'casecategorychecklist', Model.metadata,
      Column('case_checklists',  ForeignKey('casechecklist.id'), primary_key=True, nullable=False),
      Column('case_categories',  ForeignKey('casecategory.id'), primary_key=True, nullable=False, index=True)
 )
@@ -524,7 +524,7 @@ class Casechecklist(Model):
     __versioned__ = {}
     __tablename__ = 'casechecklist'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( String(100), nullable=False)
     description =  Column( String(100), nullable=False)
     notes =  Column( Text, nullable=False)
@@ -606,7 +606,7 @@ class Caselinktype(Model):
     __versioned__ = {}
     __tablename__ = 'caselinktype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -685,7 +685,7 @@ class Celltype(Model):
     __versioned__ = {}
     __tablename__ = 'celltype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -764,10 +764,10 @@ class Commital(Model):
     __versioned__ = {}
     __tablename__ = 'commital'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     prisons =  Column( ForeignKey('prison.id'), index=True)
     police_station =  Column( ForeignKey('policestation.id'), index=True)
-    parties =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
+    parties =  Column( ForeignKey('party.id'), nullable=False, index=True)
     casecomplete =  Column( Boolean)
     commit_date =  Column( Date, nullable=False)
     purpose =  Column( Text, nullable=False)
@@ -802,12 +802,12 @@ class Commital(Model):
     parent =  relationship('Commital', remote_side=[id], primaryjoin='Commital.commital == Commital.id', backref='commitals')
     commitaltype =  relationship('Commitaltype', primaryjoin='Commital.commital_type == Commitaltype.id', backref='commitals')
     courtcase =  relationship('Courtcase', primaryjoin='Commital.court_case == Courtcase.id', backref='commitals')
-    party =  relationship('Party', primaryjoin='Commital.parties == Party.complaints', backref='commitals')
+    party =  relationship('Party', primaryjoin='Commital.parties == Party.id', backref='commitals')
     policestation =  relationship('Policestation', primaryjoin='Commital.police_station == Policestation.id', backref='commitals')
     prison =  relationship('Prison', primaryjoin='Commital.prisons == Prison.id', backref='commitals')
-    prisonofficer =  relationship('Prisonofficer', primaryjoin='Commital.receiving_officer == Prisonofficer.id', backref='prisonofficer_commitals')
+    prisonofficer =  relationship('Prisonofficer', primaryjoin='Commital.receiving_officer == Prisonofficer.id', backref='commitals')
     releasetype =  relationship('Releasetype', primaryjoin='Commital.release_type == Releasetype.id', backref='commitals')
-    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='prisonofficer_commitals_0')
+    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_0')
     warranttype =  relationship('Warranttype', primaryjoin='Commital.warrant_type == Warranttype.id', backref='commitals')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -887,7 +887,7 @@ class Commitaltype(Model):
     __versioned__ = {}
     __tablename__ = 'commitaltype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     maxduration =  Column( INTERVAL(fields='day to second'))
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -967,7 +967,7 @@ class Complaint(Model):
     __versioned__ = {}
     __tablename__ = 'complaint'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     active =  Column( Boolean)
     ob_number =  Column( String(20), nullable=False)
     police_station =  Column( ForeignKey('policestation.id'), nullable=False, index=True)
@@ -1003,99 +1003,6 @@ class Complaint(Model):
     complaintcategory =  relationship('Complaintcategory', secondary='complaint_complaintcategory', backref='complaints')
     courtcase =  relationship('Courtcase', secondary='complaint_courtcase', backref='complaints')
 
-
-class Party(Complaint):
-    __versioned__ = {}
-    __tablename__ = 'party'
-
-    complaints =  Column( ForeignKey('complaint.id'), primary_key=True)
-    statement =  Column( String(1000), nullable=False)
-    statementdate =  Column( DateTime)
-    complaint_role =  Column( ForeignKey('complaintrole.id'), nullable=False, index=True)
-    notes =  Column( Text, nullable=False)
-    dateofrepresentation =  Column( DateTime)
-    party_type =  Column( ForeignKey('partytype.id'), nullable=False, index=True)
-    relative =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
-    relationship_type =  Column( Text, nullable=False)
-    is_infant =  Column( Boolean)
-    is_minor =  Column( Boolean)
-    miranda_read =  Column( Boolean)
-    miranda_date =  Column( DateTime)
-    miranda_witness =  Column( Text, nullable=False)
-
-    complaintrole =  relationship('Complaintrole', primaryjoin='Party.complaint_role == Complaintrole.id', backref='parties')
-    partytype =  relationship('Partytype', primaryjoin='Party.party_type == Partytype.id', backref='parties')
-    parent =  relationship('Party', remote_side=[complaints], primaryjoin='Party.relative == Party.complaints', backref='parties')
-    settlement =  relationship('Settlement', secondary='party_settlement', backref='parties')
-
-    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
-    file = Column(FileColumn, nullable=False)
-
-    # mindate = datetime.date(MINYEAR, 1, 1)
-
-    def view_name(self):
-        return self.__class__.__name__ +'View'
-
-    def photo_img(self):
-        im = ImageManager()
-        vn = self.view_name()
-        if self.photo:
-            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
-                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
-                        '" alt="Photo" class="img-rounded img-responsive"></a>')
-        else:
-            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
-                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-
-    def photo_img_thumbnail(self):
-        im = ImageManager()
-        vn = self.view_name()
-        if self.photo:
-            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
-                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
-                        '" alt="Photo" class="img-rounded img-responsive"></a>')
-        else:
-            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
-                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-
-
-    def print_button(self):
-        vn = self.view_name()
-        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
-        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
-        #response = make_response(pdf)
-        #response.headers['Content-Type'] = 'application/pdf'
-        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-
-        return Markup(
-            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
-            'title="Print">' +
-            '<i class="fa fa-edit"></i>' +
-            '</a>')
-
-    def audio_play(self):
-        vn = self.view_name()
-        return Markup(
-                '<audio controls autoplay>' +
-                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
-                'Your browser does not support the audio element.' +
-                '</audio>'
-                )
-
-    def download(self):
-        vn = self.view_name()
-        return Markup(
-            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
-
-    def file_name(self):
-        return get_file_original_name(str(self.file))
-
-    def month_year(self):
-        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
-
-    def year(self):
-        date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
 
@@ -1170,7 +1077,7 @@ class Party(Complaint):
 
 #STARTCLASS
 t_complaint_complaintcategory =  Table(
-    'complaint_complaintcategory',
+    'complaint_complaintcategory', Model.metadata,
      Column('complaint',  ForeignKey('complaint.id'), primary_key=True, nullable=False),
      Column('complaintcategory',  ForeignKey('complaintcategory.id'), primary_key=True, nullable=False, index=True)
 )
@@ -1180,7 +1087,7 @@ t_complaint_complaintcategory =  Table(
 
 #STARTCLASS
 t_complaint_courtcase =  Table(
-    'complaint_courtcase',
+    'complaint_courtcase', Model.metadata,
      Column('complaint',  ForeignKey('complaint.id'), primary_key=True, nullable=False),
      Column('courtcase',  ForeignKey('courtcase.id'), primary_key=True, nullable=False, index=True)
 )
@@ -1193,7 +1100,7 @@ class Complaintcategory(Model):
     __versioned__ = {}
     __tablename__ = 'complaintcategory'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     complaint_category_parent =  Column( ForeignKey('complaintcategory.id'), index=True)
 
     parent =  relationship('Complaintcategory', remote_side=[id], primaryjoin='Complaintcategory.complaint_category_parent == Complaintcategory.id', backref='complaintcategories')
@@ -1275,7 +1182,7 @@ class Complaintrole(Model):
     __versioned__ = {}
     __tablename__ = 'complaintrole'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -1354,7 +1261,7 @@ class Country(Model):
     __versioned__ = {}
     __tablename__ = 'country'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( Text, nullable=False)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -1434,7 +1341,7 @@ class County(Model):
     __versioned__ = {}
     __tablename__ = 'county'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     country =  Column( ForeignKey('country.id'), nullable=False, index=True)
 
     country1 =  relationship('Country', primaryjoin='County.country == Country.id', backref='counties')
@@ -1516,7 +1423,7 @@ class Court(Model):
     __versioned__ = {}
     __tablename__ = 'court'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     court_rank =  Column( ForeignKey('courtrank.id'), nullable=False, index=True)
     court_station =  Column( ForeignKey('courtstation.id'), nullable=False, index=True)
     town =  Column( ForeignKey('town.id'), nullable=False, index=True)
@@ -1601,7 +1508,7 @@ class Court(Model):
 
 #STARTCLASS
 t_court_judicialofficer =  Table(
-    'court_judicialofficer',
+    'court_judicialofficer', Model.metadata,
      Column('court',  ForeignKey('court.id'), primary_key=True, nullable=False),
      Column('judicialofficer',  ForeignKey('judicialofficer.id'), primary_key=True, nullable=False, index=True)
 )
@@ -1701,7 +1608,7 @@ class Courtcase(Model):
     __versioned__ = {}
     __tablename__ = 'courtcase'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     docket_number =  Column( Text, nullable=False)
     case_number =  Column( Text, nullable=False)
     adr =  Column( Boolean)
@@ -1741,8 +1648,8 @@ class Courtcase(Model):
     caselinktype =  relationship('Caselinktype', primaryjoin='Courtcase.case_link_type == Caselinktype.id', backref='courtcases')
     prosecutor =  relationship('Prosecutor', primaryjoin='Courtcase.filing_prosecutor == Prosecutor.id', backref='courtcases')
     parent =  relationship('Courtcase', remote_side=[id], primaryjoin='Courtcase.linked_cases == Courtcase.id', backref='courtcases')
-    judicialofficer =  relationship('Judicialofficer', primaryjoin='Courtcase.pretrial_registrar == Judicialofficer.id', backref='judicialofficer_courtcases')
-    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='judicialofficer_courtcases_0')
+    judicialofficer =  relationship('Judicialofficer', primaryjoin='Courtcase.pretrial_registrar == Judicialofficer.id', backref='courtcases')
+    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_0')
     lawfirm =  relationship('Lawfirm', secondary='courtcase_lawfirm', backref='courtcases')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -1819,7 +1726,7 @@ class Courtcase(Model):
 
 #STARTCLASS
 t_courtcase_judicialofficer =  Table(
-    'courtcase_judicialofficer',
+    'courtcase_judicialofficer', Model.metadata,
      Column('courtcase',  ForeignKey('courtcase.id'), primary_key=True, nullable=False),
      Column('judicialofficer',  ForeignKey('judicialofficer.id'), primary_key=True, nullable=False, index=True)
 )
@@ -1829,7 +1736,7 @@ t_courtcase_judicialofficer =  Table(
 
 #STARTCLASS
 t_courtcase_lawfirm =  Table(
-    'courtcase_lawfirm',
+    'courtcase_lawfirm', Model.metadata,
      Column('courtcase',  ForeignKey('courtcase.id'), primary_key=True, nullable=False),
      Column('lawfirm',  ForeignKey('lawfirm.id'), primary_key=True, nullable=False, index=True)
 )
@@ -1842,7 +1749,7 @@ class Courtrank(Model):
     __versioned__ = {}
     __tablename__ = 'courtrank'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -1921,7 +1828,7 @@ class Courtstation(Model):
     __versioned__ = {}
     __tablename__ = 'courtstation'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     till_number =  Column( Text, nullable=False)
     pay_bill =  Column( Text, nullable=False)
 
@@ -2002,7 +1909,7 @@ class Crime(Model):
     __versioned__ = {}
     __tablename__ = 'crime'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     law =  Column( Text, nullable=False)
     description =  Column( Text, nullable=False)
     ref =  Column( Text, nullable=False)
@@ -2087,7 +1994,7 @@ class CsiEquipment(Model):
     __versioned__ = {}
     __tablename__ = 'csi_equipment'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     investigationdiary =  relationship('Investigationdiary', secondary='csi_equipment_investigationdiary', backref='csi_equipments')
 
@@ -2165,7 +2072,7 @@ class CsiEquipment(Model):
 
 #STARTCLASS
 t_csi_equipment_investigationdiary =  Table(
-    'csi_equipment_investigationdiary',
+    'csi_equipment_investigationdiary', Model.metadata,
      Column('csi_equipment',  ForeignKey('csi_equipment.id'), primary_key=True, nullable=False),
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=False, index=True)
 )
@@ -2178,7 +2085,7 @@ class Diagram(Model):
     __versioned__ = {}
     __tablename__ = 'diagram'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     investigation_diary =  Column( ForeignKey('investigationdiary.id'), nullable=False, index=True)
     image =  Column( Text, nullable=False)
     description =  Column( Text, nullable=False)
@@ -2263,11 +2170,11 @@ class Discipline(Model):
     __versioned__ = {}
     __tablename__ = 'discipline'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
-    party =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    party =  Column( ForeignKey('party.id'), nullable=False, index=True)
     prison_officer =  Column( ForeignKey('prisonofficer.id'), nullable=False, index=True)
 
-    party1 =  relationship('Party', primaryjoin='Discipline.party == Party.complaints', backref='disciplines')
+    party1 =  relationship('Party', primaryjoin='Discipline.party == Party.id', backref='disciplines')
     prisonofficer =  relationship('Prisonofficer', primaryjoin='Discipline.prison_officer == Prisonofficer.id', backref='disciplines')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -2347,7 +2254,7 @@ class Doctemplate(Model):
     __versioned__ = {}
     __tablename__ = 'doctemplate'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     template =  Column( Text, nullable=False)
     docx =  Column( Text, nullable=False)
     name =  Column( Text, nullable=False)
@@ -2435,7 +2342,7 @@ class Document(Model):
     __versioned__ = {}
     __tablename__ = 'document'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( Text, nullable=False)
     court_case =  Column( ForeignKey('courtcase.id'), index=True)
     issue =  Column( ForeignKey('issue.id'), index=True)
@@ -2552,7 +2459,7 @@ class Document(Model):
 
 #STARTCLASS
 t_document_documenttype =  Table(
-    'document_documenttype',
+    'document_documenttype', Model.metadata,
      Column('document',  ForeignKey('document.id'), primary_key=True, nullable=False),
      Column('documenttype',  ForeignKey('documenttype.id'), primary_key=True, nullable=False, index=True)
 )
@@ -2565,7 +2472,7 @@ class Documenttype(Model):
     __versioned__ = {}
     __tablename__ = 'documenttype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -2640,11 +2547,11 @@ class Documenttype(Model):
 
 
 #STARTCLASS
-class Economicclas(Model):
+class Economicclass(Model):
     __versioned__ = {}
     __tablename__ = 'economicclass'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( String(50), nullable=False)
     description =  Column( String(100), nullable=False)
 
@@ -2725,9 +2632,8 @@ class Exhibit(Model):
     __versioned__ = {}
     __tablename__ = 'exhibit'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     investigation_entry =  Column( ForeignKey('investigationdiary.id'), nullable=False, index=True)
-    photo =  Column( Text, nullable=False)
     exhibit_no =  Column( Text, nullable=False)
     docx =  Column( Text, nullable=False)
     seizure =  Column( ForeignKey('seizure.id'), nullable=False, index=True)
@@ -2812,7 +2718,7 @@ class Expert(Model):
     __versioned__ = {}
     __tablename__ = 'expert'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     institution =  Column( Text, nullable=False)
     jobtitle =  Column( Text, nullable=False)
     credentials =  Column( Text, nullable=False)
@@ -2893,7 +2799,7 @@ class Expert(Model):
 
 #STARTCLASS
 t_expert_experttype =  Table(
-    'expert_experttype',
+    'expert_experttype', Model.metadata,
      Column('expert',  ForeignKey('expert.id'), primary_key=True, nullable=False),
      Column('experttype',  ForeignKey('experttype.id'), primary_key=True, nullable=False, index=True)
 )
@@ -2906,20 +2812,21 @@ class Experttestimony(Model):
     __versioned__ = {}
     __tablename__ = 'experttestimony'
 
-    requesting_officer =  Column( ForeignKey('investigating_officer.police_officers'), nullable=False, index=True)
     investigation_entries =  Column( ForeignKey('investigationdiary.id'), primary_key=True, nullable=False)
     experts =  Column( ForeignKey('expert.id'), primary_key=True, nullable=False, index=True)
     task_given =  Column( Text, nullable=False)
     summary_of_facts =  Column( Text, nullable=False)
     statement =  Column( Text, nullable=False)
-    testimony_date =  Column( DateTime)
     task_request_date =  Column( Date)
-    docx =  Column( Text, nullable=False)
+    testimony_date =  Column( DateTime)
     validated =  Column( Boolean)
+    requesting_police_officer =  Column( ForeignKey('policeofficer.id'), index=True)
+    court_case =  Column( ForeignKey('courtcase.id'), index=True)
 
+    courtcase =  relationship('Courtcase', primaryjoin='Experttestimony.court_case == Courtcase.id', backref='experttestimonies')
     expert =  relationship('Expert', primaryjoin='Experttestimony.experts == Expert.id', backref='experttestimonies')
     investigationdiary =  relationship('Investigationdiary', primaryjoin='Experttestimony.investigation_entries == Investigationdiary.id', backref='experttestimonies')
-    investigating_officer =  relationship('InvestigatingOfficer', primaryjoin='Experttestimony.requesting_officer == InvestigatingOfficer.police_officers', backref='experttestimonies')
+    policeofficer =  relationship('Policeofficer', primaryjoin='Experttestimony.requesting_police_officer == Policeofficer.id', backref='experttestimonies')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -2998,7 +2905,10 @@ class Experttype(Model):
     __versioned__ = {}
     __tablename__ = 'experttype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    expert_type =  Column( ForeignKey('experttype.id'), index=True)
+
+    parent =  relationship('Experttype', remote_side=[id], primaryjoin='Experttype.expert_type == Experttype.id', backref='experttypes')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -3073,14 +2983,14 @@ class Experttype(Model):
 
 
 #STARTCLASS
-class Feeclas(Model):
+class Feeclass(Model):
     __versioned__ = {}
     __tablename__ = 'feeclass'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     fee_type =  Column( ForeignKey('feeclass.id'), index=True)
 
-    parent =  relationship('Feeclas', remote_side=[id], primaryjoin='Feeclas.fee_type == Feeclas.id', backref='feeclass')
+    parent =  relationship('Feeclass', remote_side=[id], primaryjoin='Feeclass.fee_type == Feeclass.id', backref='feeclasses')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -3159,7 +3069,7 @@ class Feetype(Model):
     __versioned__ = {}
     __tablename__ = 'feetype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     filing_fee_type =  Column( ForeignKey('feeclass.id'), nullable=False, index=True)
     amount =  Column( Numeric(12, 2))
     unit =  Column( Text, nullable=False)
@@ -3171,7 +3081,7 @@ class Feetype(Model):
     account_type =  Column( ForeignKey('accounttype.id'), nullable=False, index=True)
 
     accounttype =  relationship('Accounttype', primaryjoin='Feetype.account_type == Accounttype.id', backref='feetypes')
-    feeclas =  relationship('Feeclas', primaryjoin='Feetype.filing_fee_type == Feeclas.id', backref='feetypes')
+    feeclass =  relationship('Feeclass', primaryjoin='Feetype.filing_fee_type == Feeclass.id', backref='feetypes')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -3250,8 +3160,8 @@ class Healthevent(Model):
     __versioned__ = {}
     __tablename__ = 'healthevent'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
-    party =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    party =  Column( ForeignKey('party.id'), nullable=False, index=True)
     reporting_prison_officer =  Column( ForeignKey('prisonofficer.id'), index=True)
     health_event_type =  Column( ForeignKey('healtheventtype.id'), nullable=False, index=True)
     startdate =  Column( DateTime)
@@ -3259,7 +3169,7 @@ class Healthevent(Model):
     notes =  Column( Text, nullable=False)
 
     healtheventtype =  relationship('Healtheventtype', primaryjoin='Healthevent.health_event_type == Healtheventtype.id', backref='healthevents')
-    party1 =  relationship('Party', primaryjoin='Healthevent.party == Party.complaints', backref='healthevents')
+    party1 =  relationship('Party', primaryjoin='Healthevent.party == Party.id', backref='healthevents')
     prisonofficer =  relationship('Prisonofficer', primaryjoin='Healthevent.reporting_prison_officer == Prisonofficer.id', backref='healthevents')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3339,7 +3249,7 @@ class Healtheventtype(Model):
     __versioned__ = {}
     __tablename__ = 'healtheventtype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -3418,7 +3328,7 @@ class Hearing(Model):
     __versioned__ = {}
     __tablename__ = 'hearing'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     court_cases =  Column( ForeignKey('courtcase.id'), index=True)
     hearing_type =  Column( ForeignKey('hearingtype.id'), nullable=False, index=True)
     schedule_status =  Column( ForeignKey('schedulestatustype.id'), nullable=False, index=True)
@@ -3442,8 +3352,8 @@ class Hearing(Model):
     schedulestatustype =  relationship('Schedulestatustype', primaryjoin='Hearing.schedule_status == Schedulestatustype.id', backref='hearings')
     issue =  relationship('Issue', secondary='hearing_issue', backref='hearings')
     judicialofficer =  relationship('Judicialofficer', secondary='hearing_judicialofficer', backref='hearings')
-    lawfirm =  relationship('Lawfirm', secondary='hearing_lawfirm', backref='lawfirm_hearings')
-    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='lawfirm_hearings_0')
+    lawfirm =  relationship('Lawfirm', secondary='hearing_lawfirm', backref='hearings')
+    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_0')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -3519,7 +3429,7 @@ class Hearing(Model):
 
 #STARTCLASS
 t_hearing_issue =  Table(
-    'hearing_issue',
+    'hearing_issue', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=False),
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False, index=True)
 )
@@ -3529,7 +3439,7 @@ t_hearing_issue =  Table(
 
 #STARTCLASS
 t_hearing_judicialofficer =  Table(
-    'hearing_judicialofficer',
+    'hearing_judicialofficer', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=False),
      Column('judicialofficer',  ForeignKey('judicialofficer.id'), primary_key=True, nullable=False, index=True)
 )
@@ -3539,7 +3449,7 @@ t_hearing_judicialofficer =  Table(
 
 #STARTCLASS
 t_hearing_lawfirm =  Table(
-    'hearing_lawfirm',
+    'hearing_lawfirm', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=False),
      Column('lawfirm',  ForeignKey('lawfirm.id'), primary_key=True, nullable=False, index=True)
 )
@@ -3549,7 +3459,7 @@ t_hearing_lawfirm =  Table(
 
 #STARTCLASS
 t_hearing_lawfirm_2 =  Table(
-    'hearing_lawfirm_2',
+    'hearing_lawfirm_2', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=False),
      Column('lawfirm',  ForeignKey('lawfirm.id'), primary_key=True, nullable=False, index=True)
 )
@@ -3562,7 +3472,7 @@ class Hearingtype(Model):
     __versioned__ = {}
     __tablename__ = 'hearingtype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     hearing_type =  Column( ForeignKey('hearingtype.id'), index=True)
 
     parent =  relationship('Hearingtype', remote_side=[id], primaryjoin='Hearingtype.hearing_type == Hearingtype.id', backref='hearingtypes')
@@ -3644,8 +3554,9 @@ class Instancecrime(Model):
     __versioned__ = {}
     __tablename__ = 'instancecrime'
 
-    parties =  Column( ForeignKey('party.complaints'), primary_key=True, nullable=False)
-    crimes =  Column( ForeignKey('crime.id'), primary_key=True, nullable=False, index=True)
+    id =  Column( Integer, primary_key=True)
+    parties =  Column( ForeignKey('party.id'), nullable=False, index=True)
+    crimes =  Column( ForeignKey('crime.id'), nullable=False, index=True)
     crime_detail =  Column( Text, nullable=False)
     tffender_type =  Column( Text, nullable=False)
     crime_date =  Column( DateTime)
@@ -3654,7 +3565,7 @@ class Instancecrime(Model):
     place_note =  Column( Text, nullable=False)
 
     crime =  relationship('Crime', primaryjoin='Instancecrime.crimes == Crime.id', backref='instancecrimes')
-    party =  relationship('Party', primaryjoin='Instancecrime.parties == Party.complaints', backref='instancecrimes')
+    party =  relationship('Party', primaryjoin='Instancecrime.parties == Party.id', backref='instancecrimes')
     issue =  relationship('Issue', secondary='instancecrime_issue', backref='instancecrimes')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3731,11 +3642,9 @@ class Instancecrime(Model):
 
 #STARTCLASS
 t_instancecrime_issue =  Table(
-    'instancecrime_issue',
-     Column('instancecrime_parties',  Integer, primary_key=True, nullable=False),
-     Column('instancecrime_crimes',  Integer, primary_key=True, nullable=False),
-     Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False, index=True),
-     ForeignKeyConstraint(['instancecrime_parties', 'instancecrime_crimes'], ['instancecrime.parties', 'instancecrime.crimes'])
+    'instancecrime_issue', Model.metadata,
+     Column('instancecrime',  ForeignKey('instancecrime.id'), primary_key=True, nullable=False),
+     Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False, index=True)
 )
 
 #ENDCLASS
@@ -3746,7 +3655,7 @@ class Interview(Model):
     __versioned__ = {}
     __tablename__ = 'interview'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     investigation_entry =  Column( ForeignKey('investigationdiary.id'), nullable=False, index=True)
     question =  Column( Text, nullable=False)
     answer =  Column( Text, nullable=False)
@@ -3828,23 +3737,13 @@ class Interview(Model):
 
 
 #STARTCLASS
-t_investigating_officer_investigationdiary =  Table(
-    'investigating_officer_investigationdiary',
-     Column('investigating_officer',  ForeignKey('investigating_officer.police_officers'), primary_key=True, nullable=False),
-     Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=False, index=True)
-)
-
-#ENDCLASS
-
-
-#STARTCLASS
 class Investigationdiary(Model):
     __versioned__ = {}
     __tablename__ = 'investigationdiary'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
-    complaint =  Column( ForeignKey('complaint.id'), nullable=False, index=True)
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     activity =  Column( Text, nullable=False)
+    complaint =  Column( ForeignKey('complaint.id'), nullable=False, index=True)
     location =  Column( Text, nullable=False)
     outcome =  Column( Text, nullable=False)
     equipmentresults =  Column( Text, nullable=False)
@@ -3870,7 +3769,8 @@ class Investigationdiary(Model):
 
     complaint1 =  relationship('Complaint', primaryjoin='Investigationdiary.complaint == Complaint.id', backref='investigationdiaries')
     warranttype =  relationship('Warranttype', primaryjoin='Investigationdiary.warrant_type == Warranttype.id', backref='investigationdiaries')
-    party =  relationship('Party', secondary='investigationdiary_party', backref='party_investigationdiaries')
+    party =  relationship('Party', secondary='investigationdiary_party', backref='investigationdiaries')
+    policeofficer =  relationship('Policeofficer', secondary='investigationdiary_policeofficer', backref='investigationdiaries')
     vehicle =  relationship('Vehicle', secondary='investigationdiary_vehicle', backref='investigationdiaries')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3947,9 +3847,19 @@ class Investigationdiary(Model):
 
 #STARTCLASS
 t_investigationdiary_party =  Table(
-    'investigationdiary_party',
+    'investigationdiary_party', Model.metadata,
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=False),
-     Column('party',  ForeignKey('party.complaints'), primary_key=True, nullable=False, index=True)
+     Column('party',  ForeignKey('party.id'), primary_key=True, nullable=False, index=True)
+)
+
+#ENDCLASS
+
+
+#STARTCLASS
+t_investigationdiary_policeofficer =  Table(
+    'investigationdiary_policeofficer', Model.metadata,
+     Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=False),
+     Column('policeofficer',  ForeignKey('policeofficer.id'), primary_key=True, nullable=False, index=True)
 )
 
 #ENDCLASS
@@ -3957,7 +3867,7 @@ t_investigationdiary_party =  Table(
 
 #STARTCLASS
 t_investigationdiary_vehicle =  Table(
-    'investigationdiary_vehicle',
+    'investigationdiary_vehicle', Model.metadata,
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=False),
      Column('vehicle',  ForeignKey('vehicle.id'), primary_key=True, nullable=False, index=True)
 )
@@ -3970,7 +3880,7 @@ class Issue(Model):
     __versioned__ = {}
     __tablename__ = 'issue'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     issue =  Column( Text, nullable=False)
     facts =  Column( Text)
     counter_claim =  Column( Boolean)
@@ -3997,14 +3907,14 @@ class Issue(Model):
     debt_amount =  Column( Numeric(12, 2))
 
     courtcase =  relationship('Courtcase', primaryjoin='Issue.court_case == Courtcase.id', backref='issues')
-    lawyer =  relationship('Lawyer', primaryjoin='Issue.defense_lawyer == Lawyer.id', backref='lawyer_issues')
+    lawyer =  relationship('Lawyer', primaryjoin='Issue.defense_lawyer == Lawyer.id', backref='issues')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Issue.judicial_officer == Judicialofficer.id', backref='issues')
     prosecutor1 =  relationship('Prosecutor', primaryjoin='Issue.prosecutor == Prosecutor.id', backref='issues')
-    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='lawyer_issues_0')
-    legalreference =  relationship('Legalreference', secondary='issue_legalreference', backref='legalreference_issues')
-    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='legalreference_issues_0')
-    party =  relationship('Party', secondary='issue_party', backref='party_issues')
-    party1 =  relationship('Party', secondary='issue_party_2', backref='party_issues_0')
+    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_0')
+    legalreference =  relationship('Legalreference', secondary='issue_legalreference', backref='issues')
+    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_0')
+    party =  relationship('Party', secondary='issue_party', backref='issues')
+    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_0')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4080,7 +3990,7 @@ class Issue(Model):
 
 #STARTCLASS
 t_issue_lawyer =  Table(
-    'issue_lawyer',
+    'issue_lawyer', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False),
      Column('lawyer',  ForeignKey('lawyer.id'), primary_key=True, nullable=False, index=True)
 )
@@ -4090,7 +4000,7 @@ t_issue_lawyer =  Table(
 
 #STARTCLASS
 t_issue_legalreference =  Table(
-    'issue_legalreference',
+    'issue_legalreference', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False),
      Column('legalreference',  ForeignKey('legalreference.id'), primary_key=True, nullable=False, index=True)
 )
@@ -4100,7 +4010,7 @@ t_issue_legalreference =  Table(
 
 #STARTCLASS
 t_issue_legalreference_2 =  Table(
-    'issue_legalreference_2',
+    'issue_legalreference_2', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False),
      Column('legalreference',  ForeignKey('legalreference.id'), primary_key=True, nullable=False, index=True)
 )
@@ -4110,9 +4020,9 @@ t_issue_legalreference_2 =  Table(
 
 #STARTCLASS
 t_issue_party =  Table(
-    'issue_party',
+    'issue_party', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False),
-     Column('party',  ForeignKey('party.complaints'), primary_key=True, nullable=False, index=True)
+     Column('party',  ForeignKey('party.id'), primary_key=True, nullable=False, index=True)
 )
 
 #ENDCLASS
@@ -4120,9 +4030,9 @@ t_issue_party =  Table(
 
 #STARTCLASS
 t_issue_party_2 =  Table(
-    'issue_party_2',
+    'issue_party_2', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=False),
-     Column('party',  ForeignKey('party.complaints'), primary_key=True, nullable=False, index=True)
+     Column('party',  ForeignKey('party.id'), primary_key=True, nullable=False, index=True)
 )
 
 #ENDCLASS
@@ -4133,7 +4043,7 @@ class Judicialofficer(Model):
     __versioned__ = {}
     __tablename__ = 'judicialofficer'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     rank =  Column( ForeignKey('judicialrank.id'), nullable=False, index=True)
     judicial_role =  Column( ForeignKey('judicialrole.id'), nullable=False, index=True)
     court_station =  Column( ForeignKey('courtstation.id'), nullable=False, index=True)
@@ -4219,7 +4129,7 @@ class Judicialrank(Model):
     __versioned__ = {}
     __tablename__ = 'judicialrank'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4298,7 +4208,7 @@ class Judicialrole(Model):
     __versioned__ = {}
     __tablename__ = 'judicialrole'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4377,7 +4287,7 @@ class Law(Model):
     __versioned__ = {}
     __tablename__ = 'law'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( Text, nullable=False)
     description =  Column( Text, nullable=False)
 
@@ -4458,7 +4368,7 @@ class Lawfirm(Model):
     __versioned__ = {}
     __tablename__ = 'lawfirm'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4537,7 +4447,7 @@ class Lawyer(Model):
     __versioned__ = {}
     __tablename__ = 'lawyer'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     law_firm =  Column( ForeignKey('lawfirm.id'), index=True)
     bar_no =  Column( Text, nullable=False)
     bar_date =  Column( Date)
@@ -4619,9 +4529,9 @@ class Lawyer(Model):
 
 #STARTCLASS
 t_lawyer_party =  Table(
-    'lawyer_party',
+    'lawyer_party', Model.metadata,
      Column('lawyer',  ForeignKey('lawyer.id'), primary_key=True, nullable=False),
-     Column('party',  ForeignKey('party.complaints'), primary_key=True, nullable=False, index=True)
+     Column('party',  ForeignKey('party.id'), primary_key=True, nullable=False, index=True)
 )
 
 #ENDCLASS
@@ -4632,7 +4542,7 @@ class Legalreference(Model):
     __versioned__ = {}
     __tablename__ = 'legalreference'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     ref =  Column( Text, nullable=False)
     verbatim =  Column( Text, nullable=False)
     public =  Column( Boolean)
@@ -4719,11 +4629,11 @@ class Nextofkin(Model):
     __versioned__ = {}
     __tablename__ = 'nextofkin'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     biodata =  Column( ForeignKey('biodata.id'), nullable=False, index=True)
     childunder4 =  Column( Boolean)
 
-    biodatum =  relationship('Biodatum', primaryjoin='Nextofkin.biodata == Biodatum.id', backref='nextofkins')
+    biodata1 =  relationship('Biodata', primaryjoin='Nextofkin.biodata == Biodata.id', backref='nextofkins')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4802,7 +4712,7 @@ class Notification(Model):
     __versioned__ = {}
     __tablename__ = 'notification'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     contact =  Column( Text, nullable=False)
     message =  Column( Text, nullable=False)
     confirmation =  Column( Text, nullable=False)
@@ -4894,7 +4804,7 @@ class Notificationregister(Model):
     __versioned__ = {}
     __tablename__ = 'notificationregister'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     notification_type =  Column( ForeignKey('notificationtype.id'), nullable=False, index=True)
     contact =  Column( Text, nullable=False)
     notify_event =  Column( ForeignKey('notifyevent.id'), index=True)
@@ -4906,7 +4816,7 @@ class Notificationregister(Model):
     complaint =  Column( ForeignKey('complaint.id'), index=True)
     complaint_category =  Column( ForeignKey('complaintcategory.id'), index=True)
     health_event =  Column( ForeignKey('healthevent.id'), index=True)
-    party =  Column( ForeignKey('party.complaints'), index=True)
+    party =  Column( ForeignKey('party.id'), index=True)
 
     complaint1 =  relationship('Complaint', primaryjoin='Notificationregister.complaint == Complaint.id', backref='notificationregisters')
     complaintcategory =  relationship('Complaintcategory', primaryjoin='Notificationregister.complaint_category == Complaintcategory.id', backref='notificationregisters')
@@ -4916,7 +4826,7 @@ class Notificationregister(Model):
     hearing1 =  relationship('Hearing', primaryjoin='Notificationregister.hearing == Hearing.id', backref='notificationregisters')
     notificationtype =  relationship('Notificationtype', primaryjoin='Notificationregister.notification_type == Notificationtype.id', backref='notificationregisters')
     notifyevent =  relationship('Notifyevent', primaryjoin='Notificationregister.notify_event == Notifyevent.id', backref='notificationregisters')
-    party1 =  relationship('Party', primaryjoin='Notificationregister.party == Party.complaints', backref='party_notificationregisters')
+    party1 =  relationship('Party', primaryjoin='Notificationregister.party == Party.id', backref='notificationregisters')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4995,7 +4905,7 @@ class Notificationtype(Model):
     __versioned__ = {}
     __tablename__ = 'notificationtype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( Text, nullable=False)
     description =  Column( Text, nullable=False)
 
@@ -5076,7 +4986,7 @@ class Notifyevent(Model):
     __versioned__ = {}
     __tablename__ = 'notifyevent'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -5155,7 +5065,7 @@ class Page(Model):
     __versioned__ = {}
     __tablename__ = 'page'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     document =  Column( ForeignKey('document.id'), nullable=False, index=True)
     page_image =  Column( LargeBinary)
     page_no =  Column( BigInteger)
@@ -5242,9 +5152,108 @@ class Page(Model):
 
 
 #STARTCLASS
+class Party(Model):
+    __versioned__ = {}
+    __tablename__ = 'party'
+
+    id =  Column( Integer, primary_key=True)
+    complaints =  Column( ForeignKey('complaint.id'), nullable=False, index=True)
+    statement =  Column( String(1000), nullable=False)
+    statementdate =  Column( DateTime)
+    complaint_role =  Column( ForeignKey('complaintrole.id'), nullable=False, index=True)
+    notes =  Column( Text, nullable=False)
+    dateofrepresentation =  Column( DateTime)
+    party_type =  Column( ForeignKey('partytype.id'), nullable=False, index=True)
+    relative =  Column( ForeignKey('party.id'), nullable=False, index=True)
+    relationship_type =  Column( Text, nullable=False)
+    is_infant =  Column( Boolean)
+    is_minor =  Column( Boolean)
+    miranda_read =  Column( Boolean)
+    miranda_date =  Column( DateTime)
+    miranda_witness =  Column( Text, nullable=False)
+
+    complaintrole =  relationship('Complaintrole', primaryjoin='Party.complaint_role == Complaintrole.id', backref='parties')
+    complaint =  relationship('Complaint', primaryjoin='Party.complaints == Complaint.id', backref='parties')
+    partytype =  relationship('Partytype', primaryjoin='Party.party_type == Partytype.id', backref='parties')
+    parent =  relationship('Party', remote_side=[id], primaryjoin='Party.relative == Party.id', backref='parties')
+    settlement =  relationship('Settlement', secondary='party_settlement', backref='parties')
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=False)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
 t_party_settlement =  Table(
-    'party_settlement',
-     Column('party',  ForeignKey('party.complaints'), primary_key=True, nullable=False),
+    'party_settlement', Model.metadata,
+     Column('party',  ForeignKey('party.id'), primary_key=True, nullable=False),
      Column('settlement',  ForeignKey('settlement.id'), primary_key=True, nullable=False, index=True)
 )
 
@@ -5256,7 +5265,7 @@ class Partytype(Model):
     __versioned__ = {}
     __tablename__ = 'partytype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -5335,7 +5344,7 @@ class Payment(Model):
     __versioned__ = {}
     __tablename__ = 'payment'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     bill =  Column( ForeignKey('bill.id'), nullable=False, index=True)
     amount =  Column( Numeric(12, 2))
     payment_ref =  Column( Text, nullable=False)
@@ -5423,11 +5432,11 @@ class Personaleffect(Model):
     __versioned__ = {}
     __tablename__ = 'personaleffect'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
-    party =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    party =  Column( ForeignKey('party.id'), nullable=False, index=True)
     personal_effects_category =  Column( ForeignKey('personaleffectscategory.id'), nullable=False, index=True)
 
-    party1 =  relationship('Party', primaryjoin='Personaleffect.party == Party.complaints', backref='personaleffects')
+    party1 =  relationship('Party', primaryjoin='Personaleffect.party == Party.id', backref='personaleffects')
     personaleffectscategory =  relationship('Personaleffectscategory', primaryjoin='Personaleffect.personal_effects_category == Personaleffectscategory.id', backref='personaleffects')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -5507,7 +5516,7 @@ class Personaleffectscategory(Model):
     __versioned__ = {}
     __tablename__ = 'personaleffectscategory'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -5586,92 +5595,13 @@ class Policeofficer(Model):
     __versioned__ = {}
     __tablename__ = 'policeofficer'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     police_rank =  Column( ForeignKey('policeofficerrank.id'), nullable=False, index=True)
     servicenumber =  Column( String(100), nullable=False, unique=True)
 
     policeofficerrank =  relationship('Policeofficerrank', primaryjoin='Policeofficer.police_rank == Policeofficerrank.id', backref='policeofficers')
     policestation =  relationship('Policestation', secondary='policeofficer_policestation', backref='policeofficers')
 
-
-class InvestigatingOfficer(Policeofficer):
-    __versioned__ = {}
-    __tablename__ = 'investigating_officer'
-
-    police_officers =  Column( ForeignKey('policeofficer.id'), primary_key=True)
-    date_assigned =  Column( DateTime)
-    lead_investigator =  Column( Integer)
-
-    investigationdiary =  relationship('Investigationdiary', secondary='investigating_officer_investigationdiary', backref='investigating_officers')
-
-    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
-    file = Column(FileColumn, nullable=False)
-
-    # mindate = datetime.date(MINYEAR, 1, 1)
-
-    def view_name(self):
-        return self.__class__.__name__ +'View'
-
-    def photo_img(self):
-        im = ImageManager()
-        vn = self.view_name()
-        if self.photo:
-            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
-                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
-                        '" alt="Photo" class="img-rounded img-responsive"></a>')
-        else:
-            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
-                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-
-    def photo_img_thumbnail(self):
-        im = ImageManager()
-        vn = self.view_name()
-        if self.photo:
-            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
-                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
-                        '" alt="Photo" class="img-rounded img-responsive"></a>')
-        else:
-            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
-                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-
-
-    def print_button(self):
-        vn = self.view_name()
-        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
-        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
-        #response = make_response(pdf)
-        #response.headers['Content-Type'] = 'application/pdf'
-        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-
-        return Markup(
-            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
-            'title="Print">' +
-            '<i class="fa fa-edit"></i>' +
-            '</a>')
-
-    def audio_play(self):
-        vn = self.view_name()
-        return Markup(
-                '<audio controls autoplay>' +
-                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
-                'Your browser does not support the audio element.' +
-                '</audio>'
-                )
-
-    def download(self):
-        vn = self.view_name()
-        return Markup(
-            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
-
-    def file_name(self):
-        return get_file_original_name(str(self.file))
-
-    def month_year(self):
-        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
-
-    def year(self):
-        date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
 
@@ -5746,7 +5676,7 @@ class InvestigatingOfficer(Policeofficer):
 
 #STARTCLASS
 t_policeofficer_policestation =  Table(
-    'policeofficer_policestation',
+    'policeofficer_policestation', Model.metadata,
      Column('policeofficer',  ForeignKey('policeofficer.id'), primary_key=True, nullable=False),
      Column('policestation',  ForeignKey('policestation.id'), primary_key=True, nullable=False, index=True)
 )
@@ -5759,7 +5689,7 @@ class Policeofficerrank(Model):
     __versioned__ = {}
     __tablename__ = 'policeofficerrank'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     name =  Column( Text, nullable=False)
     description =  Column( Text, nullable=False)
     sequence =  Column( Integer)
@@ -5841,7 +5771,7 @@ class Policestation(Model):
     __versioned__ = {}
     __tablename__ = 'policestation'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     town =  Column( ForeignKey('town.id'), index=True)
     officer_commanding =  Column( ForeignKey('policeofficer.id'), nullable=False, index=True)
     police_station_rank =  Column( ForeignKey('policestationrank.id'), nullable=False, index=True)
@@ -5927,7 +5857,7 @@ class Policestationrank(Model):
     __versioned__ = {}
     __tablename__ = 'policestationrank'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6006,7 +5936,7 @@ class Prison(Model):
     __versioned__ = {}
     __tablename__ = 'prison'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     town =  Column( ForeignKey('town.id'), nullable=False, index=True)
 
     town1 =  relationship('Town', primaryjoin='Prison.town == Town.id', backref='prisons')
@@ -6088,7 +6018,7 @@ class Prisonofficer(Model):
     __versioned__ = {}
     __tablename__ = 'prisonofficer'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     prison =  Column( ForeignKey('prison.id'), nullable=False, index=True)
     prison_officer_rank =  Column( ForeignKey('prisonofficerrank.id'), nullable=False, index=True)
 
@@ -6172,7 +6102,7 @@ class Prisonofficerrank(Model):
     __versioned__ = {}
     __tablename__ = 'prisonofficerrank'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6251,7 +6181,7 @@ class Prosecutor(Model):
     __versioned__ = {}
     __tablename__ = 'prosecutor'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     prosecutor_team =  Column( ForeignKey('prosecutorteam.id'), index=True)
     lawyer =  Column( ForeignKey('lawyer.id'), nullable=False, index=True)
 
@@ -6335,7 +6265,7 @@ class Prosecutorteam(Model):
     __versioned__ = {}
     __tablename__ = 'prosecutorteam'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6414,7 +6344,7 @@ class Releasetype(Model):
     __versioned__ = {}
     __tablename__ = 'releasetype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6493,7 +6423,7 @@ class Religion(Model):
     __versioned__ = {}
     __tablename__ = 'religion'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6572,7 +6502,7 @@ class Schedulestatustype(Model):
     __versioned__ = {}
     __tablename__ = 'schedulestatustype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6651,7 +6581,7 @@ class Seizure(Model):
     __versioned__ = {}
     __tablename__ = 'seizure'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     investigation_diary =  Column( ForeignKey('investigationdiary.id'), nullable=False, index=True)
     owner =  Column( Text, nullable=False)
     item =  Column( Text, nullable=False)
@@ -6761,16 +6691,16 @@ class Settlement(Model):
     __versioned__ = {}
     __tablename__ = 'settlement'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     complaint =  Column( ForeignKey('complaint.id'), nullable=False, index=True)
     terms =  Column( Text, nullable=False)
     amount =  Column( Numeric(12, 2))
     paid =  Column( Boolean)
     docx =  Column( Text, nullable=False)
-    settlor =  Column( ForeignKey('party.complaints'), nullable=False, index=True)
+    settlor =  Column( ForeignKey('party.id'), nullable=False, index=True)
 
     complaint1 =  relationship('Complaint', primaryjoin='Settlement.complaint == Complaint.id', backref='settlements')
-    party =  relationship('Party', primaryjoin='Settlement.settlor == Party.complaints', backref='party_settlements')
+    party =  relationship('Party', primaryjoin='Settlement.settlor == Party.id', backref='settlements')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -6849,7 +6779,7 @@ class Subcounty(Model):
     __versioned__ = {}
     __tablename__ = 'subcounty'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     county =  Column( ForeignKey('county.id'), nullable=False, index=True)
 
     county1 =  relationship('County', primaryjoin='Subcounty.county == County.id', backref='subcounties')
@@ -6931,7 +6861,7 @@ class Templatetype(Model):
     __versioned__ = {}
     __tablename__ = 'templatetype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     template_type =  Column( ForeignKey('templatetype.id'), index=True)
 
     parent =  relationship('Templatetype', remote_side=[id], primaryjoin='Templatetype.template_type == Templatetype.id', backref='templatetypes')
@@ -7013,7 +6943,7 @@ class Town(Model):
     __versioned__ = {}
     __tablename__ = 'town'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     ward =  relationship('Ward', secondary='town_ward', backref='towns')
 
@@ -7091,7 +7021,7 @@ class Town(Model):
 
 #STARTCLASS
 t_town_ward =  Table(
-    'town_ward',
+    'town_ward', Model.metadata,
      Column('town',  ForeignKey('town.id'), primary_key=True, nullable=False),
      Column('ward',  ForeignKey('ward.id'), primary_key=True, nullable=False, index=True)
 )
@@ -7104,7 +7034,7 @@ class Transcript(Model):
     __versioned__ = {}
     __tablename__ = 'transcript'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     video =  Column( Text, nullable=False)
     audio =  Column( Text, nullable=False)
     add_date =  Column( DateTime)
@@ -7196,7 +7126,7 @@ class Vehicle(Model):
     __versioned__ = {}
     __tablename__ = 'vehicle'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     police_station =  Column( ForeignKey('policestation.id'), nullable=False, index=True)
     make =  Column( String(100), nullable=False)
     model =  Column( String(100), nullable=False)
@@ -7281,7 +7211,7 @@ class Ward(Model):
     __versioned__ = {}
     __tablename__ = 'ward'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
     subcounty =  Column( ForeignKey('subcounty.id'), nullable=False, index=True)
 
     subcounty1 =  relationship('Subcounty', primaryjoin='Ward.subcounty == Subcounty.id', backref='wards')
@@ -7363,7 +7293,7 @@ class Warranttype(Model):
     __versioned__ = {}
     __tablename__ = 'warranttype'
 
-    id =  Column( Integer, primary_key=True, server_default= FetchedValue())
+    id =  Column( Integer, primary_key=True, autoincrement=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)

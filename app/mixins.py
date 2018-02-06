@@ -310,9 +310,9 @@ place_fieldset = [
 # Flask_googlemap entities
 class PlaceMixin(object):
     place_name = Column(String(40))
-    lat = Column(Numeric(5, 7))
-    lng = Column(Numeric(5, 7))
-    alt = Column(Numeric(5, 7))
+    lat = Column(Numeric(12, 7))
+    lng = Column(Numeric(12, 7))
+    alt = Column(Numeric(12, 7))
     map = Column(Text, default='')
     info = Column(Text, default='')
     pin = Column(Boolean)  # Do we put a pin
@@ -425,7 +425,7 @@ class PersonMixin(object):
     dob = Column(Date, default=func.now())
     gender = Column(Enum('Male', 'Female', 'Other', name = 'gender_type'))
     marital_status = Column(Enum('Single', 'Married', 'Divorced', 'Widowed', 'Other', name='marital_status_type'))
-    photo = Column(ImageColumn(thumbnail_size=(30, 30, True), size=(300, 300, True)))
+    # photo = Column(ImageColumn(thumbnail_size=(30, 30, True), size=(300, 300, True)))
 
     # @declared_attr
     # def age_today(self):
@@ -433,60 +433,60 @@ class PersonMixin(object):
     # 	born = self.dob
     # 	return today.year - born.year - ((today.month, today.day) < (born.month, born.day))
     
-    age_today = Column(Integer)
-
-
-    @hybrid_property
-    def _age_today(self):
-        """Property calculated from (current time - :attr:`User.date_of_birth` - leap days)"""
-        if self.dob:
-            today = (datetime.utcnow() + timedelta(hours=self.timezone)).date()
-            birthday = self.dob
-            if isinstance(birthday, datetime):
-                birthday = birthday.date()
-            age = today - (birthday or (today - timedelta(1)))
-            self._age_today = (age.days - calendar.leapdays(birthday.year, today.year)) / 365
-            return self._age_today
-        return -1
-    
-    
-    @declared_attr
-    def age(self):
-        if isinstance(self.dob, datetime):
-            doby = self.dob.date()
-        else:
-            doby = mindate
-        dur = humanize.naturaltime(datetime.now().date() - doby)
-        return Markup('<span class="no-wrap">{}</span>'.format(dur))
-    
-    
+    # age_today = Column(Integer)
+    #
+    #
+    # @hybrid_property
+    # def _age_today(self):
+    #     """Property calculated from (current time - :attr:`User.date_of_birth` - leap days)"""
+    #     if self.dob:
+    #         today = (datetime.utcnow() + timedelta(hours=self.timezone)).date()
+    #         birthday = self.dob
+    #         if isinstance(birthday, datetime):
+    #             birthday = birthday.date()
+    #         age = today - (birthday or (today - timedelta(1)))
+    #         self._age_today = (age.days - calendar.leapdays(birthday.year, today.year)) / 365
+    #         return self._age_today
+    #     return -1
+    #
+    #
     # @declared_attr
-    @hybrid_property
-    def dob_month_year(self):
-        if isinstance(self.dob, datetime):
-            doby = self.dob.date()
-        else:
-            doby = mindate
-        return datetime(doby.year, doby.month, 1)
+    # def age(self):
+    #     if isinstance(self.dob, datetime):
+    #         doby = self.dob.date()
+    #     else:
+    #         doby = mindate
+    #     dur = humanize.naturaltime(datetime.now().date() - doby)
+    #     return Markup('<span class="no-wrap">{}</span>'.format(dur))
+    #
+    
+    # # @declared_attr
+    # @hybrid_property
+    # def dob_month_year(self):
+    #     if isinstance(self.dob, datetime):
+    #         doby = self.dob.date()
+    #     else:
+    #         doby = mindate
+    #     return datetime(doby.year, doby.month, 1)
+    #
+    #
+    # def month_year(self):
+    #     date = self.dob or mindate
+    #     return datetime(date.year, date.month, 1) or mindate
+    #
+    #
+    # def year(self):
+    #     date = self.dob or mindate
+    #     return datetime(date.year, 1, 1)
+    #
+    #
+    # def ViewName(self):
+    #     return self.__class__.__name__ + 'View.show'
     
     
-    def month_year(self):
-        date = self.dob or mindate
-        return datetime(date.year, date.month, 1) or mindate
-    
-    
-    def year(self):
-        date = self.dob or mindate
-        return datetime(date.year, 1, 1)
-    
-    
-    def ViewName(self):
-        return self.__class__.__name__ + 'View.show'
-    
-    
-    def __repr__(self):
-        return '(' + str(self.id) + ') ' + self.firstname + ' ' + self.surname
-    
+    # def __repr__(self):
+    #     return '(' + str(self.id) + ') ' + self.firstname + ' ' + self.surname
+    #
     ############# Challenge ###############
     # @hybrid_property
     # def photo_img(self):

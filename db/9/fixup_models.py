@@ -2,7 +2,9 @@
 # Copyright (C) Nyimbi Odero, 2017-2018
 # License: MIT
 
-std_hdr = """
+std_hdr = ''
+
+std_hdrx = """
 from sqlalchemy import func
 from flask_appbuilder import Model
 from flask_appbuilder.models.mixins import AuditMixin, FileColumn, ImageColumn, UserExtensionMixin
@@ -10,6 +12,16 @@ from flask_appbuilder.models.decorators import renders
 from flask_appbuilder.filemanager import ImageManager
 from sqlalchemy_utils import aggregated, force_auto_coercion, observes
 from sqlalchemy.orm import column_property
+from sqlalchemy.event import listens_for
+from flask import Markup, url_for
+
+from sqlalchemy import BigInteger, Boolean, Column, Date, DateTime, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, Numeric, String, Table, Text, Time, text
+from sqlalchemy.orm import relationship
+from sqlalchemy.dialects.postgresql.base import INTERVAL
+from sqlalchemy.ext.declarative import declarative_base
+from flask_appbuilder import Model
+from sqlalchemy.event import listens_for
+from flask import Markup, url_for
 # Versioning Mixin
 from sqlalchemy_continuum import make_versioned
 #Add __versioned__ = {}
@@ -36,19 +48,23 @@ from sqlalchemy import (Column, Integer, String, ForeignKey,
     Sequence, Float, Text, BigInteger, Date,
     DateTime, Time, Boolean, Index, CheckConstraint,
     UniqueConstraint,ForeignKeyConstraint, Numeric, LargeBinary , Table)
+    
 from datetime import timedelta, datetime, date
 from sqlalchemy.dialects.postgresql import *
 from sqlalchemy.sql import func
-from .mixins import *
+
+# UTILITY CLASSES
+import arrow, enum, datetime
+from mixins import *
 
 # Here is how to extend the User model
 #class UserExtended(Model, UserExtensionMixin):
 #    contact_group_id = Column(Integer, ForeignKey('contact_group.id'), nullable=True)
 #    contact_group = relationship('ContactGroup')
 
-# UTILITY CLASSES
 
-import arrow, enum, datetime
+
+
 
 # Initialize sqlalchemy_utils
 #force_auto_coercion()
@@ -56,8 +72,84 @@ import arrow, enum, datetime
 # Keep versions of all data
 make_versioned()
 make_searchable()
-"""
 
+
+def future_date(days):
+    return datetime.datetime.now() + datetime.timedelta(days=days)
+"""
+photo_hdr = '' # Temporary Patch
+
+photo_hdrx="""
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=False)
+    
+    mindate = datetime.date(datetime.MINYEAR, 1, 1)
+
+    def ViewName(self):
+        return self.__class__.__name__ +'View'
+        
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.ViewName()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.ViewName()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.ViewName()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+    
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+    
+    def audio_play(self):
+        vn = self.ViewName()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+                
+    def download(self):
+        vn = self.ViewName()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+    
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+        
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) or self.mindate
+    
+    def year(self):
+        date = self.created_on or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+
+"""
 
 imp_add = 0
 code = []
@@ -93,6 +185,8 @@ def init_fixup(filename):
                 (a, _, _)  = code[i].partition('(')
                 b = a.split()
                 class_names.append(b[1])
+                #code.insert(i+1,'\t__versioned__ = {}\n')
+                code.insert(i+2, photo_hdr)
                 
         imp_add = max(imports) + 1
         class_count = len(class_names)

@@ -4,6 +4,9 @@
 
 import os, sys, string, inspect, importlib, datetime
 
+#execfile('mixins.py')
+exec(open("./mixins.py").read())
+
 from IPython.core.debugger import Pdb
 
 view_imports = """# coding: utf-8
@@ -314,7 +317,7 @@ def get_klass(module):
         obj = getattr(module, name)
         if inspect.isclass(obj):  # or (str(obj.__name__).startswith('t_')):
             # print(obj.__name__)
-            ts = 'ARRAY, BIGINT, BIT, BOOLEAN, BYTEA, CHAR, CIDR, DATE, DOUBLE_PRECISION, ENUM, FLOAT, HSTORE, INET, INTEGER, INTERVAL, JSON, JSONB, MACADDR, NUMERIC, OID, REAL, SMALLINT, TEXT, TIME, TIMESTAMP, UUID, VARCHAR, INT4RANGE, INT8RANGE, NUMRANGE, DATERANGE, TSRANGE, TSTZRANGE, TSVECTOR'
+            ts = 'ARRAY, BIGINT, BIT, BOOLEAN, BYTEA, CHAR, CIDR, DATE, DOUBLE_PRECISION, ENUM, FLOAT, HSTORE, INET, INTEGER, INTERVAL, JSON, JSONB, MACADDR, NUMERIC, OID, REAL, SMALLINT, TEXT, TIME, TIMESTAMP, UUID, VARCHAR, INT4RANGE, INT8RANGE, NUMRANGE, DATERANGE, TSRANGE, TSTZRANGE, TSVECTOR, TSVectorType, UserExtensionMixin'
             ta = ts.split(', ')
             if obj.__name__ not in ['Base', 'BigInteger', 'Boolean', 'Column', 'Date', 'DateTime', 'ForeignKey',
                                     'ForeignKeyConstraint', 'Index', 'Integer', 'LargeBinary', 'Numeric', 'String',
@@ -356,7 +359,7 @@ def gen_code(modl):
         # To get the field names for reference we do
         class_ = getattr(modl, x)
         s = str([attrname for attrname in dir(class_) if
-                 not callable(getattr(class_, attrname)) and not attrname.startswith('_')])
+                 not callable(getattr(class_, attrname)) and not attrname.startswith('_') and not attrname == 'id' and not attrname == 'file'])
         for ed in ['add', 'edit', 'list']:
             code.append(f_column.format(x, ed, s))
         for ed in ['add', 'edit', 'show']:

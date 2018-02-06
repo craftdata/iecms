@@ -4,6 +4,9 @@
 
 import os, sys, string, inspect, importlib, datetime
 
+# execfile('mixins.py')
+exec(open("./mixins.py").read())
+
 from IPython.core.debugger import Pdb
 
 view_imports = """# coding: utf-8
@@ -23,8 +26,13 @@ from flask_appbuilder.widgets import ListThumbnail, ListWidget
 from flask_appbuilder.widgets import FormVerticalWidget, FormInlineWidget, FormHorizontalWidget, ShowBlockWidget
 from flask_appbuilder.fieldwidgets import BS3TextFieldWidget
 from flask_appbuilder.models.sqla.filters import FilterStartsWith, FilterEqualFunction as FA
+from flask_appbuilder.models.group import aggregate_count, aggregate_sum, aggregate_avg
 from flask_babel import gettext
+from flask_appbuilder.filemanager import get_file_original_name
+from flask_appbuilder.models.mixins import AuditMixin, FileColumn
+
 from wtforms.validators import DataRequired, EqualTo, Email
+from wtforms_alchemy import ModelForm
 
 # To Extend the User Model
 from flask_appbuilder.security.views import UserDBModelView
@@ -46,6 +54,9 @@ def get_user():
 def pretty_year(value):
     return str(value.year)
     
+def pretty_month_year(value):
+    return calendar.month_name[value.month] + ' ' + str(value.year)
+    
 # Class of readonly field widgets
 class BS3TextFieldROWidget(BS3TextFieldWidget):
     def __call__(self, field, **kwargs):
@@ -57,15 +68,32 @@ class BS3TextFieldROWidget(BS3TextFieldWidget):
 #     datamodel = SQLAInterface(ExampleModel)
 #     edit_form_extra_fields = {{'field2': TextField('field2',
 #                                 widget=BS3TextFieldROWidget())}}
-"""#.format(datetime)
+"""  # .format(datetime)
 
-
-
-view_head ="""
+view_head = """
 class {}View(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
-    datamodel = SQLAInterface({}, db.session)"""#.format(x,x)
+    datamodel = SQLAInterface({}, db.session)"""  # .format(x,x)
 
-
+wtf_form = """
+class wtf_{}Form(ModelForm):
+    class Meta:
+        model = {}
+        # include = ['author_id']
+        # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
+        # only = ['name', 'content']
+        # include_primary_keys = True
+        # only_indexed_fields = False # only fields that have an index will be included in the form, Useful for searching
+        # field_args = {{'email': {{'validators': [Optional()]}} }} #  for overriding field arguments
+        # include_foreign_keys = False
+        # include_datetimes_with_default=False # Such as created_at etc
+        # validators = {{ 'email': [Email()] }} # Dict of validators
+        # datetime_format =  ‘%Y-%m-%d %H:%M:%S’ # default datetime format, which will be assigned to generated datetime fields.
+        # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
+        # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
+        # assign_required =  True       # Whether or not to assign non-nullable fields as required
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+#     location = ModelFormField(LocationForm)
+"""  # .format(x,x)
 
 view_body = """
     # add_title =
@@ -79,20 +107,27 @@ view_body = """
     # base_order = ("name", "asc")
     # base_filters = [[created_by, FilterEqualFunction, get_user]] #[name, FilterStartsWith, a]],
     # search_columns = person_exclude_columns + biometric_columns + person_search_exclude_columns
-    search_exclude_columns = person_exclude_columns + biometric_columns + person_search_exclude_columns
-    # search_form_query_rel_fields = [(group:[[name,FilterStartsWith,W]]}
+    search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail'] #+ person_exclude_columns + biometric_columns + person_search_exclude_columns
+    # search_form_query_rel_fields = [(group:[[name,FilterStartsWith,W]]
     add_exclude_columns = edit_exclude_columns = audit_exclude_columns
-    # label_columns = {"contact_group":"Contacts Group"}
+    # label_columns = {{"contact_group":"Contacts Group"}}
     # add_columns = person_list_columns + ref_columns + contact_columns
+    add_columns = {}
     # edit_columns = person_list_columns + ref_columns + contact_columns
+    edit_columns = {}
     # list_columns = person_list_columns + ref_columns + contact_columns
+    list_columns = {}
     # list_widget = ListBlock|ListItem|ListThumbnail|ListWidget (default)
     # page_size = 10
-    # formatters_columns = {‘some_date_col’: lambda x: x.isoformat() }
+    # formatters_columns = {{‘some_date_col’: lambda x: x.isoformat() }}
     # show_fieldsets = person_show_fieldset + contact_fieldset
     # edit_fieldsets = add_fieldsets = \
     #     # ref_fieldset + person_fieldset + contact_fieldset #+  activity_fieldset + place_fieldset + biometric_fieldset + employment_fieldset
-    # description_columns = {"name":"your models name column","address":"the address column"}
+    add_fieldsets =  {}
+    edit_fieldsets = {}
+    show_fieldsets = {}
+    #     # ref_fieldset + person_fieldset + contact_fieldset #+  activity_fieldset + place_fieldset + biometric_fieldset + employment_fieldset
+    # description_columns = {{"name":"your models name column","address":"the address column"}}
     # base_permissions = ['can_add', 'can_edit', 'can_delete', 'can_list', 'can_show', 'can_download']
     #
     # show_template = "appbuilder/general/model/show_cascade.html"
@@ -103,9 +138,9 @@ view_body = """
     #                                      ]
     #                        }}
     #
-    # add_form_query_rel_fields = {'group': [['name',FilterStartsWith,'W']]}
-    # edit_form_query_rel_fields = {'group': [['name',FilterStartsWith,'W']]}
-    # search_form_query_rel_fields = {'group': [['name',FilterStartsWith,'W']]}
+    # add_form_query_rel_fields = {{'group': [['name',FilterStartsWith,'W']] }}
+    # edit_form_query_rel_fields = {{'group': [['name',FilterStartsWith,'W']] }}
+    # search_form_query_rel_fields = {{'group': [['name',FilterStartsWith,'W']] }}
     
     # @action("myaction","Do something on this record","Do you really want to?","fa-rocket")
     # def myaction(self, item):
@@ -122,11 +157,9 @@ view_body = """
         return redirect(self.get_redirect())
     """
 
-chart_head ="""
+chart_head = """
 class {}ChartView(GroupByChartView):
-    datamodel = SQLAInterface({}, db.session) """#.format(x,x)
-
-
+    datamodel = SQLAInterface({}, db.session) """  # .format(x,x)
 
 chart_body = """
     chart_title = 'Grouped Birthdays'
@@ -138,18 +171,24 @@ chart_body = """
         {{
             "group": "age_today",
             'formatter': pretty_month_year,
-            "series": [(aggregate_count,"age_today")]
+            "series": [ (aggregate_count,"age_today"),
+                        (aggregate_avg, 'population'),
+                        (aggregate_avg, 'college')
+                       ]
         }},
         {{
-            'group': 'age_today',
-            'formatter': pretty_year,
-            "series": [(aggregate_count,"age_today")]
+            'group': 'month_year',
+            'formatter': pretty_month_year,
+            'series': [(aggregate_sum, 'unemployed'),
+                       (aggregate_avg, 'population'),
+                       (aggregate_avg, 'college')
+            ]
         }}
     ]
     
-"""#.format(x)
+"""  # .format(x)
 
-sec_py="""
+sec_py = """
 from flask_appbuilder.security.sqla.manager import SecurityManager
 from .sec_models import MyUser
 from .sec_views import MyUserDBModelView
@@ -173,7 +212,7 @@ class MyUser(User):
     # Home address
 """
 
-sec_view = """
+sec_view = """\
 from flask_appbuilder.security.views import UserDBModelView
 from flask_babelpkg import lazy_gettext
 
@@ -206,7 +245,7 @@ class MyUserDBModelView(UserDBModelView):
     edit_columns = ['first_name', 'last_name', 'username', 'active', 'email', 'roles', 'extra']
     """
 
-init_py = """
+init_py = """\
 import logging
 from flask import Flask
 from flask_appbuilder import SQLA, AppBuilder
@@ -235,10 +274,10 @@ from app import views
 jointbl_code = """
 class {}View(CompactCRUDMixin, ModelView):
     datamodel = SQLAInterface({})
-    list_columns = []
-"""#.format(x,x)
+    # list_columns = []
+"""  # .format(x,x)
 
-jointbl_mv_code ="""
+jointbl_mv_code = """
 class {}MultiView(MultipleView):
     """
 
@@ -252,104 +291,212 @@ end_notes = """
 # appbuilder.add_separator("My Views")
 # appbuilder.add_link(name, href, icon='', label='', category='', category_icon='', category_label='', baseview=None)
 """
+
+# Field_sets and columns
+f_set = """
+{}_{}_field_set = [
+    ('Data', {{'fields': {}, 'expanded': True}}),
+    ('Other', {{'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False}})
+]
+"""
+f_column = """
+{}_{}_columns = {}
+"""
+
+f_exclusions = """
+audit_exclude_columns = ['created_by', 'created_on', 'changed_by', 'changed_on']
+add_exclude_columns = edit_exclude_columns = audit_exclude_columns
+person_search_exclude_columns = ['photo', 'photo_img', 'photo_img_thumbnail', 'fp_l1', 'fp_l2', 'fp_l3', 'fp_l4',
+                                 'fp_l5', 'fp_r1', 'fp_r2', 'fp_r3', 'fp_r4',
+                                 'fp_r5'] + ['finger_palm_left', 'finger_palm_right', 'eye_left', 'eye_right']
+biometric_columns = ['fp_lthumb', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5',
+                     'fp_rthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5',
+                     'palm_left', 'palm_right', 'eye_left', 'eye_right']
+
+"""
+
+
 # List of all the class name
 
 
 
 def get_klass(module):
-     klass_names = []
-     for name in dir(module):
-         obj = getattr(module,name)
-         if inspect.isclass(obj): # or (str(obj.__name__).startswith('t_')):
-             #print(obj.__name__)
-             if obj.__name__ not in ['Base','BigInteger', 'Boolean', 'Column', 'Date', 'DateTime', 'ForeignKey', 'ForeignKeyConstraint', 'Index', 'Integer', 'LargeBinary', 'Numeric', 'String', 'Table', 'Text', 'Time']:
-                klass_names.append(obj.__name__)
-     return klass_names
-    
-
-def get_join_tables(module):
-    jt = []
+    klass_names = []
     for name in dir(module):
-        if name.startswith('t_'):
-            jt.append(name)
+        obj = getattr(module, name)
+        if inspect.isclass(obj):  # or (str(obj.__name__).startswith('t_')):
+            # print(obj.__name__)
+            t1 = 'ARRAY, BIGINT, BIT, BOOLEAN, BYTEA, CHAR, CIDR, DATE, DOUBLE_PRECISION, ENUM, FLOAT, HSTORE, INET, INTEGER, INTERVAL, JSON, JSONB, MACADDR, NUMERIC, OID, REAL, SMALLINT, TEXT, TIME, TIMESTAMP, UUID, VARCHAR, INT4RANGE, INT8RANGE, NUMRANGE, DATERANGE, TSRANGE, TSTZRANGE, TSVECTOR, TSVectorType, UserExtensionMixin, '
+            t2 = 'MetaData, metadata, FetchedValue, ImageManager, AuditMixin, FileColumn, ImageColumn, UserExtensionMixin, Base, TSVectorType, BigInteger, Boolean, Column, Date, DateTime, ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary, Numeric, String, Table, Text, Time, text, '
+            t3 = 'Enum, BaseQuery, AuditMixinNullable, Float, Interval, Markup, Model, date, datetime, declared_attr, hybrid_property, timedelta, models, CheckConstraint'
+            t4 = t1 + t2 + t3
+            ta = t4.split(', ')
+            if obj.__name__ not in ['Base', 'BigInteger', 'Boolean', 'Column', 'Date', 'DateTime', 'ForeignKey',
+                                    'ForeignKeyConstraint', 'Index', 'Integer', 'LargeBinary', 'Numeric', 'String',
+                                    'Table', 'Text', 'Time'] + ta and not obj.__name__.endswith('Mixin'):
+                klass_names.append(obj.__name__)
+    return klass_names
+
+
+
+def get_class_names():
+    class_names = []
+    with open('class_names.txt','r') as f:
+        class_names = f.read().splitlines()
+    
+    return class_names
+
+
+# Essentially doing this: cat models.py| grep "^t_*" | cut -d "=" -f1
+def get_join_tables():
+    mdl = []
+    jt = []
+    with open(sys.argv[1]+'.py', 'r') as f:
+        mdl = f.read().splitlines()
+    for i in range(len(mdl)):
+        if mdl[i].startswith('T_'):
+            (s,_,_) = mdl[i].partition(' = ')
+            jt.append(s.strip())
     return jt
 
 
 
-def gen_code(modl):
+# This is the actual code generator
+# Presumption is the
+def gen_code(model_filename):
     code = []
-    cls_list = get_klass(modl)
-    join_tables = get_join_tables(modl)
+    fld_set = []
+    
+    # For reasons of introspection we import models.py or such other
+    modl = importlib.import_module(model_filename)
+    
+    # The fixup_models.py should have created a class_names.txt
+    # where we get these details
+    cls_list = get_class_names()
+    join_tables = get_join_tables()
     
     def section_preamble(text):
-        code.append('\n' * 4)
+        code.append('#' * 30)
+        code.append('# ' + '{:^30}'.format(text))
         code.append('#' * 20)
-        code.append('# ' + text)
-        code.append('#' * 20)
-        
-        
+    
     def space(n):
-        code.append('\n'* n)
-
+        code.append('\n' * n)
+    
     ##### CODE GENERATION
-    code.append(view_imports.format(datetime.datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
+    code.append(view_imports.format(datetime.now().strftime("%Y-%m-%d %H:%M:%S")))
     # Generate Views
+    
+    
+    ############## Field Sets ##############
+    section_preamble('Field Sets and Columns')
+    code.append(f_exclusions)
+    for x in cls_list:
+        # To get the field names for reference we do
+        print(x)
+        class_ = getattr(modl, str(x))
+        s = str([attrname for attrname in dir(class_) if
+                 not callable(getattr(class_, attrname)) and not attrname.startswith(
+                     '_') and not attrname == 'id' and not attrname == 'file'])
+        for ed in ['add', 'edit', 'list']:
+            code.append(f_column.format(x, ed, s))
+        for ed in ['add', 'edit', 'show']:
+            code.append(f_set.format(x, ed, s) + '\n')
+    code.append('# exec("field_sets.py")')
 
+    ############## Table Views ##############
     section_preamble('Table Views')
     for x in cls_list:
         # To get the field names for reference we do
         class_ = getattr(modl, x)
-        code.append('# FIELDS: '+ str([attrname for attrname in dir(class_) if not callable(getattr(class_, attrname)) and not attrname.startswith('_')]))
-        code.append(view_head.format(x,x))
-        code.append(view_body)
+        s = str([attrname for attrname in dir(class_) if
+                 not callable(getattr(class_, attrname))
+                 and not attrname.startswith('_')
+                 and  (attrname not in ['pgm', 'wsq', 'xyt', 'photo', 'file'])
+                 ]
+                )
+        for ed in ['add', 'edit', 'list']:
+            fld_set.append(f_column.format(x, ed, s))
+        for ed in ['add', 'edit', 'show']:
+            fld_set.append(f_set.format(x, ed, s) + '\n')
+        
+        code.append('# FIELDS: ' + s)
+        code.append(view_head.format(x, x, ))
+        # Set the columns and fieldsets in the view
+        a = x + '_add_columns'
+        b = x + '_edit_columns'
+        c = x + '_list_columns'
+        d = x + '_add_field_set'
+        e = x + '_edit_field_set'
+        f = x + '_show_field_set'
+        code.append(view_body.format(a, b, c, d, e, f))
         space(2)
 
+    #For Convenience in editing. Edit these to
+    code_write(fld_set, 'field_sets.py')
+
+    ############## Join Table Views ##############
+    # Not going to be of much use except for reports
     # Generate Join Table Views
     section_preamble('Join Table Views')
     for x in join_tables:
         code.append('# View Table for:' + x)
-        code.append(jointbl_code.format(x,x))
+        code.append(jointbl_code.format(x, x))
         space(2)
-    
+
+    ############## Join MultiViews ##############
     section_preamble('Join MultipleViews')
     for x in join_tables:
         code.append('\n# MultiView for:' + x)
-        code.append(jointbl_mv_code.format(x))
+        code.append(jointbl_mv_code.format(x) + '\n')
         vws = x.split('_')
         vws.pop(0)
-        code.append('views = '+str([y.title() + 'View' for y in vws]) + '\n')
+        code.append('\tviews = ' + str([y.title() + 'View' for y in vws]) + '\n')
         space(2)
-        
     
+    
+    ############## Charts ##############
     # Generate Charts
     section_preamble('Chart Views')
     for x in cls_list:
-        code.append(chart_head.format(x,x))
+        code.append(chart_head.format(x, x))
         code.append(chart_body.format(x))
         space(2)
-        
-    # Add Tail
+
+    ############## WTF FORMS ##############
+    # Generate wtfForms
+    section_preamble('WTForms-Alchemy Forms')
+    section_preamble('Just in case we ever need them')
+    for x in cls_list:
+        code.append(wtf_form.format(x, x))
+        space(2)
+
+    ############## REGISTRATIONS ##############
     space(2)
     section_preamble('View Registrations')
     for x in cls_list:
-        code.append(tail_ent.format(x,x))
+        code.append(tail_ent.format(x, x))
     
     section_preamble('Join Table Registrations')
     for x in join_tables:
-        code.append(jointbl_ent.format(x,x))
+        code.append(jointbl_ent.format(x, x))
     
     section_preamble('Register Join Table MultiViews Registrations')
     for x in join_tables:
         vws = x.split('_')
         vws.pop(0)
-        code.append(jointbl_mv_ent.format(x, str(vws).title() ))
+        code.append(jointbl_mv_ent.format(x, str(vws).title()))
     
     section_preamble('Chart View Registrations')
     for x in cls_list:
-        code.append(chart_ent.format(x,x))
+        code.append(chart_ent.format(x, x))
     
     space(2)
     code.append('appbuilder.security_cleanup()')
+
+
+
+    ############## END NOTES AND COMMENTS ##############
     section_preamble('Programming Notes and things of interest')
     code.append(end_notes)
     
@@ -357,30 +504,26 @@ def gen_code(modl):
     for x in join_tables:
         vws = x.split('_')
         vws.pop(0)
-        code.append('\n# ' + x +' -'+ str([y.title() for y in vws]))
-
+        code.append('\n# ' + x + ' -' + str([y.title() for y in vws]))
+    
     section_preamble('List of tables')
     for x in cls_list:
         code.append('\n# ' + x)
-        
-
     
-
     return code
-    
 
 
-def fixup_model():
-    # Add Imports: continuum etc
-    # Replace Base with Model
-    # Add Mixins
-    # Rename snake_case fields
-    # Manage Show fields
-    pass
+
+
+def code_write(cd, filename):
+    thefile = open(filename, 'w')
+    for item in cd:
+        thefile.write("%s\n" % item)
+    thefile.close()
 
 
 def gen_sec_models():
-    thefile = open('sec_models.py','w')
+    thefile = open('sec_models.py', 'w')
     thefile.write(sec_model)
     thefile.close()
     
@@ -391,26 +534,22 @@ def gen_sec_models():
     thefile = open('sec.py', 'w')
     thefile.write(sec_py)
     thefile.close()
-
+    
     thefile = open('init__.py', 'w')
     thefile.write(init_py)
     thefile.close()
-    
-    
+
 
 if __name__ == '__main__':
-    #modl = sys.argv[1]
+    # modl = sys.argv[1]
     print(sys.argv[1])
-    modl = importlib.import_module(sys.argv[1])
-    code = gen_code(modl)
     
-    thefile = open('views.py', 'w')
-    for item in code:
-        thefile.write("%s\n" % item)
-    thefile.close()
+    
+    code = gen_code(sys.argv[1])
+    
+    code_write(code, 'views.py')
     gen_sec_models()
-    
-    
+
 # import importlib, codeg
 # modl = importlib.import_module('mod1')
 # code =  codeg.gen_code(modl)

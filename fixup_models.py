@@ -55,6 +55,7 @@ from sqlalchemy.sql import func
 
 # UTILITY CLASSES
 import arrow, enum, datetime
+
 from mixins import *
 
 # Here is how to extend the User model
@@ -83,7 +84,7 @@ photo_hdrx="""
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
     
-    mindate = datetime.date(datetime.MINYEAR, 1, 1)
+    # mindate = datetime.date(datetime.MINYEAR, 1, 1)
 
     def ViewName(self):
         return self.__class__.__name__ +'View'
@@ -143,10 +144,10 @@ photo_hdrx="""
         return get_file_original_name(str(self.file))
         
     def month_year(self):
-        return datetime.datetime(self.created_on.year, self.created_on.month, 1) or self.mindate
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) or date(1,1,1)
     
     def year(self):
-        date = self.created_on or self.mindate
+        date = self.created_on or date(1,1,1)
         return datetime.datetime(date.year, 1, 1)
 
 """
