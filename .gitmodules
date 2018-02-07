@@ -1,3 +1,0 @@
-[submodule "add/mongo_fdw"]
-	path = add/mongo_fdw
-	url = https://github.com/craftdata/mongo_fdw.git
