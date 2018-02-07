@@ -109,3 +109,5 @@ app.db
 env
 venv
 *.sublime*
+# Development Mongodb Data Store
+./bindata/*
