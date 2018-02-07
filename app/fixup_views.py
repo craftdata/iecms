@@ -113,7 +113,7 @@ view_body = """
     # search_columns = person_exclude_columns + biometric_columns + person_search_exclude_columns
     
     # search_form_query_rel_fields = [('group':[['name',FilterStartsWith,'W']]
-    search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail','doc', 'doc_binary'] #+ person_exclude_columns + biometric_columns + person_search_exclude_columns
+    search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail','doc', 'doc_binary'] + person_exclude_columns + biometric_columns + person_search_exclude_columns
     # search_form_query_rel_fields = [(group:[[name,FilterStartsWith,W]]
     add_exclude_columns = edit_exclude_columns = audit_exclude_columns
     # label_columns = {{"contact_group":"Contacts Group"}}
@@ -182,20 +182,20 @@ chart_body = """
             "group": "age_today",
             'formatter': pretty_month_year,
             "series": [ (aggregate_count,"age_today"),
-                        (aggregate_avg, 'population'),
-                        (aggregate_avg, 'college')
+                        # (aggregate_avg, 'population'),
+                        # (aggregate_avg, 'college')
                        ]
         }},
         {{
             'group': 'month_year',
             'formatter': pretty_month_year,
             'series': [(aggregate_sum, 'unemployed'),
-                       (aggregate_avg, 'population'),
-                       (aggregate_avg, 'college')
+                       # (aggregate_avg, 'population'),
+                       # (aggregate_avg, 'college')
             ]
         }}
     ]
-    
+    search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail','doc', 'doc_binary'] + person_exclude_columns + biometric_columns + person_search_exclude_columns
 """  # .format(x)
 
 sec_py = """
@@ -409,7 +409,7 @@ def gen_code(model_filename):
         class_ = getattr(modl, str(x))
         s = str([attrname for attrname in dir(class_) if
                  not callable(getattr(class_, attrname)) and not attrname.startswith(
-                     '_') and (attrname not in ['id', 'file', 'metadata','photo_img','photo_img_thumbnail'])])
+                     '_') and (attrname not in ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail'])])
         for ed in ['add', 'edit', 'list']:
             code.append(f_column.format(x, ed, s))
         for ed in ['add', 'edit', 'show']:
@@ -424,7 +424,7 @@ def gen_code(model_filename):
         s = str([attrname for attrname in dir(class_) if
                  not callable(getattr(class_, attrname))
                  and not attrname.startswith('_')
-                 and  (attrname not in ['pgm', 'wsq', 'xyt', 'photo', 'file'])
+                 and  (attrname not in ['pgm', 'wsq', 'xyt', 'photo', 'file', 'metadata'])
                  ]
                 )
         for ed in ['add', 'edit', 'list']:
@@ -498,9 +498,15 @@ def gen_code(model_filename):
                 x.endswith('role') or \
                 x.endswith('list') or \
                 x.endswith('team') or \
+                x.endswith('Ward') or \
+                x.endswith('Subcounty') or \
+                x.endswith('County') or \
+                x.endswith('Town') or \
                 x.endswith('officer'):
-            s.replace('category="Setup"', 'category="Admin"')
-        code.append(s)
+            t= s.replace('category="Setup"', 'category="Admin"')
+        else:
+            t = s
+        code.append(t)
     
     # section_preamble('Join Table Registrations')
     # for x in join_tables:
