@@ -128,7 +128,14 @@ class Accounttype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -233,7 +240,14 @@ class Bill(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -322,7 +336,14 @@ class Billdetail(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -410,7 +431,14 @@ class Biodata(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -494,7 +522,14 @@ class Casecategory(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -596,7 +631,14 @@ class Casechecklist(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -675,7 +717,14 @@ class Caselinktype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -754,7 +803,14 @@ class Celltype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -877,7 +933,14 @@ class Commital(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -957,7 +1020,14 @@ class Commitaltype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1070,7 +1140,14 @@ class Complaint(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1172,7 +1249,14 @@ class Complaintcategory(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1251,7 +1335,14 @@ class Complaintrole(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1331,7 +1422,14 @@ class Country(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1413,7 +1511,14 @@ class County(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1501,7 +1606,14 @@ class Court(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1598,7 +1710,14 @@ class Courtaccount(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1719,7 +1838,14 @@ class Courtcase(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1818,7 +1944,14 @@ class Courtrank(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1899,7 +2032,14 @@ class Courtstation(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1984,7 +2124,14 @@ class Crime(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2065,7 +2212,14 @@ class CsiEquipment(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2160,7 +2314,14 @@ class Diagram(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2244,7 +2405,14 @@ class Discipline(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2332,7 +2500,14 @@ class Doctemplate(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2452,7 +2627,14 @@ class Document(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2541,7 +2723,14 @@ class Documenttype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2622,7 +2811,14 @@ class Economicclass(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2708,7 +2904,14 @@ class Exhibit(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2792,7 +2995,14 @@ class Expert(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2895,7 +3105,14 @@ class Experttestimony(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2977,7 +3194,14 @@ class Experttype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3059,7 +3283,14 @@ class Feeclass(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3150,7 +3381,14 @@ class Feetype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3239,7 +3477,14 @@ class Healthevent(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3318,7 +3563,14 @@ class Healtheventtype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3422,7 +3674,14 @@ class Hearing(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3544,7 +3803,14 @@ class Hearingtype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3635,7 +3901,14 @@ class Instancecrime(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3731,7 +4004,14 @@ class Interview(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3840,7 +4120,14 @@ class Investigationdiary(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3983,7 +4270,14 @@ class Issue(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4119,7 +4413,14 @@ class Judicialofficer(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4198,7 +4499,14 @@ class Judicialrank(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4277,7 +4585,14 @@ class Judicialrole(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4358,7 +4673,14 @@ class Law(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4437,7 +4759,14 @@ class Lawfirm(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4522,7 +4851,14 @@ class Lawyer(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4619,7 +4955,14 @@ class Legalreference(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4702,7 +5045,14 @@ class Nextofkin(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4794,7 +5144,14 @@ class Notification(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4895,7 +5252,14 @@ class Notificationregister(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4976,7 +5340,14 @@ class Notificationtype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5055,7 +5426,14 @@ class Notifyevent(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5146,7 +5524,14 @@ class Page(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5245,7 +5630,14 @@ class Party(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5334,7 +5726,14 @@ class Partytype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5422,7 +5821,14 @@ class Payment(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5506,7 +5912,14 @@ class Personaleffect(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5585,7 +5998,14 @@ class Personaleffectscategory(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5669,7 +6089,14 @@ class Policeofficer(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5761,7 +6188,14 @@ class Policeofficerrank(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5847,7 +6281,14 @@ class Policestation(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5926,7 +6367,14 @@ class Policestationrank(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6008,7 +6456,14 @@ class Prison(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6092,7 +6547,14 @@ class Prisonofficer(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6171,7 +6633,14 @@ class Prisonofficerrank(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6255,7 +6724,14 @@ class Prosecutor(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6334,7 +6810,14 @@ class Prosecutorteam(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6413,7 +6896,14 @@ class Releasetype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6492,7 +6982,14 @@ class Religion(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6571,7 +7068,14 @@ class Schedulestatustype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6681,7 +7185,14 @@ class Seizure(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6769,7 +7280,14 @@ class Settlement(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6851,7 +7369,14 @@ class Subcounty(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6933,7 +7458,14 @@ class Templatetype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7014,7 +7546,14 @@ class Town(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7116,7 +7655,14 @@ class Transcript(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7201,7 +7747,14 @@ class Vehicle(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7283,7 +7836,14 @@ class Ward(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7362,6 +7922,13 @@ class Warranttype(Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS

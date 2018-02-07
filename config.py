@@ -1,3 +1,8 @@
+#!/usr/bin/env python
+# -*- coding: utf-8 -*-
+# vim:set st=4 ts=4 sts=4 sw=4 et sta
+# Copyright (c)  2017 - 2018 DataCraft Ltd, Nyimbi Odero. All Rights Reserved
+
 import os
 from flask_appbuilder.security.manager import AUTH_OID, AUTH_REMOTE_USER, AUTH_DB, AUTH_LDAP, AUTH_OAUTH
 basedir = os.path.abspath(os.path.dirname(__file__))
@@ -17,7 +22,7 @@ CSRF_ENABLED = True
 # GLOBALS FOR APP Builder
 #------------------------------
 # Uncomment to setup Your App name
-#APP_NAME = "IECMS - Kenya"
+APP_NAME = "IECMS - Kenya"
 
 # Uncomment to setup Setup an App icon
 #APP_ICON = "static/img/logo.jpg"
@@ -62,14 +67,15 @@ BABEL_DEFAULT_LOCALE = 'en'
 BABEL_DEFAULT_FOLDER = 'translations'
 # The allowed translation for you app
 LANGUAGES = {
-    'en': {'flag':'gb', 'name':'English'},
-    'pt': {'flag':'pt', 'name':'Portuguese'},
-    'pt_BR': {'flag':'br', 'name': 'Pt Brazil'},
-    'es': {'flag':'es', 'name':'Spanish'},
-    'de': {'flag':'de', 'name':'German'},
-    'zh': {'flag':'cn', 'name':'Chinese'},
-    'ru': {'flag':'ru', 'name':'Russian'},
-    'pl': {'flag':'pl', 'name':'Polish'}
+    'en': {'flag':'ke', 'name':'English'},
+    'sw': {'flag':'ke', 'name':'Kiswahili'},
+    'luo': {'flag':'ke', 'name':'Luo'},
+    'kik': {'flag':'ke', 'name':'Kikuyu'},
+    'kam': {'flag':'ke', 'name':'Kamba'},
+    'luy': {'flag':'ke', 'name':'Luhya'},
+    'teo': {'flag':'ke', 'name':'Ateso'},
+    'mer': {'flag':'ke', 'name':'Meru'},
+
 }
 #---------------------------------------------------
 # Image and file configuration
@@ -102,3 +108,15 @@ APP_THEME = "cerulean.css"
 #APP_THEME = "united.css"
 #APP_THEME = "yeti.css"
 
+# Customized Settings
+RECAPTCHA_PUBLIC_KEY='6LcTcRgUAAAAAGQNc6P-IAICSM9O6Ti4NWmHL5x_'
+RECAPTCHA_PRIVATE_KEY = '6LcTcRgUAAAAADrZLG8K2NV5qgE46hufXFpXC3bO'
+
+# Config for Flask-Mail necessary for user registration
+MAIL_PORT=587
+MAIL_USE_SSL=False
+MAIL_SERVER = 'smtp.gmail.com'
+MAIL_USE_TLS = True
+MAIL_USERNAME = 'elimu.bora.emis@gmail.com'
+MAIL_PASSWORD = 'Abcd1234.'
+MAIL_DEFAULT_SENDER = 'elimu.bora.emis@gmail.com'

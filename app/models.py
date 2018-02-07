@@ -128,7 +128,14 @@ class Accounttype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -233,7 +240,14 @@ class Bill( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -322,7 +336,14 @@ class Billdetail( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -410,7 +431,14 @@ class Biodata( PersonDocMixin, PersonMedicalMixin, BiometricMixin, ParentageMixi
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -494,13 +522,20 @@ class Casecategory( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_CasecategoryCourtcase(Model):
+class T_Casecategory_Courtcase(Model):
 	 __table__ =   Table(
     'casecategory_courtcase', Model.metadata,
      Column('casecategory',  ForeignKey('casecategory.id'), primary_key=True, nullable=True),
@@ -598,7 +633,14 @@ class Casechecklist( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -677,7 +719,14 @@ class Caselinktype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -756,7 +805,14 @@ class Celltype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -778,7 +834,7 @@ class Commital( ActivityMixin,  AuditMixin, Model):
     warrant_issue_date =  Column( Date)
     warrant_issued_by =  Column( Text, nullable=True)
     warrant_date_attached =  Column( DateTime)
-    duration =  Column( INTERVAL(fields='day to second'))
+    duration =  Column( Interval)
     commital =  Column( ForeignKey('commital.id'), index=True)
     commital_type =  Column( ForeignKey('commitaltype.id'), nullable=True, index=True)
     court_case =  Column( ForeignKey('courtcase.id'), index=True)
@@ -879,7 +935,14 @@ class Commital( ActivityMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -890,7 +953,7 @@ class Commitaltype( RefTypeMixin,  AuditMixin, Model):
     __tablename__ = 'commitaltype'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    maxduration =  Column( INTERVAL(fields='day to second'))
+    maxduration =  Column( Interval)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -959,7 +1022,14 @@ class Commitaltype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1072,13 +1142,20 @@ class Complaint( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_ComplaintComplaintcategory(Model):
+class T_Complaint_Complaintcategory(Model):
 	 __table__ =   Table(
     'complaint_complaintcategory', Model.metadata,
      Column('complaint',  ForeignKey('complaint.id'), primary_key=True, nullable=True),
@@ -1089,7 +1166,7 @@ class T_ComplaintComplaintcategory(Model):
 
 
 #STARTCLASS
-class T_ComplaintCourtcase(Model):
+class T_Complaint_Courtcase(Model):
 	 __table__ =   Table(
     'complaint_courtcase', Model.metadata,
      Column('complaint',  ForeignKey('complaint.id'), primary_key=True, nullable=True),
@@ -1176,7 +1253,14 @@ class Complaintcategory( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1255,7 +1339,14 @@ class Complaintrole( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1335,7 +1426,14 @@ class Country( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1417,7 +1515,14 @@ class County( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1505,13 +1610,20 @@ class Court( PlaceMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_CourtJudicialofficer(Model):
+class T_Court_Judicialofficer(Model):
 	 __table__ =   Table(
     'court_judicialofficer', Model.metadata,
      Column('court',  ForeignKey('court.id'), primary_key=True, nullable=True),
@@ -1603,7 +1715,14 @@ class Courtaccount( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1724,13 +1843,20 @@ class Courtcase( ActivityMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_CourtcaseJudicialofficer(Model):
+class T_Courtcase_Judicialofficer(Model):
 	 __table__ =   Table(
     'courtcase_judicialofficer', Model.metadata,
      Column('courtcase',  ForeignKey('courtcase.id'), primary_key=True, nullable=True),
@@ -1741,7 +1867,7 @@ class T_CourtcaseJudicialofficer(Model):
 
 
 #STARTCLASS
-class T_CourtcaseLawfirm(Model):
+class T_Courtcase_Lawfirm(Model):
 	 __table__ =   Table(
     'courtcase_lawfirm', Model.metadata,
      Column('courtcase',  ForeignKey('courtcase.id'), primary_key=True, nullable=True),
@@ -1825,7 +1951,14 @@ class Courtrank( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1906,7 +2039,14 @@ class Courtstation( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -1991,7 +2131,14 @@ class Crime( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2072,13 +2219,20 @@ class CsiEquipment( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_CsiEquipmentInvestigationdiary(Model):
+class T_Csi_Equipment_Investigationdiary(Model):
 	 __table__ =   Table(
     'csi_equipment_investigationdiary', Model.metadata,
      Column('csi_equipment',  ForeignKey('csi_equipment.id'), primary_key=True, nullable=True),
@@ -2168,7 +2322,14 @@ class Diagram( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2252,7 +2413,14 @@ class Discipline( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2340,7 +2508,14 @@ class Doctemplate( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2460,13 +2635,20 @@ class Document( DocMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_DocumentDocumenttype(Model):
+class T_Document_Documenttype(Model):
 	 __table__ =   Table(
     'document_documenttype', Model.metadata,
      Column('document',  ForeignKey('document.id'), primary_key=True, nullable=True),
@@ -2550,7 +2732,14 @@ class Documenttype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2631,7 +2820,14 @@ class Economicclass( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2717,7 +2913,14 @@ class Exhibit( DocMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2801,13 +3004,20 @@ class Expert( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_ExpertExperttype(Model):
+class T_Expert_Experttype(Model):
 	 __table__ =   Table(
     'expert_experttype', Model.metadata,
      Column('expert',  ForeignKey('expert.id'), primary_key=True, nullable=True),
@@ -2905,7 +3115,14 @@ class Experttestimony( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -2987,7 +3204,14 @@ class Experttype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3069,7 +3293,14 @@ class Feeclass( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3160,7 +3391,14 @@ class Feetype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3249,7 +3487,14 @@ class Healthevent( ActivityMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3328,7 +3573,14 @@ class Healtheventtype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3432,13 +3684,20 @@ class Hearing( ActivityMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_HearingIssue(Model):
+class T_Hearing_Issue(Model):
 	 __table__ =   Table(
     'hearing_issue', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=True),
@@ -3449,7 +3708,7 @@ class T_HearingIssue(Model):
 
 
 #STARTCLASS
-class T_HearingJudicialofficer(Model):
+class T_Hearing_Judicialofficer(Model):
 	 __table__ =   Table(
     'hearing_judicialofficer', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=True),
@@ -3460,7 +3719,7 @@ class T_HearingJudicialofficer(Model):
 
 
 #STARTCLASS
-class T_HearingLawfirm(Model):
+class T_Hearing_Lawfirm(Model):
 	 __table__ =   Table(
     'hearing_lawfirm', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=True),
@@ -3471,7 +3730,7 @@ class T_HearingLawfirm(Model):
 
 
 #STARTCLASS
-class T_HearingLawfirm(Model):
+class T_Hearing_Lawfirm_(Model):
 	 __table__ =   Table(
     'hearing_lawfirm_2', Model.metadata,
      Column('hearing',  ForeignKey('hearing.id'), primary_key=True, nullable=True),
@@ -3558,7 +3817,14 @@ class Hearingtype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3649,13 +3915,20 @@ class Instancecrime( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_InstancecrimeIssue(Model):
+class T_Instancecrime_Issue(Model):
 	 __table__ =   Table(
     'instancecrime_issue', Model.metadata,
      Column('instancecrime',  ForeignKey('instancecrime.id'), primary_key=True, nullable=True),
@@ -3746,7 +4019,14 @@ class Interview( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -3855,13 +4135,20 @@ class Investigationdiary( ActivityMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_InvestigationdiaryParty(Model):
+class T_Investigationdiary_Party(Model):
 	 __table__ =   Table(
     'investigationdiary_party', Model.metadata,
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=True),
@@ -3872,7 +4159,7 @@ class T_InvestigationdiaryParty(Model):
 
 
 #STARTCLASS
-class T_InvestigationdiaryPoliceofficer(Model):
+class T_Investigationdiary_Policeofficer(Model):
 	 __table__ =   Table(
     'investigationdiary_policeofficer', Model.metadata,
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=True),
@@ -3883,7 +4170,7 @@ class T_InvestigationdiaryPoliceofficer(Model):
 
 
 #STARTCLASS
-class T_InvestigationdiaryVehicle(Model):
+class T_Investigationdiary_Vehicle(Model):
 	 __table__ =   Table(
     'investigationdiary_vehicle', Model.metadata,
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=True),
@@ -4001,13 +4288,20 @@ class Issue( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_IssueLawyer(Model):
+class T_Issue_Lawyer(Model):
 	 __table__ =   Table(
     'issue_lawyer', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=True),
@@ -4018,7 +4312,7 @@ class T_IssueLawyer(Model):
 
 
 #STARTCLASS
-class T_IssueLegalreference(Model):
+class T_Issue_Legalreference(Model):
 	 __table__ =   Table(
     'issue_legalreference', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=True),
@@ -4029,7 +4323,7 @@ class T_IssueLegalreference(Model):
 
 
 #STARTCLASS
-class T_IssueLegalreference(Model):
+class T_Issue_Legalreference_(Model):
 	 __table__ =   Table(
     'issue_legalreference_2', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=True),
@@ -4040,7 +4334,7 @@ class T_IssueLegalreference(Model):
 
 
 #STARTCLASS
-class T_IssueParty(Model):
+class T_Issue_Party(Model):
 	 __table__ =   Table(
     'issue_party', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=True),
@@ -4051,7 +4345,7 @@ class T_IssueParty(Model):
 
 
 #STARTCLASS
-class T_IssueParty(Model):
+class T_Issue_Party_(Model):
 	 __table__ =   Table(
     'issue_party_2', Model.metadata,
      Column('issue',  ForeignKey('issue.id'), primary_key=True, nullable=True),
@@ -4142,7 +4436,14 @@ class Judicialofficer( PersonMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4221,7 +4522,14 @@ class Judicialrank( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4300,7 +4608,14 @@ class Judicialrole( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4381,7 +4696,14 @@ class Law( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4460,7 +4782,14 @@ class Lawfirm( PlaceMixin,  RefTypeMixin, ContactMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4545,13 +4874,20 @@ class Lawyer( PersonMixin, ContactMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_LawyerParty(Model):
+class T_Lawyer_Party(Model):
 	 __table__ =   Table(
     'lawyer_party', Model.metadata,
      Column('lawyer',  ForeignKey('lawyer.id'), primary_key=True, nullable=True),
@@ -4643,7 +4979,14 @@ class Legalreference( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4726,7 +5069,14 @@ class Nextofkin( PersonMixin, PersonDocMixin, ContactMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4818,7 +5168,14 @@ class Notification( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -4919,7 +5276,14 @@ class Notificationregister( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5000,7 +5364,14 @@ class Notificationtype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5079,7 +5450,14 @@ class Notifyevent( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5170,7 +5548,14 @@ class Page( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5269,13 +5654,20 @@ class Party( PersonMixin, ContactMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_PartySettlement(Model):
+class T_Party_Settlement(Model):
 	 __table__ =   Table(
     'party_settlement', Model.metadata,
      Column('party',  ForeignKey('party.id'), primary_key=True, nullable=True),
@@ -5359,7 +5751,14 @@ class Partytype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5447,7 +5846,14 @@ class Payment( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5531,7 +5937,14 @@ class Personaleffect( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5610,7 +6023,14 @@ class Personaleffectscategory( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5694,13 +6114,20 @@ class Policeofficer( PersonMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_PoliceofficerPolicestation(Model):
+class T_Policeofficer_Policestation(Model):
 	 __table__ =   Table(
     'policeofficer_policestation', Model.metadata,
      Column('policeofficer',  ForeignKey('policeofficer.id'), primary_key=True, nullable=True),
@@ -5787,7 +6214,14 @@ class Policeofficerrank( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5873,7 +6307,14 @@ class Policestation( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -5952,7 +6393,14 @@ class Policestationrank( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6034,7 +6482,14 @@ class Prison( PlaceMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6118,7 +6573,14 @@ class Prisonofficer( PersonMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6197,7 +6659,14 @@ class Prisonofficerrank( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6281,7 +6750,14 @@ class Prosecutor( PersonMixin, ContactMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6360,7 +6836,14 @@ class Prosecutorteam( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6439,7 +6922,14 @@ class Releasetype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6518,7 +7008,14 @@ class Religion( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6597,7 +7094,14 @@ class Schedulestatustype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6707,7 +7211,14 @@ class Seizure( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6795,7 +7306,14 @@ class Settlement( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6877,7 +7395,14 @@ class Subcounty( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -6959,7 +7484,14 @@ class Templatetype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7040,13 +7572,20 @@ class Town( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
 
 #STARTCLASS
-class T_TownWard(Model):
+class T_Town_Ward(Model):
 	 __table__ =   Table(
     'town_ward', Model.metadata,
      Column('town',  ForeignKey('town.id'), primary_key=True, nullable=True),
@@ -7143,7 +7682,14 @@ class Transcript( DocMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7228,7 +7774,14 @@ class Vehicle( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7310,7 +7863,14 @@ class Ward( AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS
 
@@ -7389,6 +7949,13 @@ class Warranttype( RefTypeMixin,  AuditMixin, Model):
 
     def year(self):
         date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)#ENDMODEL
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
 
 #ENDCLASS

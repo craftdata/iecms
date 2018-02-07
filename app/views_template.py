@@ -2,7 +2,7 @@ from flask import render_template
 from flask.ext.appbuilder.models.sqla.interface import SQLAInterface
 from flask.ext.appbuilder import ModelView
 from app import appbuilder, db
-
+from .models import *
 """
     Create your Views::
 

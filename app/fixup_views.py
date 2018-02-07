@@ -3,6 +3,9 @@
 # License: MIT
 
 import os, sys, string, inspect, importlib, datetime
+import inflect
+
+infl = inflect.engine()
 
 # execfile('mixins.py')
 exec(open("./mixins.py").read())
@@ -80,6 +83,7 @@ class wtf_{}Form(ModelForm):
         model = {}
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
+        # exclude = ['page_image']
         # only = ['name', 'content']
         # include_primary_keys = True
         # only_indexed_fields = False # only fields that have an index will be included in the form, Useful for searching
@@ -107,7 +111,9 @@ view_body = """
     # base_order = ("name", "asc")
     # base_filters = [[created_by, FilterEqualFunction, get_user]] #[name, FilterStartsWith, a]],
     # search_columns = person_exclude_columns + biometric_columns + person_search_exclude_columns
-    search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail'] #+ person_exclude_columns + biometric_columns + person_search_exclude_columns
+    
+    # search_form_query_rel_fields = [('group':[['name',FilterStartsWith,'W']]
+    search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail','doc', 'doc_binary'] #+ person_exclude_columns + biometric_columns + person_search_exclude_columns
     # search_form_query_rel_fields = [(group:[[name,FilterStartsWith,W]]
     add_exclude_columns = edit_exclude_columns = audit_exclude_columns
     # label_columns = {{"contact_group":"Contacts Group"}}
@@ -118,18 +124,22 @@ view_body = """
     # list_columns = person_list_columns + ref_columns + contact_columns
     list_columns = {}
     # list_widget = ListBlock|ListItem|ListThumbnail|ListWidget (default)
-    # page_size = 10
+    # page_size = 50
     # formatters_columns = {{‘some_date_col’: lambda x: x.isoformat() }}
     # show_fieldsets = person_show_fieldset + contact_fieldset
     # edit_fieldsets = add_fieldsets = \
     #     # ref_fieldset + person_fieldset + contact_fieldset #+  activity_fieldset + place_fieldset + biometric_fieldset + employment_fieldset
+    
     add_fieldsets =  {}
     edit_fieldsets = {}
     show_fieldsets = {}
+    
     #     # ref_fieldset + person_fieldset + contact_fieldset #+  activity_fieldset + place_fieldset + biometric_fieldset + employment_fieldset
+    
     # description_columns = {{"name":"your models name column","address":"the address column"}}
     # base_permissions = ['can_add', 'can_edit', 'can_delete', 'can_list', 'can_show', 'can_download']
     #
+    # extra_args = None
     # show_template = "appbuilder/general/model/show_cascade.html"
     # edit_template = "appbuilder/general/model/edit_cascade.html"
     
@@ -278,13 +288,14 @@ class {}View(CompactCRUDMixin, ModelView):
 """  # .format(x,x)
 
 jointbl_mv_code = """
-class {}MultiView(MultipleView):
-    """
+class {}MultiView(MultipleView):"""
 
 tail_ent = 'appbuilder.add_view({}View(), "{}", icon="fa-folder-open-o", category="Setup")\n'
 chart_ent = 'appbuilder.add_view({}ChartView(), "{} Age Chart", icon="fa-bar-chart", category="Charts")\n'
 jointbl_mv_ent = 'appbuilder.add_view({}MultiView(), "{} Multi View", icon="fa-address-card-o", category="MultiViews")\n'
-jointbl_ent = 'appbuilder.add_view_no_menu({}View(), "{}")\n'
+
+# jointbl_ent = 'appbuilder.add_view_no_menu({}View(), "{}")\n'
+jointbl_ent = 'appbuilder.add_view({}View(), "{} Joint View", icon="fa-address-card-o", category="JointViews")\n'
 
 end_notes = """
 # appbuilder.add_separator("Setup")
@@ -296,7 +307,7 @@ end_notes = """
 f_set = """
 {}_{}_field_set = [
     ('Data', {{'fields': {}, 'expanded': True}}),
-    ('Other', {{'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False}})
+    # ('Other', {{'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False}})
 ]
 """
 f_column = """
@@ -351,12 +362,13 @@ def get_class_names():
 def get_join_tables():
     mdl = []
     jt = []
-    with open(sys.argv[1]+'.py', 'r') as f:
-        mdl = f.read().splitlines()
-    for i in range(len(mdl)):
-        if mdl[i].startswith('T_'):
-            (s,_,_) = mdl[i].partition(' = ')
-            jt.append(s.strip())
+    with open('join_tables.txt', 'r') as f:
+        jt = f.read().splitlines()
+    # for i in range(len(mdl)):
+    #     if mdl[i].startswith('class T_'):
+    #         (s,_,_) = mdl[i].partition('(')
+    #         t = s.split(' ') # Left contains class, right contains name
+    #         jt.append(t[1].strip())
     return jt
 
 
@@ -397,7 +409,7 @@ def gen_code(model_filename):
         class_ = getattr(modl, str(x))
         s = str([attrname for attrname in dir(class_) if
                  not callable(getattr(class_, attrname)) and not attrname.startswith(
-                     '_') and not attrname == 'id' and not attrname == 'file'])
+                     '_') and (attrname not in ['id', 'file', 'metadata','photo_img','photo_img_thumbnail'])])
         for ed in ['add', 'edit', 'list']:
             code.append(f_column.format(x, ed, s))
         for ed in ['add', 'edit', 'show']:
@@ -448,10 +460,12 @@ def gen_code(model_filename):
     section_preamble('Join MultipleViews')
     for x in join_tables:
         code.append('\n# MultiView for:' + x)
-        code.append(jointbl_mv_code.format(x) + '\n')
+        code.append(jointbl_mv_code.format(x))
         vws = x.split('_')
         vws.pop(0)
-        code.append('\tviews = ' + str([y.title() + 'View' for y in vws]) + '\n')
+        s = [y.title() + 'View, ' for y in vws if len(y) > 1]
+        t = ''.join(s)
+        code.append('\tviews = [' + t + ']\n')
         space(2)
     
     
@@ -477,9 +491,9 @@ def gen_code(model_filename):
     for x in cls_list:
         code.append(tail_ent.format(x, x))
     
-    section_preamble('Join Table Registrations')
-    for x in join_tables:
-        code.append(jointbl_ent.format(x, x))
+    # section_preamble('Join Table Registrations')
+    # for x in join_tables:
+    #     code.append(jointbl_ent.format(x,x))
     
     section_preamble('Register Join Table MultiViews Registrations')
     for x in join_tables:
@@ -542,7 +556,7 @@ def gen_sec_models():
 
 if __name__ == '__main__':
     # modl = sys.argv[1]
-    print(sys.argv[1])
+    print(sys.argv[1] + ':Building models for this')
     
     
     code = gen_code(sys.argv[1])

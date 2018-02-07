@@ -545,9 +545,9 @@ class BiometricMixin(object):
     
     # Biometrics
     fp_lthumb = Column(ImageColumn(thumbnail_size=(30, 60, True), size=(300, 600, True)))
-    pgm = Column(BYTEA)
-    wsq = Column(BYTEA)
-    xyt = Column(BYTEA)
+    # pgm = Column(BYTEA)
+    # wsq = Column(BYTEA)
+    # xyt = Column(BYTEA)
     fp_left2 = Column(ImageColumn(thumbnail_size=(30, 60, True), size=(300, 600, True)))
     fp_left3 = Column(ImageColumn(thumbnail_size=(30, 60, True), size=(300, 600, True)))
     fp_left4 = Column(ImageColumn(thumbnail_size=(30, 60, True), size=(300, 600, True)))
@@ -599,7 +599,7 @@ class EmploymentMixin(object):
     employer = Column(String(60))
     employer_contact = Column(Text)
     employ_date = Column(Date)
-    employ_duration = Column(Integer)
+    employ_duration = Column(Interval)
     termination_date = Column(Date)
     employ_role = Column(String(50))
     supervisor = Column(String(50))

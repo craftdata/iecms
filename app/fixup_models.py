@@ -7,6 +7,7 @@ imp_add = 0
 code = []
 imports = []
 class_names = []
+jt = []
 
 
 # Write code to filename
@@ -17,14 +18,14 @@ def code_write(list_name, filename):
     thefile.close()
     
 def camelCase(st):
-    output = ''.join(x for x in st.title() if x.isalpha())
+    output = ''.join(x for x in st.title() if x.isalpha() or x == '_')
     #return output[0].lower() + output[1:]
-    return output[0].upper() +'_'+ output[1:]
+    return output[0].upper() + output[1:]
     
 def init_fixup(filename):
 
-    global imp_add, imports, class_names, code
-
+    global imp_add, imports, class_names, code, jt
+    join_tables = []
     
     
     with open(filename, 'r') as f:
@@ -32,8 +33,8 @@ def init_fixup(filename):
         for i in range(len(code)):
             # General Fixups
             code[i] = code[i].replace("nullable=False", "nullable=True",1)
-            # code[i] = code[i].replace("secondary='","secondary='t_",1)
-            # code[i] = code[i].replace("(Base)","(Model)",1)
+            code[i] = code[i].replace("INTERVAL(fields='day to second')","Interval",1)
+            code[i] = code[i].replace("BLOB","LargeBinary",1)
             
             if code[i].startswith('import') or code[i].startswith('from '):
                 imports.append(i)
@@ -44,19 +45,31 @@ def init_fixup(filename):
                 b = a.split()
                 class_names.append(b[1])
                 #code.insert(i+2, photo_hdr)
-             
+            
+            ## Join Tables
             if code[i].startswith('t_'):
                 # http://docs.sqlalchemy.org/en/latest/orm/extensions/declarative/table_config.html
                 # Using a hybrid approach
                 #class MyClass(Base):
                 #   __table__ = Table(
                 cd = code[i]
+                
+                # t_some_thing = Table(
                 (l,c,r) = cd.partition('=')
                 s ='class '+ camelCase(l)+'(Model):\n\t __table__ = ' + r
+                # In case the name is repeated
+                if s not in join_tables:
+                    join_tables.append(s)
+                    jt.append(camelCase(l))
+                else:
+                    s = 'class ' + camelCase(l) + '_2(Model):\n\t __table__ = ' + r
+                    join_tables.append(s)
+                    t = camelCase(l)
+                    t += '_2'
+                    jt.append(t)
                 code[i] = s
                 #pass
             
-        imp_add = max(imports) + 1
         class_count = len(class_names)
         # Debug stuff
         print(class_count)
@@ -128,6 +141,7 @@ if __name__ == '__main__':
     
     print("fixup_models:   ...Finished Init Fixup ...")
     code_write(class_names, 'class_names.txt')
+    code_write(jt, 'join_tables.txt')
     
     # Add AuditMixin Across the board
     for x in class_names:
