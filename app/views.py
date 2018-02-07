@@ -1,6 +1,6 @@
 # coding: utf-8
 # Copyright (C) Nyimbi Odero, 2017-2018
-# Generated on 2018-02-07 03:09:35
+# Generated on 2018-02-07 09:38:19
 
 
 import calendar
@@ -8672,7 +8672,7 @@ class T_Town_WardView(CompactCRUDMixin, ModelView):
 # MultiView for:T_Casecategory_Courtcase
 
 class T_Casecategory_CourtcaseMultiView(MultipleView):
-    views = [CasecategoryView,CourtcaseView]
+	views = [CasecategoryView, CourtcaseView, ]
 
 
 
@@ -8681,7 +8681,7 @@ class T_Casecategory_CourtcaseMultiView(MultipleView):
 # MultiView for:T_Casecategorychecklist
 
 class T_CasecategorychecklistMultiView(MultipleView):
-	views = [CasecategoryView, CasechecklistView,]
+	views = [CasecategoryView, CasechecklistView, ]
 
 
 
@@ -8690,7 +8690,7 @@ class T_CasecategorychecklistMultiView(MultipleView):
 # MultiView for:T_Complaint_Complaintcategory
 
 class T_Complaint_ComplaintcategoryMultiView(MultipleView):
-	views = [ComplaintView,ComplaintcategoryView,]
+	views = [ComplaintView, ComplaintcategoryView, ]
 
 
 
@@ -8699,7 +8699,7 @@ class T_Complaint_ComplaintcategoryMultiView(MultipleView):
 # MultiView for:T_Complaint_Courtcase
 
 class T_Complaint_CourtcaseMultiView(MultipleView):
-	views = [ComplaintView,CourtcaseView,]
+	views = [ComplaintView, CourtcaseView, ]
 
 
 
@@ -8708,7 +8708,7 @@ class T_Complaint_CourtcaseMultiView(MultipleView):
 # MultiView for:T_Court_Judicialofficer
 
 class T_Court_JudicialofficerMultiView(MultipleView):
-	views = [CourtView,JudicialofficerView,]
+	views = [CourtView, JudicialofficerView, ]
 
 
 
@@ -8717,7 +8717,7 @@ class T_Court_JudicialofficerMultiView(MultipleView):
 # MultiView for:T_Courtcase_Judicialofficer
 
 class T_Courtcase_JudicialofficerMultiView(MultipleView):
-	views = [CourtcaseView,JudicialofficerView,]
+	views = [CourtcaseView, JudicialofficerView, ]
 
 
 
@@ -8726,7 +8726,7 @@ class T_Courtcase_JudicialofficerMultiView(MultipleView):
 # MultiView for:T_Courtcase_Lawfirm
 
 class T_Courtcase_LawfirmMultiView(MultipleView):
-	views = [CourtcaseView,LawfirmView,]
+	views = [CourtcaseView, LawfirmView, ]
 
 
 
@@ -8735,7 +8735,7 @@ class T_Courtcase_LawfirmMultiView(MultipleView):
 # MultiView for:T_Csi_Equipment_Investigationdiary
 
 class T_Csi_Equipment_InvestigationdiaryMultiView(MultipleView):
-	views = [CsiEquipmentView,InvestigationdiaryView,]
+	views = [CsiEquipmentView, InvestigationdiaryView, ]
 
 
 
@@ -8744,7 +8744,7 @@ class T_Csi_Equipment_InvestigationdiaryMultiView(MultipleView):
 # MultiView for:T_Document_Documenttype
 
 class T_Document_DocumenttypeMultiView(MultipleView):
-	views = [DocumentView,DocumenttypeView,]
+	views = [DocumentView, DocumenttypeView, ]
 
 
 
@@ -8753,7 +8753,7 @@ class T_Document_DocumenttypeMultiView(MultipleView):
 # MultiView for:T_Expert_Experttype
 
 class T_Expert_ExperttypeMultiView(MultipleView):
-	views = [ExpertView,ExperttypeView,]
+	views = [ExpertView, ExperttypeView, ]
 
 
 
@@ -8762,7 +8762,7 @@ class T_Expert_ExperttypeMultiView(MultipleView):
 # MultiView for:T_Hearing_Issue
 
 class T_Hearing_IssueMultiView(MultipleView):
-	views = [HearingView,IssueView,]
+	views = [HearingView, IssueView, ]
 
 
 
@@ -8771,7 +8771,7 @@ class T_Hearing_IssueMultiView(MultipleView):
 # MultiView for:T_Hearing_Judicialofficer
 
 class T_Hearing_JudicialofficerMultiView(MultipleView):
-	views = [HearingView,JudicialofficerView,]
+	views = [HearingView, JudicialofficerView, ]
 
 
 
@@ -8780,7 +8780,7 @@ class T_Hearing_JudicialofficerMultiView(MultipleView):
 # MultiView for:T_Hearing_Lawfirm
 
 class T_Hearing_LawfirmMultiView(MultipleView):
-	views = [HearingView,LawfirmView,]
+	views = [HearingView, LawfirmView, ]
 
 
 
@@ -8789,7 +8789,7 @@ class T_Hearing_LawfirmMultiView(MultipleView):
 # MultiView for:T_Hearing_Lawfirm_
 
 class T_Hearing_Lawfirm_MultiView(MultipleView):
-	views = [HearingView,LawfirmView,]
+	views = [HearingView, LawfirmView, ]
 
 
 
@@ -8798,7 +8798,7 @@ class T_Hearing_Lawfirm_MultiView(MultipleView):
 # MultiView for:T_Instancecrime_Issue
 
 class T_Instancecrime_IssueMultiView(MultipleView):
-	views = [InstancecrimeView,IssueView,]
+	views = [InstancecrimeView, IssueView, ]
 
 
 
@@ -8807,7 +8807,7 @@ class T_Instancecrime_IssueMultiView(MultipleView):
 # MultiView for:T_Investigationdiary_Party
 
 class T_Investigationdiary_PartyMultiView(MultipleView):
-	views = [InvestigationdiaryView,PartyView,]
+	views = [InvestigationdiaryView, PartyView, ]
 
 
 
@@ -8816,7 +8816,7 @@ class T_Investigationdiary_PartyMultiView(MultipleView):
 # MultiView for:T_Investigationdiary_Policeofficer
 
 class T_Investigationdiary_PoliceofficerMultiView(MultipleView):
-	views = [InvestigationdiaryView,PoliceofficerView,]
+	views = [InvestigationdiaryView, PoliceofficerView, ]
 
 
 
@@ -8825,7 +8825,7 @@ class T_Investigationdiary_PoliceofficerMultiView(MultipleView):
 # MultiView for:T_Investigationdiary_Vehicle
 
 class T_Investigationdiary_VehicleMultiView(MultipleView):
-	views = [InvestigationdiaryView,VehicleView,]
+	views = [InvestigationdiaryView, VehicleView, ]
 
 
 
@@ -8834,7 +8834,7 @@ class T_Investigationdiary_VehicleMultiView(MultipleView):
 # MultiView for:T_Issue_Lawyer
 
 class T_Issue_LawyerMultiView(MultipleView):
-	views = [IssueView,LawyerView,]
+	views = [IssueView, LawyerView, ]
 
 
 
@@ -8843,7 +8843,7 @@ class T_Issue_LawyerMultiView(MultipleView):
 # MultiView for:T_Issue_Legalreference
 
 class T_Issue_LegalreferenceMultiView(MultipleView):
-	views = [IssueView,LegalreferenceView,]
+	views = [IssueView, LegalreferenceView, ]
 
 
 
@@ -8852,7 +8852,7 @@ class T_Issue_LegalreferenceMultiView(MultipleView):
 # MultiView for:T_Issue_Legalreference_
 
 class T_Issue_Legalreference_MultiView(MultipleView):
-	views = [IssueView,LegalreferenceView,]
+	views = [IssueView, LegalreferenceView, ]
 
 
 
@@ -8861,7 +8861,7 @@ class T_Issue_Legalreference_MultiView(MultipleView):
 # MultiView for:T_Issue_Party
 
 class T_Issue_PartyMultiView(MultipleView):
-	views = [IssueView,PartyView,]
+	views = [IssueView, PartyView, ]
 
 
 
@@ -8870,7 +8870,7 @@ class T_Issue_PartyMultiView(MultipleView):
 # MultiView for:T_Issue_Party_
 
 class T_Issue_Party_MultiView(MultipleView):
-	views = [IssueView,PartyView,]
+	views = [IssueView, PartyView, ]
 
 
 
@@ -8879,7 +8879,7 @@ class T_Issue_Party_MultiView(MultipleView):
 # MultiView for:T_Lawyer_Party
 
 class T_Lawyer_PartyMultiView(MultipleView):
-	views = [LawyerView,PartyView,]
+	views = [LawyerView, PartyView, ]
 
 
 
@@ -8888,7 +8888,7 @@ class T_Lawyer_PartyMultiView(MultipleView):
 # MultiView for:T_Party_Settlement
 
 class T_Party_SettlementMultiView(MultipleView):
-	views = [PartyView,SettlementView,]
+	views = [PartyView, SettlementView, ]
 
 
 
@@ -8897,7 +8897,7 @@ class T_Party_SettlementMultiView(MultipleView):
 # MultiView for:T_Policeofficer_Policestation
 
 class T_Policeofficer_PolicestationMultiView(MultipleView):
-	views = [PoliceofficerView,PolicestationView,]
+	views = [PoliceofficerView, PolicestationView, ]
 
 
 
@@ -8906,7 +8906,7 @@ class T_Policeofficer_PolicestationMultiView(MultipleView):
 # MultiView for:T_Town_Ward
 
 class T_Town_WardMultiView(MultipleView):
-	views = [TownView,WardView,]
+	views = [TownView, WardView, ]
 
 
 

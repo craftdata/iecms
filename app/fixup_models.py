@@ -154,7 +154,7 @@ if __name__ == '__main__':
                 x.endswith('category') or\
                 x.endswith('rank') or \
                 x.endswith('station') or \
-                x.endswith('clas') or\
+                x.endswith('class') or\
                 x.endswith('role') or\
                 x.endswith('list') or\
                 x.endswith('team'):

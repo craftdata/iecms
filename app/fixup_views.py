@@ -489,7 +489,18 @@ def gen_code(model_filename):
     space(2)
     section_preamble('View Registrations')
     for x in cls_list:
-        code.append(tail_ent.format(x, x))
+        s = tail_ent.format(x, x)
+        if x.endswith('type') or \
+                x.endswith('category') or \
+                x.endswith('rank') or \
+                x.endswith('station') or \
+                x.endswith('class') or \
+                x.endswith('role') or \
+                x.endswith('list') or \
+                x.endswith('team') or \
+                x.endswith('officer'):
+            s.replace('category="Setup"', 'category="Admin"')
+        code.append(s)
     
     # section_preamble('Join Table Registrations')
     # for x in join_tables:
@@ -499,7 +510,8 @@ def gen_code(model_filename):
     for x in join_tables:
         vws = x.split('_')
         vws.pop(0)
-        code.append(jointbl_mv_ent.format(x, str(vws).title()))
+        s = jointbl_mv_ent.format(x, str(vws).title())
+        code.append(s)
     
     section_preamble('Chart View Registrations')
     for x in cls_list:

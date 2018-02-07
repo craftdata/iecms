@@ -2745,7 +2745,7 @@ class Documenttype( RefTypeMixin,  AuditMixin, Model):
 
 
 #STARTCLASS
-class Economicclass( AuditMixin, Model):
+class Economicclass( RefTypeMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'economicclass'
 
@@ -3217,7 +3217,7 @@ class Experttype( RefTypeMixin,  AuditMixin, Model):
 
 
 #STARTCLASS
-class Feeclass( AuditMixin, Model):
+class Feeclass( RefTypeMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'feeclass'
 
