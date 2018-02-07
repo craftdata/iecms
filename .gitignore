@@ -111,3 +111,4 @@ venv
 *.sublime*
 # Development Mongodb Data Store
 ./bindata/*
+/bindata/
