@@ -14,7 +14,7 @@ CREATE USER MAPPING FOR public
        OPTIONS (username 'postgres', password '123456');
 
 CREATE FOREIGN TABLE warehouse(
-    _id NAME, -- ObjectIdが格納される
+    _id NAME, -- ObjectId
     id INT,
     name text
 )  SERVER mongo_server
