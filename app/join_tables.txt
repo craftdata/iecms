@@ -1,11 +1,11 @@
+T_Casecategory_Casechecklist
 T_Casecategory_Courtcase
-T_Casecategorychecklist
 T_Complaint_Complaintcategory
 T_Complaint_Courtcase
 T_Court_Judicialofficer
 T_Courtcase_Judicialofficer
 T_Courtcase_Lawfirm
-T_Csi_Equipment_Investigationdiary
+T_Csiequipment_Investigationdiary
 T_Document_Documenttype
 T_Expert_Experttype
 T_Hearing_Issue

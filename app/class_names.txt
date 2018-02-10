@@ -19,9 +19,10 @@ Courtcase
 Courtrank
 Courtstation
 Crime
-CsiEquipment
+Csiequipment
 Diagram
 Discipline
+Docpart
 Doctemplate
 Document
 Documenttype
@@ -52,7 +53,6 @@ Notification
 Notificationregister
 Notificationtype
 Notifyevent
-Page
 Party
 Partytype
 Payment
@@ -73,6 +73,12 @@ Schedulestatustype
 Seizure
 Settlement
 Subcounty
+Sysuserextra
+Sysviewfld
+Sysviewlist
+Syswkflow
+Syswkflowgrp
+Syswkflowviewseq
 Templatetype
 Town
 Transcript

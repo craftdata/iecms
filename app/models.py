@@ -151,19 +151,24 @@ class Bill( AuditMixin, Model):
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
     assessing_registrar =  Column( ForeignKey('judicialofficer.id'), nullable=True, index=True)
+    assess_date =  Column( DateTime)
     receiving_registrar =  Column( ForeignKey('judicialofficer.id'), nullable=True, index=True)
+    receive_date =  Column( DateTime)
     lawyer_paying =  Column( ForeignKey('lawyer.id'), index=True)
     party_paying =  Column( ForeignKey('party.id'), index=True)
     documents =  Column( ForeignKey('document.id'), index=True)
     date_of_payment =  Column( DateTime)
     paid =  Column( Boolean)
-    pay_code =  Column( String(20), unique=True)
+    bill_code =  Column( String(20), unique=True)
     bill_total =  Column( Numeric(12, 2))
     court =  Column( ForeignKey('court.id'), nullable=True, index=True)
     court_account_courts =  Column( Integer, nullable=True)
     court_account_account__types =  Column( Integer, nullable=True)
     validated =  Column( Boolean)
     validation_date =  Column( DateTime)
+    paid_total =  Column( Numeric(12, 2))
+    bill_balance =  Column( Numeric(12, 2))
+    bill_date =  Column( DateTime)
 
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Bill.assessing_registrar == Judicialofficer.id', backref='bills')
     court1 =  relationship('Court', primaryjoin='Bill.court == Court.id', backref='bills')
@@ -171,7 +176,7 @@ class Bill( AuditMixin, Model):
     document =  relationship('Document', primaryjoin='Bill.documents == Document.id', backref='bills')
     lawyer =  relationship('Lawyer', primaryjoin='Bill.lawyer_paying == Lawyer.id', backref='bills')
     party =  relationship('Party', primaryjoin='Bill.party_paying == Party.id', backref='bills')
-    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Bill.receiving_registrar == Judicialofficer.id', backref='bills_0')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Bill.receiving_registrar == Judicialofficer.id', backref='bills_66')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -265,6 +270,7 @@ class Billdetail( AuditMixin, Model):
     qty =  Column( Integer)
     unit_cost =  Column( Numeric(12, 2))
     amount =  Column( Numeric(12, 2))
+    bd_date =  Column( DateTime)
 
     feetype1 =  relationship('Feetype', primaryjoin='Billdetail.feetype == Feetype.id', backref='billdetails')
     receipt =  relationship('Bill', primaryjoin='Billdetail.receipt_id == Bill.id', backref='billdetails')
@@ -452,7 +458,7 @@ class Casecategory( RefTypeMixin,  AuditMixin, Model):
     subcategory =  Column( ForeignKey('casecategory.id'), index=True)
 
     parent =  relationship('Casecategory', remote_side=[id], primaryjoin='Casecategory.subcategory == Casecategory.id', backref='casecategories')
-    casechecklist =  relationship('Casechecklist', secondary='casecategorychecklist', backref='casecategories')
+    casechecklist =  relationship('Casechecklist', secondary='casecategory_casechecklist', backref='casecategories')
     courtcase =  relationship('Courtcase', secondary='casecategory_courtcase', backref='casecategories')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -535,6 +541,17 @@ class Casecategory( RefTypeMixin,  AuditMixin, Model):
 
 
 #STARTCLASS
+class T_Casecategory_Casechecklist(Model):
+	 __table__ =   Table(
+    'casecategory_casechecklist', Model.metadata,
+     Column('casechecklists',  ForeignKey('casechecklist.id'), primary_key=True, nullable=True),
+     Column('casecategories',  ForeignKey('casecategory.id'), primary_key=True, nullable=True, index=True)
+)
+
+#ENDCLASS
+
+
+#STARTCLASS
 class T_Casecategory_Courtcase(Model):
 	 __table__ =   Table(
     'casecategory_courtcase', Model.metadata,
@@ -546,25 +563,16 @@ class T_Casecategory_Courtcase(Model):
 
 
 #STARTCLASS
-class T_Casecategorychecklist(Model):
-	 __table__ =   Table(
-    'casecategorychecklist', Model.metadata,
-     Column('case_checklists',  ForeignKey('casechecklist.id'), primary_key=True, nullable=True),
-     Column('case_categories',  ForeignKey('casecategory.id'), primary_key=True, nullable=True, index=True)
-)
-
-#ENDCLASS
-
-
-#STARTCLASS
 class Casechecklist( RefTypeMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'casechecklist'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    name =  Column( String(100), nullable=True)
+    check_list_item =  Column( String(100), nullable=True)
     description =  Column( String(100), nullable=True)
     notes =  Column( Text, nullable=True)
+    is_mandatory =  Column( Boolean)
+    priority =  Column( BigInteger)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -865,7 +873,7 @@ class Commital( ActivityMixin,  AuditMixin, Model):
     prison =  relationship('Prison', primaryjoin='Commital.prisons == Prison.id', backref='commitals')
     prisonofficer =  relationship('Prisonofficer', primaryjoin='Commital.receiving_officer == Prisonofficer.id', backref='commitals')
     releasetype =  relationship('Releasetype', primaryjoin='Commital.release_type == Releasetype.id', backref='commitals')
-    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_0')
+    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_15')
     warranttype =  relationship('Warranttype', primaryjoin='Commital.warrant_type == Warranttype.id', backref='commitals')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -1733,7 +1741,7 @@ class Courtcase( ActivityMixin,  AuditMixin, Model):
     __tablename__ = 'courtcase'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    docket_number =  Column( Text, nullable=True)
+    docket_number =  Column( String(200), nullable=True)
     case_number =  Column( Text, nullable=True)
     adr =  Column( Boolean)
     mediation_proposal =  Column( Text, nullable=True)
@@ -1773,7 +1781,7 @@ class Courtcase( ActivityMixin,  AuditMixin, Model):
     prosecutor =  relationship('Prosecutor', primaryjoin='Courtcase.filing_prosecutor == Prosecutor.id', backref='courtcases')
     parent =  relationship('Courtcase', remote_side=[id], primaryjoin='Courtcase.linked_cases == Courtcase.id', backref='courtcases')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Courtcase.pretrial_registrar == Judicialofficer.id', backref='courtcases')
-    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_0')
+    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_32')
     lawfirm =  relationship('Lawfirm', secondary='courtcase_lawfirm', backref='courtcases')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -2061,6 +2069,9 @@ class Crime( AuditMixin, Model):
     description =  Column( Text, nullable=True)
     ref =  Column( Text, nullable=True)
     ref_law =  Column( ForeignKey('law.id'), index=True)
+    min_sentence =  Column( Text, nullable=True)
+    max_sentence =  Column( Text, nullable=True)
+    max_fine =  Column( Numeric(12, 2))
 
     law1 =  relationship('Law', primaryjoin='Crime.ref_law == Law.id', backref='crimes')
 
@@ -2144,13 +2155,13 @@ class Crime( AuditMixin, Model):
 
 
 #STARTCLASS
-class CsiEquipment( AuditMixin, Model):
+class Csiequipment( AuditMixin, Model):
     __versioned__ = {}
-    __tablename__ = 'csi_equipment'
+    __tablename__ = 'csiequipment'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
 
-    investigationdiary =  relationship('Investigationdiary', secondary='csi_equipment_investigationdiary', backref='csi_equipments')
+    investigationdiary =  relationship('Investigationdiary', secondary='csiequipment_investigationdiary', backref='csiequipments')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -2232,10 +2243,10 @@ class CsiEquipment( AuditMixin, Model):
 
 
 #STARTCLASS
-class T_Csi_Equipment_Investigationdiary(Model):
+class T_Csiequipment_Investigationdiary(Model):
 	 __table__ =   Table(
-    'csi_equipment_investigationdiary', Model.metadata,
-     Column('csi_equipment',  ForeignKey('csi_equipment.id'), primary_key=True, nullable=True),
+    'csiequipment_investigationdiary', Model.metadata,
+     Column('csiequipment',  ForeignKey('csiequipment.id'), primary_key=True, nullable=True),
      Column('investigationdiary',  ForeignKey('investigationdiary.id'), primary_key=True, nullable=True, index=True)
 )
 
@@ -2426,6 +2437,118 @@ class Discipline( RefTypeMixin,  AuditMixin, Model):
 
 
 #STARTCLASS
+class Docpart( AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'docpart'
+
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    document =  Column( ForeignKey('document.id'), nullable=True, index=True)
+    file_name =  Column( String(200), nullable=True)
+    file_ext =  Column( String(10), nullable=True)
+    page_no =  Column( BigInteger)
+    page_text =  Column( Text, nullable=True)
+    image_width =  Column( Text)
+    image_height =  Column( Text)
+    file_create_date =  Column( DateTime)
+    file_update_date =  Column( DateTime)
+    file_last_opened_date =  Column( DateTime)
+    upload_dt =  Column( DateTime)
+    file_byte_count =  Column( Integer)
+    file_hash =  Column( String(520), nullable=True)
+    file_load_path =  Column( String(300), nullable=True)
+    file_upload_date =  Column( DateTime)
+    page_count =  Column( Integer)
+    file_text =  Column( Text, nullable=True)
+    is_image =  Column( Boolean)
+    file_parse_status =  Column( Text, nullable=True)
+    file_assessed =  Column( Boolean)
+    file_accepted =  Column( Boolean)
+    file_fee_amount =  Column( Numeric(12, 2))
+    language =  Column( String(10), nullable=True)
+    file_bin =  Column( Text, nullable=True)
+
+    document1 =  relationship('Document', primaryjoin='Docpart.document == Document.id', backref='docparts')
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
 class Doctemplate( AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'doctemplate'
@@ -2526,14 +2649,17 @@ class Document( DocMixin,  AuditMixin, Model):
     __tablename__ = 'document'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    name =  Column( Text, nullable=True)
+    name =  Column( String(100), nullable=True)
     court_case =  Column( ForeignKey('courtcase.id'), index=True)
     issue =  Column( ForeignKey('issue.id'), index=True)
     document_admissibility =  Column( Text, nullable=True)
-    admitted =  Column( Boolean)
-    judicial_officer =  Column( ForeignKey('judicialofficer.id'), index=True)
-    filing_date =  Column( DateTime)
     admisibility_notes =  Column( Text, nullable=True)
+    admitted =  Column( Boolean)
+    receiving_registrar =  Column( ForeignKey('judicialofficer.id'), index=True)
+    receive_date =  Column( DateTime)
+    review_registrar =  Column( ForeignKey('judicialofficer.id'), index=True)
+    review_date =  Column( DateTime)
+    filing_date =  Column( DateTime)
     docx =  Column( Text, nullable=True)
     document_text =  Column( Text, nullable=True)
     published =  Column( Boolean)
@@ -2543,29 +2669,37 @@ class Document( DocMixin,  AuditMixin, Model):
     paid =  Column( Boolean)
     page_count =  Column( Integer)
     file_byte_count =  Column( Numeric(12, 2))
-    file_hash =  Column( Text, nullable=True)
-    file_timestamp =  Column( Text, nullable=True)
+    file_hash =  Column( String(520), nullable=True)
     file_create_date =  Column( DateTime)
     file_update_date =  Column( DateTime)
+    file_last_opened_date =  Column( DateTime)
     file_text =  Column( Text, nullable=True)
-    file_name =  Column( Text, nullable=True)
-    file_ext =  Column( Text, nullable=True)
+    file_name =  Column( String(300), nullable=True)
+    file_ext =  Column( String(10), nullable=True)
     file_load_path =  Column( Text, nullable=True)
     file_upload_date =  Column( DateTime)
     file_parse_status =  Column( Text, nullable=True)
     doc_template =  Column( ForeignKey('doctemplate.id'), index=True)
-    visible =  Column( Boolean)
-    is_scan =  Column( Boolean)
+    is_public =  Column( Boolean)
+    is_image =  Column( Boolean)
     doc_shelf =  Column( Text, nullable=True)
     doc_row =  Column( Text, nullable=True)
     doc_room =  Column( Text, nullable=True)
     doc_placed_by =  Column( Text, nullable=True)
     citation =  Column( Text, nullable=True)
+    language =  Column( String(10))
+    request_urgent =  Column( Boolean)
+    certify_urgent =  Column( Boolean)
+    certifying_judicial_officer =  Column( ForeignKey('judicialofficer.id'), index=True)
+    certify_date =  Column( DateTime)
+    expiry_date =  Column( DateTime)
 
+    judicialofficer =  relationship('Judicialofficer', primaryjoin='Document.certifying_judicial_officer == Judicialofficer.id', backref='documents')
     courtcase =  relationship('Courtcase', primaryjoin='Document.court_case == Courtcase.id', backref='documents')
     doctemplate =  relationship('Doctemplate', primaryjoin='Document.doc_template == Doctemplate.id', backref='documents')
     issue1 =  relationship('Issue', primaryjoin='Document.issue == Issue.id', backref='documents')
-    judicialofficer =  relationship('Judicialofficer', primaryjoin='Document.judicial_officer == Judicialofficer.id', backref='documents')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_83')
+    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_21')
     documenttype =  relationship('Documenttype', secondary='document_documenttype', backref='documents')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3615,7 +3749,7 @@ class Hearing( ActivityMixin,  AuditMixin, Model):
     issue =  relationship('Issue', secondary='hearing_issue', backref='hearings')
     judicialofficer =  relationship('Judicialofficer', secondary='hearing_judicialofficer', backref='hearings')
     lawfirm =  relationship('Lawfirm', secondary='hearing_lawfirm', backref='hearings')
-    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_0')
+    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_33')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -4215,11 +4349,11 @@ class Issue( AuditMixin, Model):
     lawyer =  relationship('Lawyer', primaryjoin='Issue.defense_lawyer == Lawyer.id', backref='issues')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Issue.judicial_officer == Judicialofficer.id', backref='issues')
     prosecutor1 =  relationship('Prosecutor', primaryjoin='Issue.prosecutor == Prosecutor.id', backref='issues')
-    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_0')
+    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_19')
     legalreference =  relationship('Legalreference', secondary='issue_legalreference', backref='issues')
-    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_0')
+    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_53')
     party =  relationship('Party', secondary='issue_party', backref='issues')
-    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_0')
+    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_80')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -4911,6 +5045,9 @@ class Legalreference( AuditMixin, Model):
     citation =  Column( Text, nullable=True)
     quote =  Column( Text, nullable=True)
     interpretation =  Column( Text, nullable=True)
+    klr_url_full =  Column( String(300), nullable=True)
+    klr_rul_short =  Column( Text, nullable=True)
+    doc_id =  Column( String(300), nullable=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -5463,104 +5600,6 @@ class Notifyevent( AuditMixin, Model):
 
 
 #STARTCLASS
-class Page( AuditMixin, Model):
-    __versioned__ = {}
-    __tablename__ = 'page'
-
-    id =  Column( Integer, primary_key=True, autoincrement=True)
-    document =  Column( ForeignKey('document.id'), nullable=True, index=True)
-    page_image =  Column( LargeBinary)
-    page_no =  Column( BigInteger)
-    page_text =  Column( Text, nullable=True)
-    image_ext =  Column( Text)
-    image_width =  Column( Text)
-    image_height =  Column( Text)
-    create_date =  Column( DateTime)
-    update_date =  Column( DateTime)
-    upload_dt =  Column( DateTime)
-
-    document1 =  relationship('Document', primaryjoin='Page.document == Document.id', backref='pages')
-
-    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
-    file = Column(FileColumn, nullable=True)
-
-    # mindate = datetime.date(MINYEAR, 1, 1)
-
-    def view_name(self):
-        return self.__class__.__name__ +'View'
-
-    def photo_img(self):
-        im = ImageManager()
-        vn = self.view_name()
-        if self.photo:
-            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
-                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
-                        '" alt="Photo" class="img-rounded img-responsive"></a>')
-        else:
-            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
-                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-
-    def photo_img_thumbnail(self):
-        im = ImageManager()
-        vn = self.view_name()
-        if self.photo:
-            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
-                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
-                        '" alt="Photo" class="img-rounded img-responsive"></a>')
-        else:
-            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
-                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
-
-
-    def print_button(self):
-        vn = self.view_name()
-        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
-        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
-        #response = make_response(pdf)
-        #response.headers['Content-Type'] = 'application/pdf'
-        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
-
-        return Markup(
-            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
-            'title="Print">' +
-            '<i class="fa fa-edit"></i>' +
-            '</a>')
-
-    def audio_play(self):
-        vn = self.view_name()
-        return Markup(
-                '<audio controls autoplay>' +
-                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
-                'Your browser does not support the audio element.' +
-                '</audio>'
-                )
-
-    def download(self):
-        vn = self.view_name()
-        return Markup(
-            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
-
-    def file_name(self):
-        return get_file_original_name(str(self.file))
-
-    def month_year(self):
-        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
-
-    def year(self):
-        date = self.created_on #or self.mindate
-        return datetime.datetime(date.year, 1, 1)
-        
-    # custom = Column(Integer(20))
-    #
-    # @renders('custom')
-    # def my_custom(self):
-    #     # will render this columns as bold on ListWidget
-    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
-
-#ENDCLASS
-
-
-#STARTCLASS
 class Party( PersonMixin, ContactMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'party'
@@ -5770,12 +5809,15 @@ class Payment( AuditMixin, Model):
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
     bill =  Column( ForeignKey('bill.id'), nullable=True, index=True)
-    amount =  Column( Numeric(12, 2))
-    payment_ref =  Column( Text, nullable=True)
-    date_paid =  Column( DateTime)
+    pay_amount =  Column( Numeric(12, 2))
+    payment_ref =  Column( Text, unique=True)
+    pay_date =  Column( DateTime)
     phone_number =  Column( String(20))
     validated =  Column( Boolean)
-    payment_description =  Column( Text)
+    validate_date =  Column( DateTime)
+    payment_description =  Column( String(100))
+    pay_trans_cost =  Column( Numeric(12, 2))
+    receipt_no =  Column( String(100))
 
     bill1 =  relationship('Bill', primaryjoin='Payment.bill == Bill.id', backref='payments')
 
@@ -7327,6 +7369,569 @@ class Subcounty( AuditMixin, Model):
     county =  Column( ForeignKey('county.id'), nullable=True, index=True)
 
     county1 =  relationship('County', primaryjoin='Subcounty.county == County.id', backref='subcounties')
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
+class Sysuserextra( AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'sysuserextra'
+
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    sys_notes =  Column( Text, nullable=True)
+    sys_birthday =  Column( Date)
+    sys_job_grade =  Column( Text, nullable=True)
+    sys_home_address =  Column( Text, nullable=True)
+    alt_phone =  Column( String(20), nullable=True)
+    alt_email =  Column( String(120), nullable=True)
+    office_address =  Column( Text, nullable=True)
+    off_email =  Column( String(120), nullable=True)
+    syswkflowgrp =  Column( ForeignKey('syswkflowgrp.id'), nullable=True, index=True)
+    off_phone =  Column( String(20), nullable=True)
+
+    syswkflowgrp1 =  relationship('Syswkflowgrp', primaryjoin='Sysuserextra.syswkflowgrp == Syswkflowgrp.id', backref='sysuserextras')
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
+class Sysviewfld( AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'sysviewfld'
+
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    sys__view =  Column( ForeignKey('sysviewlist.id'), nullable=True, index=True)
+    fld_name =  Column( String(100), nullable=True)
+    fld_type =  Column( String(100), nullable=True)
+    fld_unique =  Column( Boolean)
+    fld_validator =  Column( String(200), nullable=True)
+    fld_choices =  Column( String(300), nullable=True)
+    fld_label =  Column( String(100), nullable=True)
+    fld_default =  Column( String(100), nullable=True)
+    fld_widget =  Column( String(200), nullable=True)
+
+    sysviewlist =  relationship('Sysviewlist', primaryjoin='Sysviewfld.sys__view == Sysviewlist.id', backref='sysviewflds')
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
+class Sysviewlist( RefTypeMixin,  AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'sysviewlist'
+
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    sys_name =  Column( String(100), nullable=True, unique=True)
+    sys_route =  Column( String(200), nullable=True)
+    sys_perms =  Column( String(300), nullable=True)
+    sys_template =  Column( Text, nullable=True)
+    sys_title =  Column( String(100), nullable=True)
+    sys_wtf =  Column( Boolean)
+    sys_table_name =  Column( String(100), nullable=True)
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
+class Syswkflow( AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'syswkflow'
+
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    sys_name =  Column( String(200), unique=True)
+    sys_description =  Column( String(200))
+    sys_notes =  Column( Text)
+    syswkflowgrp =  Column( ForeignKey('syswkflowgrp.id'), index=True)
+    sys_wkflow_template =  Column( Text, nullable=True)
+    sys_steps =  Column( Integer)
+
+    syswkflowgrp1 =  relationship('Syswkflowgrp', primaryjoin='Syswkflow.syswkflowgrp == Syswkflowgrp.id', backref='syswkflows')
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
+class Syswkflowgrp( AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'syswkflowgrp'
+
+    id =  Column( Integer, primary_key=True, autoincrement=True)
+    sys_cat_name =  Column( String(200), nullable=True, unique=True)
+    sys_cat_description =  Column( String(200))
+    sys_cat_notes =  Column( Text, nullable=True)
+
+    photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
+    file = Column(FileColumn, nullable=True)
+
+    # mindate = datetime.date(MINYEAR, 1, 1)
+
+    def view_name(self):
+        return self.__class__.__name__ +'View'
+
+    def photo_img(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+    def photo_img_thumbnail(self):
+        im = ImageManager()
+        vn = self.view_name()
+        if self.photo:
+            return Markup('<a href="' + url_for(vn+'.show', pk=str(self.id)) +
+                        '" class="thumbnail"><img src="' + im.get_url_thumbnail(self.photo) +
+                        '" alt="Photo" class="img-rounded img-responsive"></a>')
+        else:
+            return Markup('<a href="' + url_for(vn, pk=str(self.id)) +
+                        '" class="thumbnail"><img src="//:0" alt="Photo" class="img-responsive"></a>')
+
+
+    def print_button(self):
+        vn = self.view_name()
+        #pdf = render_pdf(url_for(vn, pk=str(self.id)))
+        #pdf = pdfkit.from_string(url_for(vn, pk=str(self.id)))
+        #response = make_response(pdf)
+        #response.headers['Content-Type'] = 'application/pdf'
+        #response.headers['Content-Disposition'] = 'inline; filename=output.pdf'
+
+        return Markup(
+            '<a href="' + url_for(vn) + '" class="btn btn-sm btn-primary" data-toggle="tooltip" rel="tooltip"'+
+            'title="Print">' +
+            '<i class="fa fa-edit"></i>' +
+            '</a>')
+
+    def audio_play(self):
+        vn = self.view_name()
+        return Markup(
+                '<audio controls autoplay>' +
+                '<source  src="' + url_for(vn) + '" type="audio/mpeg"'> +'<i class="fa fa-volume-up"></i>' +
+                'Your browser does not support the audio element.' +
+                '</audio>'
+                )
+
+    def download(self):
+        vn = self.view_name()
+        return Markup(
+            '<a href="' + url_for(vn +'.download', filename=str(self.file)) + '">Download</a>')
+
+    def file_name(self):
+        return get_file_original_name(str(self.file))
+
+    def month_year(self):
+        return datetime.datetime(self.created_on.year, self.created_on.month, 1) #or self.mindate
+
+    def year(self):
+        date = self.created_on #or self.mindate
+        return datetime.datetime(date.year, 1, 1)
+        
+    # custom = Column(Integer(20))
+    #
+    # @renders('custom')
+    # def my_custom(self):
+    #     # will render this columns as bold on ListWidget
+    #     return Markup('<b>' + custom + '</b>')#ENDMODEL
+
+#ENDCLASS
+
+
+#STARTCLASS
+class Syswkflowviewseq( AuditMixin, Model):
+    __versioned__ = {}
+    __tablename__ = 'syswkflowviewseq'
+
+    sys__view__lists =  Column( ForeignKey('sysviewlist.id'), primary_key=True, nullable=True)
+    sys_wkflows =  Column( ForeignKey('syswkflow.id'), primary_key=True, nullable=True, index=True)
+    sys_order =  Column( BigInteger, nullable=True)
+    sys_is_terminal =  Column( Boolean)
+
+    sysviewlist =  relationship('Sysviewlist', primaryjoin='Syswkflowviewseq.sys__view__lists == Sysviewlist.id', backref='syswkflowviewseqs')
+    syswkflow =  relationship('Syswkflow', primaryjoin='Syswkflowviewseq.sys_wkflows == Syswkflow.id', backref='syswkflowviewseqs')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)

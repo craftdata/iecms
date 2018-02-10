@@ -120,3 +120,32 @@ MAIL_USE_TLS = True
 MAIL_USERNAME = 'elimu.bora.emis@gmail.com'
 MAIL_PASSWORD = 'Abcd1234.'
 MAIL_DEFAULT_SENDER = 'elimu.bora.emis@gmail.com'
+
+
+# Config for the Mongo Instance
+MONGO_URI = "mongo://localhost:27017/docx" # A MongoDB URI which is used in preference of the other configuration variables.
+# MONGO_HOST	    # The host name or IP address of your MongoDB server. Default: “localhost”.
+# MONGO_PORT	    #The port number of your MongoDB server. Default: 27017.
+# MONGO_AUTO_START_REQUEST	# Set to False to disable PyMongo 2.2’s “auto start request” behavior (see MongoClient). Default: True.
+# MONGO_MAX_POOL_SIZE	# (optional): The maximum number of idle connections maintained in the PyMongo connection pool. Default: PyMongo default.
+# MONGO_SOCKET_TIMEOUT_MS	# (optional): (integer) How long (in milliseconds) a send or receive on a socket can take before timing out. Default: PyMongo default.
+# MONGO_CONNECT_TIMEOUT_MS	# (optional): (integer) How long (in milliseconds) a connection can take to be opened before timing out. Default: PyMongo default.
+# MONGO_SERVER_SELECTION_TIMEOUT_MS	# (optional) Controls how long (in milliseconds) the driver will wait to find an available, appropriate server to carry out a database operation; while it is waiting, multiple server monitoring operations may be carried out, each controlled by connectTimeoutMS. Default: PyMongo default.
+# MONGO_DBNAME	        # The database name to make available as the db attribute. Default: app.name.
+# MONGO_USERNAME	    # The user name for authentication. Default: None
+# MONGO_PASSWORD	    # The password for authentication. Default: None
+# MONGO_AUTH_SOURCE	    # The database to authenticate against. Default: None
+# MONGO_AUTH_MECHANISM	# The mechanism to authenticate with. Default: pymongo <3.x MONGODB-CR else SCRAM-SHA-1
+# MONGO_REPLICA_SET	    # The name of a replica set to connect to; this must match the internal name of the replica set (as determined by the isMaster command). Default: None.
+# MONGO_READ_PREFERENCE	# Determines how read queries are routed to the replica set members. Must be one of the constants defined on pymongo.read_preferences.ReadPreference or the string names thereof.
+# MONGO_DOCUMENT_CLASS	# This tells pymongo to return custom objects instead of dicts, for example bson.son.SON. Default: dict
+# MONGO_CONNECT	        # (optional): If True (the default), let the MongoClient immediately begin connecting to MongoDB in the background. Otherwise connect on the first operation. This has to be set to False if multiprocessing is desired; see Using PyMongo with Multiprocessing.
+
+# @app.route('/uploads/<path:filename>', methods=['POST'])
+# def save_upload(filename):
+#     mongo.save_file(filename, request.files['file'])
+#     return redirect(url_for('get_upload', filename=filename))
+
+# @app.route('/uploads/<path:filename>')
+# def get_upload(filename):
+#     return mongo.send_file(filename)

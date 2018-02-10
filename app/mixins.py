@@ -4,6 +4,8 @@ from base64 import b64encode
 from datetime import MINYEAR, date, datetime, timedelta
 from hashlib import sha256
 
+from enum import Enum
+
 import humanize, hashlib
 import os
 import sqlalchemy.types as types
@@ -54,7 +56,12 @@ make_searchable()
 
 mindate = date(MINYEAR, 1, 1)
 
-
+class Gender(Enum):
+    Male = 1
+    Female = 2
+    Other = 3
+    
+    
 def today():
     return datetime.today().strftime('%Y-%m-%d')
 
@@ -708,6 +715,7 @@ class ContactMixin(object):
     fax = Column(String(30))
     gcode = Column(String(40))
     okhi = Column(String(40))
+    avatar = Column(String(50))
 
 
 # class LocationMixin(object):

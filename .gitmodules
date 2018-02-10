@@ -1,0 +1,3 @@
+[submodule "zadd/rethinkdb-multicorn-postgresql-fdw"]
+	path = zadd/rethinkdb-multicorn-postgresql-fdw
+	url = https://github.com/craftdata/rethinkdb-multicorn-postgresql-fdw.git

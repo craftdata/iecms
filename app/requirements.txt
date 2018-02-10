@@ -1,0 +1,18 @@
+pip instal faker
+pip install sqlalchemy
+pip install sqlalchemy-continuum
+pip install flask-appbuilder
+pip install flask-extras
+pip install wtforms-alchemy
+pip install flask-pymongo
+
+
+
+
+
+
+# Fake Data
+pip install http://github.com/guedes/faker_fdw/archive/v0.1.2.zip
+pip install pgxnclient
+
+

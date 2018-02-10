@@ -1,0 +1,44 @@
+{% extends "appbuilder/base.html" %}
+{% block content %}
+
+<div class="jumbotron">
+  <div class="container">
+    <h2>{{_("Kenya Integrated Electronic Case Management System")}}</h2>
+    <!--<p>{{_("Elimubora is the public part of the  Education Management Information System")}}</p>-->
+
+      <p>Please <a class="btn btn-primary" href="/login/">Login </a> <b>OR</b> <a class="btn btn-primary btn-large" href="/register/form">Create an account</a> OR <a class="btn btn-primary" href="/complaint/">Complain</a> </p>
+      <div class="container">
+        <!--<p>Your Universal Personal Identifier (UPI) or Personal Registration Number (PRN) is the single lifetime identifier you will use in all your interactions with the Ministry of Education-->
+        <!--It doubles as your Examination Number and your School Registration Number. </p>-->
+        <!--<p><b>To get your UPI please go to the "UPI Setup" menu and Query for your PRN</b> Update your details</p>-->
+          <!--<p><a class="btn btn-primary btn-large">Call to action!</a></p>-->
+    </div>
+  </div>
+</div>
+
+<hr>
+<ul class="nav nav-tabs">
+  <li role="presentation" class="active"><a href="#">Home</a></li>
+  <li role="presentation"><a href="#">Profile</a></li>
+  <li role="presentation"><a href="#">Messages</a></li>
+</ul>
+
+
+<div class="container">
+    <div class="container">
+        <!--<p>If you are a student please have your birth certificate number and surname available</p>-->
+        <!--<p>If you are a school, please have your MoE registration number available</p>-->
+        <!--<p>If you don't find your UPI, you will be directed to a form to add your data, then query again</p>-->
+    </div>
+</div>
+
+<!-- Footer -->
+        <footer>
+            <div class="row">
+                <div class="col-lg-12">
+                    <p>Copyright (c) Judciary of Kenya, 2017</p>
+                </div>
+            </div>
+        </footer>
+
+{% endblock %}

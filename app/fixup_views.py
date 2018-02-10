@@ -235,19 +235,19 @@ class MyUserDBModelView(UserDBModelView):
 
     show_fieldsets = [
         (lazy_gettext('User info'),
-         {{'fields': ['username', 'active', 'roles', 'login_count', 'extra']}}),
+         {'fields': ['username', 'active', 'roles', 'login_count', 'extra']}),
         (lazy_gettext('Personal Info'),
-         {{'fields': ['first_name', 'last_name', 'email'], 'expanded': True}}),
+         {'fields': ['first_name', 'last_name', 'email'], 'expanded': True}),
         (lazy_gettext('Audit Info'),
-         {{'fields': ['last_login', 'fail_login_count', 'created_on',
-                     'created_by', 'changed_on', 'changed_by'], 'expanded': False}}),
+         {'fields': ['last_login', 'fail_login_count', 'created_on',
+                     'created_by', 'changed_on', 'changed_by'], 'expanded': False}),
     ]
 
     user_show_fieldsets = [
         (lazy_gettext('User info'),
-         {{'fields': ['username', 'active', 'roles', 'login_count', 'extra']}}),
+         {'fields': ['username', 'active', 'roles', 'login_count', 'extra']}),
         (lazy_gettext('Personal Info'),
-         {{'fields': ['first_name', 'last_name', 'email'], 'expanded': True}}),
+         {'fields': ['first_name', 'last_name', 'email'], 'expanded': True}),
     ]
 
     add_columns = ['first_name', 'last_name', 'username', 'active', 'email', 'roles', 'extra', 'password', 'conf_password']
@@ -401,6 +401,8 @@ def gen_code(model_filename):
     
     
     ############## Field Sets ##############
+    exclude_list = ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail']
+    exclude_list += []
     section_preamble('Field Sets and Columns')
     code.append(f_exclusions)
     for x in cls_list:
@@ -501,6 +503,7 @@ def gen_code(model_filename):
                 x.endswith('Ward') or \
                 x.endswith('Subcounty') or \
                 x.endswith('County') or \
+                x.endswith('Country') or \
                 x.endswith('Town') or \
                 x.endswith('officer'):
             t= s.replace('category="Setup"', 'category="Admin"')

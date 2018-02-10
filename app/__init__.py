@@ -1,8 +1,15 @@
+# coding: utf-8
+# Copyright (C) Nyimbi Odero, 2017-2018
+# License: MIT
+import click
+click.disable_unicode_literals_warning = True
 import logging
 from flask import Flask
 from flask_appbuilder import SQLA, AppBuilder
 from flask_debugtoolbar import DebugToolbarExtension
-
+from flask_pymongo import PyMongo
+from app.index import MyIndexView
+from app.sec import MySecurityManager
 
 """
  Logging configuration
@@ -15,11 +22,12 @@ app = Flask(__name__)
 
 # Enable Debug Toolbar
 toolbar = DebugToolbarExtension(app)
+mongo = PyMongo(app)
 
 
 app.config.from_object('config')
 db = SQLA(app)
-appbuilder = AppBuilder(app, db.session)
+appbuilder = AppBuilder(app, db.session, indexview=MyIndexView, security_manager_class=MySecurityManager)
 
 
 """

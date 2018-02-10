@@ -14,7 +14,12 @@ createdb iecms
 
 echo "Created Database iecms"
 echo "Starting Generating the tables"
-python pony9.py
+# Backup old pony file
+cp pomy.py pony-"$(date)".py
+# Take the latest pony file and use it
+cp `ls pony* | tail -n1` pomy.py
+cat p_connect.py >> pomy.py
+python pomy.py
 echo "Finished Generating the tables"
 
 echo "Generating mod1.py - preliminary data model"
@@ -36,7 +41,7 @@ cd app
 
 # Because we can't use from .mixin import * we need to from mixin import *
 echo " Now fixingup the views"
-sed s/'from .mixins import'/'from mixins import'/ <m.py >model1.py
+sed s/'from .mixins import'/'from mixins import'/ <models.py >model1.py
 python fixup_views.py model1
 # Done with this file
 rm model1.py
@@ -46,11 +51,18 @@ echo " .......... Done fixingup the views"
 cat views.py models.py | wc -l
 echo "Total lines of code that you did not have to write"
 
-echo " All DONE -  copyng views and models to your app directory"
+echo " All DONE with generation - now to create the iecms db"
 
 # All done with generation for the time being
 # TO DO
 cd ..
-ipython -c "import app"
+fabmanager create-db
+echo "IECMS DAtabase Created"
+echo "Adding features to the database"
+pgxn install multicorn
+psql -d iecms < db_extensions.sql
+
+
+#ipython -c "import app"
 
 echo "Now run fabmanager create-db"
