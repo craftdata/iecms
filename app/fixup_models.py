@@ -196,6 +196,8 @@ if __name__ == '__main__':
     add_mixin('Court', 'PlaceMixin')
     add_mixin('Prison', 'PlaceMixin')
     add_mixin('Lawfirm', 'PlaceMixin')
+    add_mixin('Sysuserextra', 'ContactMixin')
+    
 
     
     #add_imports(std_hdr)

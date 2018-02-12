@@ -4,30 +4,69 @@
 import click
 click.disable_unicode_literals_warning = True
 import logging
-from flask import Flask
+import config as cfg
+from flask import Flask, g
 from flask_appbuilder import SQLA, AppBuilder
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_pymongo import PyMongo
+from flask_humanize import Humanize
 from app.index import MyIndexView
 from app.sec import MySecurityManager
 
+import rethinkdb as r
+from rethinkdb.errors import RqlRuntimeError, RqlDriverError
 """
  Logging configuration
 """
+
+
+### Setup the RethinkDB Connection
+def rethinkDbSetup():
+    try:
+        connection = r.connect(host=cfg.RDB_CONFIG['host'], port=cfg.RDB_CONFIG['port'])
+        r.db_create(cfg.RDB_CONFIG['db']).run(connection)
+        r.db(cfg.RDB_CONFIG['db']).table_create(cfg.RDB_CONFIG['table']).run(connection)
+        print ('Database setup completed. Now run the app without --setup.')
+        connection.close()
+    except RqlRuntimeError:
+        print ('App database already exists. Run the app without --setup.')
+    finally:
+        pass
+
 
 logging.basicConfig(format='%(asctime)s:%(levelname)s:%(name)s:%(message)s')
 logging.getLogger().setLevel(logging.DEBUG)
 
 app = Flask(__name__)
+app.config.from_object('config')
+humanize = Humanize(app)
+
 
 # Enable Debug Toolbar
 toolbar = DebugToolbarExtension(app)
-mongo = PyMongo(app)
+#mongo = PyMongo(app)
+
+# Now do the RethinkDb setups
+rethinkDbSetup()
+
+@app.before_request
+def before_request():
+    try:
+        g.rdb_conn = r.connect(host=cfg.RDB_CONFIG['host'], port=cfg.RDB_CONFIG['port'], db=cfg.RDB_CONFIG['db'])
+    except RqlDriverError:
+        print(503, "No database connection could be established.")
+
+@app.teardown_request
+def teardown_request(exception):
+    try:
+        g.rdb_conn.close()
+    except AttributeError:
+        pass
 
 
-app.config.from_object('config')
 db = SQLA(app)
 appbuilder = AppBuilder(app, db.session, indexview=MyIndexView, security_manager_class=MySecurityManager)
+
 
 
 """

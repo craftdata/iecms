@@ -1,0 +1,25 @@
+2018-02-10T12:46:17.939876000 0.043276s notice: Recursively removing directory /Users/nyimbi/Dropbox/src/pjs/iecms/tst/rethinkdb_data/tmp
+2018-02-10T12:46:17.942597000 0.046002s notice: Initializing directory /Users/nyimbi/Dropbox/src/pjs/iecms/tst/rethinkdb_data
+2018-02-10T12:46:17.943121000 0.046520s info: Creating a default database for your convenience. (This is because you ran 'rethinkdb' without 'create', 'serve', or '--join', and the directory '/Users/nyimbi/Dropbox/src/pjs/iecms/tst/rethinkdb_data' did not already exist or is empty.)
+2018-02-10T12:46:17.943468000 0.046868s notice: Running rethinkdb 2.3.6 (CLANG 9.0.0 (clang-900.0.37))...
+2018-02-10T12:46:17.954128000 0.057528s notice: Running on Darwin 17.4.0 x86_64
+2018-02-10T12:46:17.954193000 0.057592s notice: Loading data from directory /Users/nyimbi/Dropbox/src/pjs/iecms/tst/rethinkdb_data
+2018-02-10T12:46:18.033127000 0.136525s info: Automatically using cache size of 100 MB
+2018-02-10T12:46:18.033146000 0.136542s warn: Cache size does not leave much memory for server and query overhead (available memory: 1027 MB).
+2018-02-10T12:46:18.033159000 0.136556s warn: Cache size is very low and may impact performance.
+2018-02-10T12:46:18.035780000 0.139177s notice: Listening for intracluster connections on port 29015
+2018-02-10T12:46:18.039923000 0.143320s notice: Listening for client driver connections on port 28015
+2018-02-10T12:46:18.040207000 0.143604s notice: Listening for administrative HTTP connections on port 8080
+2018-02-10T12:46:18.040213000 0.143610s notice: Listening on cluster addresses: 127.0.0.1, ::1
+2018-02-10T12:46:18.040230000 0.143627s notice: Listening on driver addresses: 127.0.0.1, ::1
+2018-02-10T12:46:18.040239000 0.143635s notice: Listening on http addresses: 127.0.0.1, ::1
+2018-02-10T12:46:18.040252000 0.143648s notice: To fully expose RethinkDB on the network, bind to all addresses by running rethinkdb with the `--bind all` command line option.
+2018-02-10T12:46:18.040262000 0.143659s notice: Server ready, "daedalus_local_r9k" 4b5465d9-d52f-412b-9db8-2c4a487537db
+2018-02-10T12:47:53.321066000 95.421712s info: Table 7c773291-92bc-4d9e-b80b-fcce6864889f: Starting a new Raft election for term 1.
+2018-02-10T12:47:53.321556000 95.422203s info: Table 7c773291-92bc-4d9e-b80b-fcce6864889f: Added replica on this server.
+2018-02-10T12:47:53.331878000 95.432525s info: Table 7c773291-92bc-4d9e-b80b-fcce6864889f: This server is Raft leader for term 1. Latest log index is 0.
+2018-02-10T13:02:39.026718000 981.088330s notice: Server got SIGINT from pid 67971, uid 501; shutting down...
+2018-02-10T13:02:39.026950000 981.088547s notice: Shutting down client connections...
+2018-02-10T13:02:39.027138000 981.088735s notice: All client connections closed.
+2018-02-10T13:02:39.027147000 981.088744s notice: Shutting down storage engine... (This may take a while if you had a lot of unflushed data in the writeback cache.)
+2018-02-10T13:02:39.035109000 981.096706s notice: Storage engine shut down.

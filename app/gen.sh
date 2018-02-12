@@ -48,8 +48,9 @@ rm model1.py
 
 
 echo " .......... Done fixingup the views"
-cat views.py models.py | wc -l
-echo "Total lines of code that you did not have to write"
+LINES="$(cat views.py models.py | wc -l)"
+echo "${LINES} lines of code that you did not have to write"
+say "${LINES} Lines Generated"
 
 echo " All DONE with generation - now to create the iecms db"
 
@@ -57,12 +58,15 @@ echo " All DONE with generation - now to create the iecms db"
 # TO DO
 cd ..
 fabmanager create-db
-echo "IECMS DAtabase Created"
+echo "IECMS Database Created"
 echo "Adding features to the database"
-pgxn install multicorn
-psql -d iecms < db_extensions.sql
-
+# pgxn install multicorn
+psql -d iecms < app/db_extensions.sql
+echo "Features and Extensions added to the database"
 
 #ipython -c "import app"
 
 echo "Now run fabmanager create-db"
+
+fabmanager create-db
+fabmanager create-admin

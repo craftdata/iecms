@@ -1,12 +1,12 @@
 pip instal faker
 pip install sqlalchemy
 pip install sqlalchemy-continuum
-pip install flask-appbuilder
+pip install flask-appbuilder flask-extras
 pip install flask-extras
 pip install wtforms-alchemy
-pip install flask-pymongo
-
-
+pip install flask-pymongo mongoengine
+pip install sqlalchemy-mixins salalchemy-utils sqlalchemy-continuum sqlalchemy-searchable
+libssl1.0.0_1.0.1t-1+deb8u6_amd64.depb
 
 
 

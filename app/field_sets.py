@@ -2249,31 +2249,31 @@ Subcounty_show_field_set = [
 
 
 
-Sysuserextra_add_columns = ['alt_email', 'alt_phone', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'off_email', 'off_phone', 'office_address', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1']
+Sysuserextra_add_columns = ['address_line_1', 'address_line_2', 'alt_email', 'alt_phone', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Sysuserextra_edit_columns = ['alt_email', 'alt_phone', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'off_email', 'off_phone', 'office_address', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1']
+Sysuserextra_edit_columns = ['address_line_1', 'address_line_2', 'alt_email', 'alt_phone', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Sysuserextra_list_columns = ['alt_email', 'alt_phone', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'off_email', 'off_phone', 'office_address', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1']
+Sysuserextra_list_columns = ['address_line_1', 'address_line_2', 'alt_email', 'alt_phone', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Sysuserextra_add_field_set = [
-    ('Data', {'fields': ['alt_email', 'alt_phone', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'off_email', 'off_phone', 'office_address', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'alt_phone', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysuserextra_edit_field_set = [
-    ('Data', {'fields': ['alt_email', 'alt_phone', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'off_email', 'off_phone', 'office_address', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'alt_phone', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysuserextra_show_field_set = [
-    ('Data', {'fields': ['alt_email', 'alt_phone', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'off_email', 'off_phone', 'office_address', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'alt_phone', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 

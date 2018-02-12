@@ -149,3 +149,21 @@ MONGO_URI = "mongo://localhost:27017/docx" # A MongoDB URI which is used in pref
 # @app.route('/uploads/<path:filename>')
 # def get_upload(filename):
 #     return mongo.send_file(filename)
+
+RDB_CONFIG = {
+  'host' : os.getenv('RDB_HOST', 'localhost'),
+  'port' : os.getenv('RDB_PORT', 28015),
+  'db'   : os.getenv('RDB_DB', 'iecms'),
+  'table': os.getenv('RDB_TABLE', 'files')
+}
+RDB_HOST =  os.environ.get('RDB_HOST') or 'localhost'
+RDB_PORT = os.environ.get('RDB_PORT') or 28015
+RDB_DB   = 'iecms'
+RDB_TBL  = 'file'
+
+# The `Connection` object returned by [`r.connect`](http://www.rethinkdb.com/api/python/connect/)
+# is a [context manager](http://docs.python.org/2/library/stdtypes.html#typecontextmanager)
+# that can be used with the `with` statements.
+# def connection():
+#   return r.connect(host=RDB_CONFIG['host'], port=RDB_CONFIG['port'],
+#                    db=RDB_CONFIG['db'])
