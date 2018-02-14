@@ -220,8 +220,8 @@ class ActivityMixin(object):
     goal = Column(Text)
     status = Column(String(40))
     
-    planned_start = Column(Date, default=func.now())
-    actual_start = Column(Date, default=func.now())
+    planned_start = Column(DateTime, default=func.now())
+    actual_start = Column(DateTime, default=func.now())
     start_delay = Column(Interval)
     start_notes = Column(String(100))
     active = Column(Boolean)
@@ -244,7 +244,7 @@ class ActivityMixin(object):
     # def start_delay_(self):
     # 	return humanize.naturaltime(self.start_delay)
     
-    planned_end = Column(Date, default=func.now())
+    planned_end = Column(DateTime, default=func.now())
     actual_end = Column(DateTime, nullable=True, default=func.now())
     end_delay = Column(Interval)
     end_notes = Column(String(100))
@@ -267,7 +267,7 @@ class ActivityMixin(object):
     # 	return humanize.naturaltime(self.end_delay)
     
     
-    deadline = Column(Date, default=func.now())
+    deadline = Column(DateTime, default=func.now())
     # Admin Stuff
     not_started = Column(Boolean, default=True)
     early_start = Column(Boolean, default=False)

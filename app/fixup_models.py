@@ -196,7 +196,15 @@ if __name__ == '__main__':
     add_mixin('Court', 'PlaceMixin')
     add_mixin('Prison', 'PlaceMixin')
     add_mixin('Lawfirm', 'PlaceMixin')
+    add_mixin('Policestation', 'PlaceMixin')
     add_mixin('Sysuserextra', 'ContactMixin')
+    
+    add_mixin('County', 'RefTypeMixin')
+    add_mixin('Subcounty', 'RefTypeMixin')
+    add_mixin('Ward', 'RefTypeMixin, PlaceMixin')
+    add_mixin('Town', 'RefTypeMixin, PlaceMixin')
+    
+    
     
 
     

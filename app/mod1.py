@@ -871,7 +871,7 @@ class Commital(Model):
     prison =  relationship('Prison', primaryjoin='Commital.prisons == Prison.id', backref='commitals')
     prisonofficer =  relationship('Prisonofficer', primaryjoin='Commital.receiving_officer == Prisonofficer.id', backref='commitals')
     releasetype =  relationship('Releasetype', primaryjoin='Commital.release_type == Releasetype.id', backref='commitals')
-    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_92')
+    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_97')
     warranttype =  relationship('Warranttype', primaryjoin='Commital.warrant_type == Warranttype.id', backref='commitals')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -1361,7 +1361,10 @@ class Country(Model):
     __tablename__ = 'country'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    name =  Column( Text, nullable=False)
+    code =  Column( String(4))
+    name =  Column( String(50), nullable=False)
+    dial_prefix =  Column( String(6))
+    capital =  Column( String(100), nullable=False)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -1448,6 +1451,7 @@ class County(Model):
     __tablename__ = 'county'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
+    code =  Column( String(10), nullable=False)
     country =  Column( ForeignKey('country.id'), nullable=False, index=True)
 
     country1 =  relationship('Country', primaryjoin='County.country == Country.id', backref='counties')
@@ -1776,7 +1780,7 @@ class Courtcase(Model):
     prosecutor =  relationship('Prosecutor', primaryjoin='Courtcase.filing_prosecutor == Prosecutor.id', backref='courtcases')
     parent =  relationship('Courtcase', remote_side=[id], primaryjoin='Courtcase.linked_cases == Courtcase.id', backref='courtcases')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Courtcase.pretrial_registrar == Judicialofficer.id', backref='courtcases')
-    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_77')
+    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_100')
     lawfirm =  relationship('Lawfirm', secondary='courtcase_lawfirm', backref='courtcases')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -2648,7 +2652,7 @@ class Document(Model):
     admisibility_notes =  Column( Text, nullable=False)
     admitted =  Column( Boolean)
     receiving_registrar =  Column( ForeignKey('judicialofficer.id'), index=True)
-    receive_date =  Column( DateTime)
+    receive_date =  Column( DateTime, autoincrement=True)
     review_registrar =  Column( ForeignKey('judicialofficer.id'), index=True)
     review_date =  Column( DateTime)
     filing_date =  Column( DateTime)
@@ -2656,7 +2660,7 @@ class Document(Model):
     document_text =  Column( Text, nullable=False)
     published =  Column( Boolean)
     publish_newspaper =  Column( Text, nullable=False)
-    publish_date =  Column( Date)
+    publish_date =  Column( Date, autoincrement=True)
     validated =  Column( Boolean)
     paid =  Column( Boolean)
     page_count =  Column( Integer)
@@ -2685,13 +2689,15 @@ class Document(Model):
     certifying_judicial_officer =  Column( ForeignKey('judicialofficer.id'), index=True)
     certify_date =  Column( DateTime)
     expiry_date =  Column( DateTime)
+    locked =  Column( Boolean)
+    lock_date =  Column( DateTime)
 
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Document.certifying_judicial_officer == Judicialofficer.id', backref='documents')
     courtcase =  relationship('Courtcase', primaryjoin='Document.court_case == Courtcase.id', backref='documents')
     doctemplate =  relationship('Doctemplate', primaryjoin='Document.doc_template == Doctemplate.id', backref='documents')
     issue1 =  relationship('Issue', primaryjoin='Document.issue == Issue.id', backref='documents')
-    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_1')
-    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_77')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_44')
+    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_80')
     documenttype =  relationship('Documenttype', secondary='document_documenttype', backref='documents')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3739,7 +3745,7 @@ class Hearing(Model):
     issue =  relationship('Issue', secondary='hearing_issue', backref='hearings')
     judicialofficer =  relationship('Judicialofficer', secondary='hearing_judicialofficer', backref='hearings')
     lawfirm =  relationship('Lawfirm', secondary='hearing_lawfirm', backref='hearings')
-    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_89')
+    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_48')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -4331,11 +4337,11 @@ class Issue(Model):
     lawyer =  relationship('Lawyer', primaryjoin='Issue.defense_lawyer == Lawyer.id', backref='issues')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Issue.judicial_officer == Judicialofficer.id', backref='issues')
     prosecutor1 =  relationship('Prosecutor', primaryjoin='Issue.prosecutor == Prosecutor.id', backref='issues')
-    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_90')
+    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_42')
     legalreference =  relationship('Legalreference', secondary='issue_legalreference', backref='issues')
-    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_5')
+    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_13')
     party =  relationship('Party', secondary='issue_party', backref='issues')
-    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_80')
+    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_7')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -5200,12 +5206,11 @@ class Notification(Model):
     __tablename__ = 'notification'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    contact =  Column( Text, nullable=False)
+    contact =  Column( String(200), nullable=False)
     message =  Column( Text, nullable=False)
-    confirmation =  Column( Text, nullable=False)
+    confirmation =  Column( String(100), nullable=False)
     notification_register =  Column( ForeignKey('notificationregister.id'), index=True)
-    add_date =  Column( DateTime)
-    send_date =  Column( DateTime)
+    send_date =  Column( DateTime, autoincrement=True)
     sent =  Column( Boolean)
     delivered =  Column( Boolean)
     retries =  Column( Integer)
@@ -5304,13 +5309,14 @@ class Notificationregister(Model):
     notify_event =  Column( ForeignKey('notifyevent.id'), index=True)
     retry_count =  Column( BigInteger)
     active =  Column( Boolean)
+    court_case =  Column( ForeignKey('courtcase.id'), index=True)
     hearing =  Column( ForeignKey('hearing.id'), index=True)
     document =  Column( ForeignKey('document.id'), index=True)
-    court_case =  Column( ForeignKey('courtcase.id'), index=True)
     complaint =  Column( ForeignKey('complaint.id'), index=True)
     complaint_category =  Column( ForeignKey('complaintcategory.id'), index=True)
     health_event =  Column( ForeignKey('healthevent.id'), index=True)
     party =  Column( ForeignKey('party.id'), index=True)
+    user_to_notify =  Column( ForeignKey('sysuserextra.id'), nullable=False, index=True)
 
     complaint1 =  relationship('Complaint', primaryjoin='Notificationregister.complaint == Complaint.id', backref='notificationregisters')
     complaintcategory =  relationship('Complaintcategory', primaryjoin='Notificationregister.complaint_category == Complaintcategory.id', backref='notificationregisters')
@@ -5321,6 +5327,7 @@ class Notificationregister(Model):
     notificationtype =  relationship('Notificationtype', primaryjoin='Notificationregister.notification_type == Notificationtype.id', backref='notificationregisters')
     notifyevent =  relationship('Notifyevent', primaryjoin='Notificationregister.notify_event == Notifyevent.id', backref='notificationregisters')
     party1 =  relationship('Party', primaryjoin='Notificationregister.party == Party.id', backref='notificationregisters')
+    sysuserextra =  relationship('Sysuserextra', primaryjoin='Notificationregister.user_to_notify == Sysuserextra.id', backref='notificationregisters')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=False)
@@ -7429,16 +7436,16 @@ class Sysuserextra(Model):
     __tablename__ = 'sysuserextra'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    sys_notes =  Column( Text, nullable=False)
     sys_birthday =  Column( Date)
     sys_job_grade =  Column( Text, nullable=False)
     sys_home_address =  Column( Text, nullable=False)
-    alt_phone =  Column( String(20), nullable=False)
+    mobile =  Column( String(20), nullable=False)
+    off_phone =  Column( String(20), nullable=False)
     alt_email =  Column( String(120), nullable=False)
     office_address =  Column( Text, nullable=False)
     off_email =  Column( String(120), nullable=False)
+    sys_notes =  Column( Text, nullable=False)
     syswkflowgrp =  Column( ForeignKey('syswkflowgrp.id'), nullable=False, index=True)
-    off_phone =  Column( String(20), nullable=False)
 
     syswkflowgrp1 =  relationship('Syswkflowgrp', primaryjoin='Sysuserextra.syswkflowgrp == Syswkflowgrp.id', backref='sysuserextras')
 
@@ -7536,6 +7543,7 @@ class Sysviewfld(Model):
     fld_label =  Column( String(100), nullable=False)
     fld_default =  Column( String(100), nullable=False)
     fld_widget =  Column( String(200), nullable=False)
+    fld_display_order =  Column( BigInteger)
 
     sysviewlist =  relationship('Sysviewlist', primaryjoin='Sysviewfld.sys__view == Sysviewlist.id', backref='sysviewflds')
 

@@ -873,7 +873,7 @@ class Commital( ActivityMixin,  AuditMixin, Model):
     prison =  relationship('Prison', primaryjoin='Commital.prisons == Prison.id', backref='commitals')
     prisonofficer =  relationship('Prisonofficer', primaryjoin='Commital.receiving_officer == Prisonofficer.id', backref='commitals')
     releasetype =  relationship('Releasetype', primaryjoin='Commital.release_type == Releasetype.id', backref='commitals')
-    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_92')
+    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_97')
     warranttype =  relationship('Warranttype', primaryjoin='Commital.warrant_type == Warranttype.id', backref='commitals')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -1365,7 +1365,10 @@ class Country( AuditMixin, Model):
     __tablename__ = 'country'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    name =  Column( Text, nullable=True)
+    code =  Column( String(4))
+    name =  Column( String(50), nullable=True)
+    dial_prefix =  Column( String(6))
+    capital =  Column( String(100), nullable=True)
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -1447,11 +1450,12 @@ class Country( AuditMixin, Model):
 
 
 #STARTCLASS
-class County( AuditMixin, Model):
+class County( RefTypeMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'county'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
+    code =  Column( String(10), nullable=True)
     country =  Column( ForeignKey('country.id'), nullable=True, index=True)
 
     country1 =  relationship('Country', primaryjoin='County.country == Country.id', backref='counties')
@@ -1781,7 +1785,7 @@ class Courtcase( ActivityMixin,  AuditMixin, Model):
     prosecutor =  relationship('Prosecutor', primaryjoin='Courtcase.filing_prosecutor == Prosecutor.id', backref='courtcases')
     parent =  relationship('Courtcase', remote_side=[id], primaryjoin='Courtcase.linked_cases == Courtcase.id', backref='courtcases')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Courtcase.pretrial_registrar == Judicialofficer.id', backref='courtcases')
-    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_77')
+    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_100')
     lawfirm =  relationship('Lawfirm', secondary='courtcase_lawfirm', backref='courtcases')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -2656,7 +2660,7 @@ class Document( DocMixin,  AuditMixin, Model):
     admisibility_notes =  Column( Text, nullable=True)
     admitted =  Column( Boolean)
     receiving_registrar =  Column( ForeignKey('judicialofficer.id'), index=True)
-    receive_date =  Column( DateTime)
+    receive_date =  Column( DateTime, autoincrement=True)
     review_registrar =  Column( ForeignKey('judicialofficer.id'), index=True)
     review_date =  Column( DateTime)
     filing_date =  Column( DateTime)
@@ -2664,7 +2668,7 @@ class Document( DocMixin,  AuditMixin, Model):
     document_text =  Column( Text, nullable=True)
     published =  Column( Boolean)
     publish_newspaper =  Column( Text, nullable=True)
-    publish_date =  Column( Date)
+    publish_date =  Column( Date, autoincrement=True)
     validated =  Column( Boolean)
     paid =  Column( Boolean)
     page_count =  Column( Integer)
@@ -2693,13 +2697,15 @@ class Document( DocMixin,  AuditMixin, Model):
     certifying_judicial_officer =  Column( ForeignKey('judicialofficer.id'), index=True)
     certify_date =  Column( DateTime)
     expiry_date =  Column( DateTime)
+    locked =  Column( Boolean)
+    lock_date =  Column( DateTime)
 
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Document.certifying_judicial_officer == Judicialofficer.id', backref='documents')
     courtcase =  relationship('Courtcase', primaryjoin='Document.court_case == Courtcase.id', backref='documents')
     doctemplate =  relationship('Doctemplate', primaryjoin='Document.doc_template == Doctemplate.id', backref='documents')
     issue1 =  relationship('Issue', primaryjoin='Document.issue == Issue.id', backref='documents')
-    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_1')
-    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_77')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_44')
+    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_80')
     documenttype =  relationship('Documenttype', secondary='document_documenttype', backref='documents')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3749,7 +3755,7 @@ class Hearing( ActivityMixin,  AuditMixin, Model):
     issue =  relationship('Issue', secondary='hearing_issue', backref='hearings')
     judicialofficer =  relationship('Judicialofficer', secondary='hearing_judicialofficer', backref='hearings')
     lawfirm =  relationship('Lawfirm', secondary='hearing_lawfirm', backref='hearings')
-    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_89')
+    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_48')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -4349,11 +4355,11 @@ class Issue( AuditMixin, Model):
     lawyer =  relationship('Lawyer', primaryjoin='Issue.defense_lawyer == Lawyer.id', backref='issues')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Issue.judicial_officer == Judicialofficer.id', backref='issues')
     prosecutor1 =  relationship('Prosecutor', primaryjoin='Issue.prosecutor == Prosecutor.id', backref='issues')
-    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_90')
+    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_42')
     legalreference =  relationship('Legalreference', secondary='issue_legalreference', backref='issues')
-    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_5')
+    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_13')
     party =  relationship('Party', secondary='issue_party', backref='issues')
-    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_80')
+    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_7')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -5224,12 +5230,11 @@ class Notification( AuditMixin, Model):
     __tablename__ = 'notification'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    contact =  Column( Text, nullable=True)
+    contact =  Column( String(200), nullable=True)
     message =  Column( Text, nullable=True)
-    confirmation =  Column( Text, nullable=True)
+    confirmation =  Column( String(100), nullable=True)
     notification_register =  Column( ForeignKey('notificationregister.id'), index=True)
-    add_date =  Column( DateTime)
-    send_date =  Column( DateTime)
+    send_date =  Column( DateTime, autoincrement=True)
     sent =  Column( Boolean)
     delivered =  Column( Boolean)
     retries =  Column( Integer)
@@ -5328,13 +5333,14 @@ class Notificationregister( AuditMixin, Model):
     notify_event =  Column( ForeignKey('notifyevent.id'), index=True)
     retry_count =  Column( BigInteger)
     active =  Column( Boolean)
+    court_case =  Column( ForeignKey('courtcase.id'), index=True)
     hearing =  Column( ForeignKey('hearing.id'), index=True)
     document =  Column( ForeignKey('document.id'), index=True)
-    court_case =  Column( ForeignKey('courtcase.id'), index=True)
     complaint =  Column( ForeignKey('complaint.id'), index=True)
     complaint_category =  Column( ForeignKey('complaintcategory.id'), index=True)
     health_event =  Column( ForeignKey('healthevent.id'), index=True)
     party =  Column( ForeignKey('party.id'), index=True)
+    user_to_notify =  Column( ForeignKey('sysuserextra.id'), nullable=True, index=True)
 
     complaint1 =  relationship('Complaint', primaryjoin='Notificationregister.complaint == Complaint.id', backref='notificationregisters')
     complaintcategory =  relationship('Complaintcategory', primaryjoin='Notificationregister.complaint_category == Complaintcategory.id', backref='notificationregisters')
@@ -5345,6 +5351,7 @@ class Notificationregister( AuditMixin, Model):
     notificationtype =  relationship('Notificationtype', primaryjoin='Notificationregister.notification_type == Notificationtype.id', backref='notificationregisters')
     notifyevent =  relationship('Notifyevent', primaryjoin='Notificationregister.notify_event == Notifyevent.id', backref='notificationregisters')
     party1 =  relationship('Party', primaryjoin='Notificationregister.party == Party.id', backref='notificationregisters')
+    sysuserextra =  relationship('Sysuserextra', primaryjoin='Notificationregister.user_to_notify == Sysuserextra.id', backref='notificationregisters')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -6269,7 +6276,7 @@ class Policeofficerrank( RefTypeMixin,  AuditMixin, Model):
 
 
 #STARTCLASS
-class Policestation( RefTypeMixin,  AuditMixin, Model):
+class Policestation( PlaceMixin,  RefTypeMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'policestation'
 
@@ -7361,7 +7368,7 @@ class Settlement( AuditMixin, Model):
 
 
 #STARTCLASS
-class Subcounty( AuditMixin, Model):
+class Subcounty( RefTypeMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'subcounty'
 
@@ -7455,16 +7462,16 @@ class Sysuserextra( ContactMixin,  AuditMixin, Model):
     __tablename__ = 'sysuserextra'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    sys_notes =  Column( Text, nullable=True)
     sys_birthday =  Column( Date)
     sys_job_grade =  Column( Text, nullable=True)
     sys_home_address =  Column( Text, nullable=True)
-    alt_phone =  Column( String(20), nullable=True)
+    mobile =  Column( String(20), nullable=True)
+    off_phone =  Column( String(20), nullable=True)
     alt_email =  Column( String(120), nullable=True)
     office_address =  Column( Text, nullable=True)
     off_email =  Column( String(120), nullable=True)
+    sys_notes =  Column( Text, nullable=True)
     syswkflowgrp =  Column( ForeignKey('syswkflowgrp.id'), nullable=True, index=True)
-    off_phone =  Column( String(20), nullable=True)
 
     syswkflowgrp1 =  relationship('Syswkflowgrp', primaryjoin='Sysuserextra.syswkflowgrp == Syswkflowgrp.id', backref='sysuserextras')
 
@@ -7562,6 +7569,7 @@ class Sysviewfld( AuditMixin, Model):
     fld_label =  Column( String(100), nullable=True)
     fld_default =  Column( String(100), nullable=True)
     fld_widget =  Column( String(200), nullable=True)
+    fld_display_order =  Column( BigInteger)
 
     sysviewlist =  relationship('Sysviewlist', primaryjoin='Sysviewfld.sys__view == Sysviewlist.id', backref='sysviewflds')
 
@@ -8102,7 +8110,7 @@ class Templatetype( RefTypeMixin,  AuditMixin, Model):
 
 
 #STARTCLASS
-class Town( AuditMixin, Model):
+class Town( RefTypeMixin, PlaceMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'town'
 
@@ -8392,7 +8400,7 @@ class Vehicle( AuditMixin, Model):
 
 
 #STARTCLASS
-class Ward( AuditMixin, Model):
+class Ward( RefTypeMixin, PlaceMixin,  AuditMixin, Model):
     __versioned__ = {}
     __tablename__ = 'ward'
 

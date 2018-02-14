@@ -15,7 +15,7 @@ createdb iecms
 echo "Created Database iecms"
 echo "Starting Generating the tables"
 # Backup old pony file
-cp pomy.py pony-"$(date)".py
+cp pomy.py ../db/pony-"$(date)".py
 # Take the latest pony file and use it
 cp `ls pony* | tail -n1` pomy.py
 cat p_connect.py >> pomy.py

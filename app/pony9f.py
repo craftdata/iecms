@@ -12,6 +12,7 @@ db = Database()
 class County(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
+    code = Optional(str, 10)
     subcounties = Set('Subcounty')
     country = Required('Country')
 
@@ -43,9 +44,10 @@ class Town(db.Entity):
 class Country(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     counties = Set(County)
-    Name = Optional(str, 50)
     Code = Optional(str, 4, nullable=True)
+    Name = Optional(str, 50)
     dial_prefix = Optional(str, 6, nullable=True)
+    Capital = Optional(str, 100)
 
 
 class PoliceStation(db.Entity):
@@ -1115,5 +1117,6 @@ class SysViewFld(db.Entity):
     fld_default = Optional(str, 100)
     fld_widget = Optional(str, 200)
     fld_display_order = Optional(int, default=0, unsigned=True)
+
 
 

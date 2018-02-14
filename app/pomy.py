@@ -12,6 +12,7 @@ db = Database()
 class County(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     id = PrimaryKey(int, auto=True)
+    code = Optional(str, 10)
     subcounties = Set('Subcounty')
     country = Required('Country')
 
@@ -43,7 +44,10 @@ class Town(db.Entity):
 class Country(db.Entity):
     """RefTypeMixin, PlaceMixin"""
     counties = Set(County)
-    Name = Optional(str)
+    Code = Optional(str, 4, nullable=True)
+    Name = Optional(str, 50)
+    dial_prefix = Optional(str, 6, nullable=True)
+    Capital = Optional(str, 100)
 
 
 class PoliceStation(db.Entity):
@@ -560,7 +564,7 @@ class Document(db.Entity):
     admisibility_notes = Optional(LongStr)
     admitted = Optional(bool, default=True)
     receiving_registrar = Optional(JudicialOfficer, reverse='document_received')
-    receive_date = Optional(datetime)
+    receive_date = Optional(datetime, sql_default='current_timestamp')
     review_registrar = Optional(JudicialOfficer, reverse='documents')  # probably a registrar
     review_date = Optional(datetime)
     filing_date = Optional(datetime)
@@ -569,7 +573,7 @@ class Document(db.Entity):
     document_text = Optional(LongStr)
     Published = Optional(bool)
     publish_newspaper = Optional(str)
-    publish_date = Optional(date)
+    publish_date = Optional(date, sql_default='current_timestamp')
     validated = Optional(bool)
     paid = Optional(bool)
     filing_costs = Set('Bill')
@@ -601,6 +605,8 @@ class Document(db.Entity):
     certifying_judicial_officer = Optional(JudicialOfficer, reverse='documents_certified_urgent')
     certify_date = Optional(datetime)
     expiry_date = Optional(datetime)
+    locked = Optional(bool, default=False)
+    lock_date = Optional(datetime)  # Table locked
 
 
 class FeeType(db.Entity):
@@ -945,14 +951,15 @@ class NotificationRegister(db.Entity):
     notify_event = Optional('NotifyEvent')
     retry_count = Optional(int, default=3, unsigned=True)
     active = Optional(bool)
+    court_case = Optional(CourtCase)
     hearing = Optional(Hearing)
     notifications = Set('Notification')
     document = Optional(Document)
-    court_case = Optional(CourtCase)
     complaint = Optional(Complaint)
     complaint_category = Optional(ComplaintCategory)
     health_event = Optional(HealthEvent)
     party = Optional(Party)
+    User_to_notify = Required('SysUserExtra')
 
 
 class NotificationType(db.Entity):
@@ -972,16 +979,15 @@ class NotifyEvent(db.Entity):
 class Notification(db.Entity):
     """The actual list of sent messages"""
     id = PrimaryKey(int, auto=True)
-    contact = Optional(str)
+    contact = Optional(str, 200)
     message = Optional(str)
-    confirmation = Optional(str)
+    confirmation = Optional(str, 100)
     notification_register = Optional(NotificationRegister)
-    add_date = Optional(datetime)
-    send_date = Optional(datetime, default=lambda: datetime.now())
-    sent = Optional(bool)
-    delivered = Optional(bool)
-    retries = Optional(int)
-    abandon = Optional(bool)
+    send_date = Optional(datetime, sql_default='current_timestamp', default=lambda: datetime.now())
+    sent = Optional(bool, default=False)
+    delivered = Optional(bool, default='FAlse')
+    retries = Optional(int, default=0)
+    abandon = Optional(bool, default=False)
     retry_count = Optional(int, default=3)
 
 
@@ -1057,16 +1063,17 @@ class SysViewList(db.Entity):
 class SysUserExtra(db.Entity):
     """connect to NotificationRegister"""
     id = PrimaryKey(int, auto=True)
-    sys_notes = Optional(LongStr)
     sys_birthday = Optional(date)
     sys_job_grade = Optional(str)
     sys_home_address = Optional(str)
-    alt_phone = Optional(str, 20)
+    mobile = Optional(str, 20)
+    off_phone = Optional(str, 20)
     alt_email = Optional(str, 120)
     office_address = Optional(LongStr)
     off_email = Optional(str, 120)
+    sys_notes = Optional(LongStr)
     syswkflowgrp = Required('SysWkflowGrp')
-    off_phone = Optional(str, 20)
+    notification_registers = Set(NotificationRegister)
 
 
 class SysWkflow(db.Entity):
@@ -1086,7 +1093,7 @@ class SysWkflowGrp(db.Entity):
     sys_cat_name = Required(str, 200, unique=True)
     sys_cat_description = Optional(str, 200, nullable=True)
     sys_cat_notes = Optional(LongStr)
-    syswkflows = Set(SysWkflow, cascade_delete=False)
+    syswkflows = Set(SysWkflow)
     sysuserextra = Set(SysUserExtra)
 
 
@@ -1109,6 +1116,7 @@ class SysViewFld(db.Entity):
     fld_label = Optional(str, 100)
     fld_default = Optional(str, 100)
     fld_widget = Optional(str, 200)
+    fld_display_order = Optional(int, default=0, unsigned=True)
 
 
 

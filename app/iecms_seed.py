@@ -7,5 +7,5 @@ with open('db/counties.csv', 'r') as csvfile:
     csvfile.seek(0)
     reader = csv.DictReader(csvfile)
     for row in reader:
-        c = Country()
-        c.
+        c = County()
+        c.c
