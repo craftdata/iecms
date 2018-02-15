@@ -6,6 +6,7 @@ click.disable_unicode_literals_warning = True
 import logging
 import config as cfg
 from flask import Flask, g
+from celery import Celery
 from flask_appbuilder import SQLA, AppBuilder
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_pymongo import PyMongo
@@ -29,7 +30,7 @@ def rethinkDbSetup():
         print ('Database setup completed. Now run the app without --setup.')
         connection.close()
     except RqlRuntimeError:
-        print ('App database already exists. Run the app without --setup.')
+        print ('App RethinkDB database already exists. Run the app without --setup.')
     finally:
         pass
 

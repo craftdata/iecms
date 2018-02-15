@@ -59,7 +59,6 @@ class Country(db.Entity):
     headofstate = Optional(str, nullable=True)
     Capital = Optional(str, 100, nullable=True)
     code2 = Optional(str, 2, nullable=True)
-    surfacearea = Optional(Decimal)
 
 
 class PoliceStation(db.Entity):

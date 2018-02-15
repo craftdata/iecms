@@ -33,12 +33,15 @@ echo "Models.py file created"
 echo "Creating tables in IECMS "
 ## We haven't fixed up our views yet, so temp measure
 cp views_template.py views.py
+
+(
+# Inside a subshell
 cd ..
 #fabmanager create-db
 echo "GO FIX:   wtf_PageForm, exclude[]"
 # Back to where we started from
-cd app
-
+# cd app
+)
 # Because we can't use from .mixin import * we need to from mixin import *
 echo " Now fixingup the views"
 sed s/'from .mixins import'/'from mixins import'/ <models.py >model1.py
@@ -56,6 +59,8 @@ echo " All DONE with generation - now to create the iecms db"
 
 # All done with generation for the time being
 # TO DO
+(
+# Inside a subshell
 cd ..
 fabmanager create-db
 echo "IECMS Database Created"
@@ -70,3 +75,10 @@ echo "Now run fabmanager create-db"
 
 fabmanager create-db
 fabmanager create-admin
+
+fabmanager list-views > xv.txt
+tail -n +4 xv.txt > xview.txt
+rm xv.txt
+sed 's/^View://g;s/ Route://g;s/ Perms://g'< xview.txt > view_list.csv
+)
+

@@ -389,31 +389,31 @@ Complaintrole_show_field_set = [
 
 
 
-Country_add_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'id', 'name']
+Country_add_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'id', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea']
 
 
-Country_edit_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'id', 'name']
+Country_edit_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'id', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea']
 
 
-Country_list_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'id', 'name']
+Country_list_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'id', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea']
 
 
 Country_add_field_set = [
-    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'id', 'name'], 'expanded': True}),
+    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'id', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Country_edit_field_set = [
-    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'id', 'name'], 'expanded': True}),
+    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'id', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Country_show_field_set = [
-    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'id', 'name'], 'expanded': True}),
+    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'id', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 

@@ -47,19 +47,7 @@ class Country(db.Entity):
     Code = Optional(str, 4, nullable=True)
     Name = Optional(str, 50)
     dial_prefix = Optional(str, 6, nullable=True)
-    continent = Optional(str, 100, nullable=True)
-    region = Optional(str, 100, nullable=True)
-    indepyear = Optional(int)
-    population = Optional(int)
-    lifeexpectancy = Optional(Decimal)
-    gnp = Optional(Decimal)
-    gnpold = Optional(Decimal)
-    localname = Optional(str, 100, nullable=True)
-    governmentform = Optional(str, nullable=True)
-    headofstate = Optional(str, nullable=True)
-    Capital = Optional(str, 100, nullable=True)
-    code2 = Optional(str, 2, nullable=True)
-    surfacearea = Optional(Decimal)
+    Capital = Optional(str, 100)
 
 
 class PoliceStation(db.Entity):

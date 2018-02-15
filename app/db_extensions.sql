@@ -49,7 +49,7 @@ begin
 end;$$;
 
 
-CREATE OR REPLACE FUNCTION sms_notification()
+CREATE OR REPLACE FUNCTION sms_notification(in Kontact, in msg)
 RETURNS trigger AS
 $$
 BEGIN
@@ -61,20 +61,78 @@ END;
 $$
 LANGUAGE 'plpgsql';
 
-CREATE or REPLACE FUNCTION make_hearing_notification(h as hearing)
-	RETURNS trigger
-AS $$
+
+create function ncode_gen(the_num bigint)
+returns text
+as $$
+global the_num
+alpha33, prn =  ['ABCDEFGHJKMNPQRSTUVWXYZ0123456789', '']
+while the_num:
+    the_num, j = divmod(the_num, 33)
+    prn = alpha33[j] + prn
+
+z = 4 - len(prn)
+if z > 0:
+    prn = ("A" * z) + prn
+return prn or alpha33[0]
+$$ LANGUAGE plpythonu;
+
+--create function s_scode()
+--returns trigger as '
+--BEGIN
+-- NEW.school_code = scode_gen(NEW.sch_id);
+-- return NEW;
+--END' LANGUAGE 'plpgsql'
+--
+--
+--CREATE TRIGGER scode_trigger
+--BEFORE INSERT ON school
+--FOR EACH ROW
+--EXECUTE PROCEDURE s_scode()
+--
+--CREATE TRIGGER scode_trigger_after
+--AFTER INSERT ON school
+--FOR EACH ROW
+--EXECUTE PROCEDURE s_scode()
+
+--CREATE or REPLACE FUNCTION make_hearing_notification(h as hearing)
+--	RETURNS trigger
+--AS $$
+--BEGIN
+--	if h["adjourned_to"] is not None:
+--		adj_str = "Adjourned to {0} because {1}".format(h["adjourned_to"], h["adjournment_reason"])
+--	else:
+--		adj_str = ""
+--
+--	msg = " Court Case: Date {0}  "
+--	insert into notification(retry_count)
+--    values
+--	select * from notificationregister
+--	where notificationregister.id = hearing_no
+--
+--END;
+--$$ LANGUAGE 'plpythonu';
+
+
+
+CREATE OR REPLACE FUNCTION public.notify_insert() RETURNS trigger AS
+$BODY$
 BEGIN
-	if h["adjourned_to"] is not None:
-		adj_str = "Adjourned to {0} because {1}".format(h["adjourned_to"], h["adjournment_reason"])
-	else:
-		adj_str = ""
+      IF TG_WHEN=’BEFORE’ OR TG_WHEN='AFTER' THEN
+            IF TG_OP=’INSERT’ THEN
+                  INSERT INTO notification (change_user, message) VALUES (NEW.changed_by_fk, 'There has been an addition to your court '|| TG_TABLE_NAME);
+            ELSIF TG_OP=’UPDATE’ -- AND OLD.code IS DISTINCT FROM NEW.code THEN
+                  INSERT INTO notification (change_user, message) VALUES (NEW.changed_by_fk, 'There has been a change to your court '|| TG_TABLE_NAME);
+            END IF;
+      END IF;
+      RETURN NEW;
+END$BODY$
+LANGUAGE plpgsql VOLATILE;
 
-	msg = " Court Case: Date {0}  "
-	insert into notification(retry_count)
-    values
-	select * from notificationregister
-	where notificationregister.id = hearing_no
+CREATE TRIGGER hearing
+BEFORE INSERT OR UPDATE
+ON public.sample FOR EACH ROW EXECUTE PROCEDURE public.notify_insert();
 
-END;
-$$ LANGUAGE 'plpythonu';
+CREATE TRIGGER courtcase
+BEFORE INSERT OR UPDATE
+ON public.sample FOR EACH ROW EXECUTE PROCEDURE public.notify_insert();
