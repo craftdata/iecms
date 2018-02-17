@@ -913,12 +913,12 @@ class DocTemplate(db.Entity):
     id = PrimaryKey(int, auto=True)
     documents = Set(Document)
     template = Optional(LongStr)
-    title = Optional(str, 200)
-    name = Optional(str, 200)
+    docx = Optional(str)
+    name = Optional(str)
+    title = Optional(str)
     summary = Optional(str)
     template_type = Required('TemplateType')
     icon = Optional(str)
-    docx = Optional(str)
 
 
 class TemplateType(db.Entity):
@@ -991,17 +991,16 @@ class NotifyEvent(db.Entity):
 class Notification(db.Entity):
     """The actual list of sent messages"""
     id = PrimaryKey(int, auto=True)
-    contact_id = Optional(int, nullable=True)
-    message = Optional(str, nullable=True)
-    change_user_id = Optional(int)
-    confirmation = Optional(str, 100, nullable=True)
+    contact = Optional(str, 200)
+    message = Optional(str)
+    confirmation = Optional(str, 100)
     notification_register = Optional(NotificationRegister)
     send_date = Optional(datetime, sql_default='current_timestamp', default=lambda: datetime.now())
     sent = Optional(bool, default=False)
-    delivered = Optional(bool, default=False)
+    delivered = Optional(bool, default='FAlse')
     retries = Optional(int, default=0)
     abandon = Optional(bool, default=False)
-    retry_count = Optional(int, default=5)
+    retry_count = Optional(int, default=3)
 
 
 class CaseChecklist(db.Entity):
@@ -1133,3 +1132,7 @@ class SysViewFld(db.Entity):
 
 
 
+
+
+db.bind("postgres", host="localhost", user="nyimbi", database="ctmp")
+db.generate_mapping(create_tables=True)

@@ -991,7 +991,7 @@ class NotifyEvent(db.Entity):
 class Notification(db.Entity):
     """The actual list of sent messages"""
     id = PrimaryKey(int, auto=True)
-    contact_id = Optional(int, nullable=True)
+    contact_id = Optional(int, 200, nullable=True)
     message = Optional(str, nullable=True)
     change_user_id = Optional(int)
     confirmation = Optional(str, 100, nullable=True)
@@ -1133,3 +1133,7 @@ class SysViewFld(db.Entity):
 
 
 
+
+
+db.bind("postgres", host="localhost", user="nyimbi", database="ctmp")
+db.generate_mapping(create_tables=True)

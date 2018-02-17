@@ -176,7 +176,7 @@ class Bill( AuditMixin, Model):
     document =  relationship('Document', primaryjoin='Bill.documents == Document.id', backref='bills')
     lawyer =  relationship('Lawyer', primaryjoin='Bill.lawyer_paying == Lawyer.id', backref='bills')
     party =  relationship('Party', primaryjoin='Bill.party_paying == Party.id', backref='bills')
-    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Bill.receiving_registrar == Judicialofficer.id', backref='bills_62')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Bill.receiving_registrar == Judicialofficer.id', backref='bills_74')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -873,7 +873,7 @@ class Commital( ActivityMixin,  AuditMixin, Model):
     prison =  relationship('Prison', primaryjoin='Commital.prisons == Prison.id', backref='commitals')
     prisonofficer =  relationship('Prisonofficer', primaryjoin='Commital.receiving_officer == Prisonofficer.id', backref='commitals')
     releasetype =  relationship('Releasetype', primaryjoin='Commital.release_type == Releasetype.id', backref='commitals')
-    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_49')
+    prisonofficer1 =  relationship('Prisonofficer', primaryjoin='Commital.releasing_officer == Prisonofficer.id', backref='commitals_93')
     warranttype =  relationship('Warranttype', primaryjoin='Commital.warrant_type == Warranttype.id', backref='commitals')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -1797,7 +1797,7 @@ class Courtcase( ActivityMixin,  AuditMixin, Model):
     prosecutor =  relationship('Prosecutor', primaryjoin='Courtcase.filing_prosecutor == Prosecutor.id', backref='courtcases')
     parent =  relationship('Courtcase', remote_side=[id], primaryjoin='Courtcase.linked_cases == Courtcase.id', backref='courtcases')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Courtcase.pretrial_registrar == Judicialofficer.id', backref='courtcases')
-    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_88')
+    judicialofficer1 =  relationship('Judicialofficer', secondary='courtcase_judicialofficer', backref='courtcases_58')
     lawfirm =  relationship('Lawfirm', secondary='courtcase_lawfirm', backref='courtcases')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -2571,12 +2571,12 @@ class Doctemplate( AuditMixin, Model):
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
     template =  Column( Text, nullable=True)
-    docx =  Column( Text, nullable=True)
-    name =  Column( Text, nullable=True)
-    title =  Column( Text, nullable=True)
+    title =  Column( String(200), nullable=True)
+    name =  Column( String(200), nullable=True)
     summary =  Column( Text, nullable=True)
     template_type =  Column( ForeignKey('templatetype.id'), nullable=True, index=True)
     icon =  Column( Text, nullable=True)
+    docx =  Column( Text, nullable=True)
 
     templatetype =  relationship('Templatetype', primaryjoin='Doctemplate.template_type == Templatetype.id', backref='doctemplates')
 
@@ -2716,8 +2716,8 @@ class Document( DocMixin,  AuditMixin, Model):
     courtcase =  relationship('Courtcase', primaryjoin='Document.court_case == Courtcase.id', backref='documents')
     doctemplate =  relationship('Doctemplate', primaryjoin='Document.doc_template == Doctemplate.id', backref='documents')
     issue1 =  relationship('Issue', primaryjoin='Document.issue == Issue.id', backref='documents')
-    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_63')
-    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_65')
+    judicialofficer1 =  relationship('Judicialofficer', primaryjoin='Document.receiving_registrar == Judicialofficer.id', backref='documents_29')
+    judicialofficer2 =  relationship('Judicialofficer', primaryjoin='Document.review_registrar == Judicialofficer.id', backref='documents_54')
     documenttype =  relationship('Documenttype', secondary='document_documenttype', backref='documents')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
@@ -3767,7 +3767,7 @@ class Hearing( ActivityMixin,  AuditMixin, Model):
     issue =  relationship('Issue', secondary='hearing_issue', backref='hearings')
     judicialofficer =  relationship('Judicialofficer', secondary='hearing_judicialofficer', backref='hearings')
     lawfirm =  relationship('Lawfirm', secondary='hearing_lawfirm', backref='hearings')
-    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_31')
+    lawfirm1 =  relationship('Lawfirm', secondary='hearing_lawfirm_2', backref='hearings_13')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -4367,11 +4367,11 @@ class Issue( AuditMixin, Model):
     lawyer =  relationship('Lawyer', primaryjoin='Issue.defense_lawyer == Lawyer.id', backref='issues')
     judicialofficer =  relationship('Judicialofficer', primaryjoin='Issue.judicial_officer == Judicialofficer.id', backref='issues')
     prosecutor1 =  relationship('Prosecutor', primaryjoin='Issue.prosecutor == Prosecutor.id', backref='issues')
-    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_13')
+    lawyer1 =  relationship('Lawyer', secondary='issue_lawyer', backref='issues_85')
     legalreference =  relationship('Legalreference', secondary='issue_legalreference', backref='issues')
-    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_42')
+    legalreference1 =  relationship('Legalreference', secondary='issue_legalreference_2', backref='issues_49')
     party =  relationship('Party', secondary='issue_party', backref='issues')
-    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_74')
+    party1 =  relationship('Party', secondary='issue_party_2', backref='issues_31')
 
     photo = Column(ImageColumn(size=(300, 300, True), thumbnail_size=(30, 30, True)))
     file = Column(FileColumn, nullable=True)
@@ -5242,9 +5242,10 @@ class Notification( AuditMixin, Model):
     __tablename__ = 'notification'
 
     id =  Column( Integer, primary_key=True, autoincrement=True)
-    contact =  Column( String(200), nullable=True)
-    message =  Column( Text, nullable=True)
-    confirmation =  Column( String(100), nullable=True)
+    contact_id =  Column( Integer)
+    message =  Column( Text)
+    change_user_id =  Column( Integer)
+    confirmation =  Column( String(100))
     notification_register =  Column( ForeignKey('notificationregister.id'), index=True)
     send_date =  Column( DateTime, autoincrement=True)
     sent =  Column( Boolean)

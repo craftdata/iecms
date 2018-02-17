@@ -1,6 +1,6 @@
 # coding: utf-8
 # Copyright (C) Nyimbi Odero, 2017-2018
-# Generated on 2018-02-14 12:05:36
+# Generated on 2018-02-15 19:09:54
 
 
 import calendar
@@ -1603,31 +1603,31 @@ Nextofkin_show_field_set = [
 
 
 
-Notification_add_columns = ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+Notification_add_columns = ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 
-Notification_edit_columns = ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+Notification_edit_columns = ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 
-Notification_list_columns = ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+Notification_list_columns = ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 
 Notification_add_field_set = [
-    ('Data', {'fields': ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
+    ('Data', {'fields': ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notification_edit_field_set = [
-    ('Data', {'fields': ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
+    ('Data', {'fields': ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notification_show_field_set = [
-    ('Data', {'fields': ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
+    ('Data', {'fields': ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -6409,7 +6409,7 @@ class NextofkinView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMi
 
 
 
-# FIELDS: ['abandon', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'id', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+# FIELDS: ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'id', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 class NotificationView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Notification, db.session)

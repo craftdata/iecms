@@ -913,12 +913,12 @@ class DocTemplate(db.Entity):
     id = PrimaryKey(int, auto=True)
     documents = Set(Document)
     template = Optional(LongStr)
-    docx = Optional(str)
-    name = Optional(str)
-    title = Optional(str)
+    title = Optional(str, 200)
+    name = Optional(str, 200)
     summary = Optional(str)
     template_type = Required('TemplateType')
     icon = Optional(str)
+    docx = Optional(str)
 
 
 class TemplateType(db.Entity):
@@ -991,16 +991,17 @@ class NotifyEvent(db.Entity):
 class Notification(db.Entity):
     """The actual list of sent messages"""
     id = PrimaryKey(int, auto=True)
-    contact = Optional(str, 200)
-    message = Optional(str)
-    confirmation = Optional(str, 100)
+    contact_id = Optional(int, nullable=True)
+    message = Optional(str, nullable=True)
+    change_user_id = Optional(int)
+    confirmation = Optional(str, 100, nullable=True)
     notification_register = Optional(NotificationRegister)
     send_date = Optional(datetime, sql_default='current_timestamp', default=lambda: datetime.now())
     sent = Optional(bool, default=False)
-    delivered = Optional(bool, default='FAlse')
+    delivered = Optional(bool, default=False)
     retries = Optional(int, default=0)
     abandon = Optional(bool, default=False)
-    retry_count = Optional(int, default=3)
+    retry_count = Optional(int, default=5)
 
 
 class CaseChecklist(db.Entity):

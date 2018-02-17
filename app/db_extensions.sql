@@ -115,7 +115,7 @@ $$ LANGUAGE plpythonu;
 
 
 
-CREATE OR REPLACE FUNCTION public.notify_insert() RETURNS trigger AS
+CREATE OR REPLACE FUNCTION notify_insert() RETURNS trigger AS
 $BODY$
 BEGIN
       IF TG_WHEN=’BEFORE’ OR TG_WHEN='AFTER' THEN
@@ -131,8 +131,8 @@ LANGUAGE plpgsql VOLATILE;
 
 CREATE TRIGGER hearing
 BEFORE INSERT OR UPDATE
-ON public.sample FOR EACH ROW EXECUTE PROCEDURE public.notify_insert();
+ON public.sample FOR EACH ROW EXECUTE PROCEDURE notify_insert();
 
 CREATE TRIGGER courtcase
 BEFORE INSERT OR UPDATE
-ON public.sample FOR EACH ROW EXECUTE PROCEDURE public.notify_insert();
+ON public.sample FOR EACH ROW EXECUTE PROCEDURE notify_insert();
