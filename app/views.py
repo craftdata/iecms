@@ -1,6 +1,6 @@
 # coding: utf-8
 # Copyright (C) Nyimbi Odero, 2017-2018
-# Generated on 2018-02-15 19:09:54
+# Generated on 2018-03-14 17:06:13
 
 
 import calendar
@@ -23,6 +23,9 @@ from flask_appbuilder.models.mixins import AuditMixin, FileColumn
 from wtforms.validators import DataRequired, EqualTo, Email
 from wtforms_alchemy import ModelForm
 
+# For decoding the md_metadata
+import ast
+
 # To Extend the User Model
 from flask_appbuilder.security.views import UserDBModelView
 #from flask_babelpkg import lazy_gettext
@@ -31,7 +34,7 @@ from app import appbuilder, db
 from .models import *
 
 
-audit_exclude_columns = hide_list = ['created_by', 'changed_by', 'created_on', 'changed_on']
+audit_exclude_columns = hide_list = ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk','created_by_fk']
 
 #To pretty Print from PersonMixin
 def pretty_month_year(value):
@@ -62,2622 +65,2623 @@ class BS3TextFieldROWidget(BS3TextFieldWidget):
 #     Field Sets and Columns    
 ####################
 
-audit_exclude_columns = ['created_by', 'created_on', 'changed_by', 'changed_on']
+audit_exclude_columns = ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk','created_by_fk']
 add_exclude_columns = edit_exclude_columns = audit_exclude_columns
 person_search_exclude_columns = ['photo', 'photo_img', 'photo_img_thumbnail', 'fp_l1', 'fp_l2', 'fp_l3', 'fp_l4',
                                  'fp_l5', 'fp_r1', 'fp_r2', 'fp_r3', 'fp_r4',
                                  'fp_r5'] + ['finger_palm_left', 'finger_palm_right', 'eye_left', 'eye_right']
+                                 
 biometric_columns = ['fp_lthumb', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5',
                      'fp_rthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5',
                      'palm_left', 'palm_right', 'eye_left', 'eye_right']
 
 
 
-Accounttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Accounttype_add_columns = ['name', 'description', 'notes']
 
 
-Accounttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Accounttype_edit_columns = ['name', 'description', 'notes']
 
 
-Accounttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Accounttype_list_columns = ['name', 'description', 'notes']
 
 
 Accounttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Accounttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Accounttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Bill_add_columns = ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'created_by', 'created_by_fk', 'created_on', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date']
+Bill_add_columns = ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date']
 
 
-Bill_edit_columns = ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'created_by', 'created_by_fk', 'created_on', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date']
+Bill_edit_columns = ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date']
 
 
-Bill_list_columns = ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'created_by', 'created_by_fk', 'created_on', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date']
+Bill_list_columns = ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date']
 
 
 Bill_add_field_set = [
-    ('Data', {'fields': ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'created_by', 'created_by_fk', 'created_on', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date'], 'expanded': True}),
+    ('Data', {'fields': ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Bill_edit_field_set = [
-    ('Data', {'fields': ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'created_by', 'created_by_fk', 'created_on', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date'], 'expanded': True}),
+    ('Data', {'fields': ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Bill_show_field_set = [
-    ('Data', {'fields': ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'created_by', 'created_by_fk', 'created_on', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date'], 'expanded': True}),
+    ('Data', {'fields': ['assess_date', 'assessing_registrar', 'bill_balance', 'bill_code', 'bill_date', 'bill_total', 'court', 'court1', 'court_account_account__types', 'court_account_courts', 'courtaccount', 'date_of_payment', 'document', 'documents', 'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', 'paid', 'paid_total', 'party', 'party_paying', 'receive_date', 'receiving_registrar', 'validated', 'validation_date'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Billdetail_add_columns = ['amount', 'bd_date', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost']
+Billdetail_add_columns = ['amount', 'bd_date', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost']
 
 
-Billdetail_edit_columns = ['amount', 'bd_date', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost']
+Billdetail_edit_columns = ['amount', 'bd_date', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost']
 
 
-Billdetail_list_columns = ['amount', 'bd_date', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost']
+Billdetail_list_columns = ['amount', 'bd_date', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost']
 
 
 Billdetail_add_field_set = [
-    ('Data', {'fields': ['amount', 'bd_date', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost'], 'expanded': True}),
+    ('Data', {'fields': ['amount', 'bd_date', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Billdetail_edit_field_set = [
-    ('Data', {'fields': ['amount', 'bd_date', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost'], 'expanded': True}),
+    ('Data', {'fields': ['amount', 'bd_date', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Billdetail_show_field_set = [
-    ('Data', {'fields': ['amount', 'bd_date', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost'], 'expanded': True}),
+    ('Data', {'fields': ['amount', 'bd_date', 'feetype', 'feetype1', 'purpose', 'qty', 'receipt', 'receipt_id', 'unit', 'unit_cost'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Biodata_add_columns = ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', 'changed_on', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'created_by', 'created_by_fk', 'created_on', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg']
+Biodata_add_columns = ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg']
 
 
-Biodata_edit_columns = ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', 'changed_on', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'created_by', 'created_by_fk', 'created_on', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg']
+Biodata_edit_columns = ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg']
 
 
-Biodata_list_columns = ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', 'changed_on', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'created_by', 'created_by_fk', 'created_on', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg']
+Biodata_list_columns = ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg']
 
 
 Biodata_add_field_set = [
-    ('Data', {'fields': ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', 'changed_on', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'created_by', 'created_by_fk', 'created_on', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg'], 'expanded': True}),
+    ('Data', {'fields': ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Biodata_edit_field_set = [
-    ('Data', {'fields': ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', 'changed_on', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'created_by', 'created_by_fk', 'created_on', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg'], 'expanded': True}),
+    ('Data', {'fields': ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Biodata_show_field_set = [
-    ('Data', {'fields': ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', 'changed_on', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'created_by', 'created_by_fk', 'created_on', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg'], 'expanded': True}),
+    ('Data', {'fields': ['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'blood_group', 'chronic_conditions', 'chronic_medications', 'citizenship', 'complexion', 'current_health_status', 'diabetes', 'economic_class', 'economicclass', 'ethnicity', 'eye_colour', 'eye_left', 'eye_right', 'f_education', 'f_firstname', 'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', 'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', 'health_status', 'height_m', 'hiv', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'm_education', 'm_firstname', 'm_income', 'm_nat_id_num', 'm_occupation', 'm_othernames', 'm_prn', 'm_surname', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', 'palm_right', 'party', 'party1', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'religion', 'religion1', 'striking_features', 'weight_kg'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Casecategory_add_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'subcategory']
+Casecategory_add_columns = ['name', 'description', 'notes', 'casechecklist', 'courtcase', 'parent', 'subcategory']
 
 
-Casecategory_edit_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'subcategory']
+Casecategory_edit_columns = ['name', 'description', 'notes', 'casechecklist', 'courtcase', 'parent', 'subcategory']
 
 
-Casecategory_list_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'subcategory']
+Casecategory_list_columns = ['name', 'description', 'notes', 'casechecklist', 'courtcase', 'parent', 'subcategory']
 
 
 Casecategory_add_field_set = [
-    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'casechecklist', 'courtcase', 'parent', 'subcategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casecategory_edit_field_set = [
-    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'casechecklist', 'courtcase', 'parent', 'subcategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casecategory_show_field_set = [
-    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'casechecklist', 'courtcase', 'parent', 'subcategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Casechecklist_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'is_mandatory', 'name', 'notes', 'priority']
+Casechecklist_add_columns = ['name', 'description', 'notes', 'check_list_item', 'is_mandatory', 'priority']
 
 
-Casechecklist_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'is_mandatory', 'name', 'notes', 'priority']
+Casechecklist_edit_columns = ['name', 'description', 'notes', 'check_list_item', 'is_mandatory', 'priority']
 
 
-Casechecklist_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'is_mandatory', 'name', 'notes', 'priority']
+Casechecklist_list_columns = ['name', 'description', 'notes', 'check_list_item', 'is_mandatory', 'priority']
 
 
 Casechecklist_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'check_list_item', 'is_mandatory', 'priority'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casechecklist_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'check_list_item', 'is_mandatory', 'priority'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casechecklist_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'check_list_item', 'is_mandatory', 'priority'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Caselinktype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Caselinktype_add_columns = ['name', 'description', 'notes']
 
 
-Caselinktype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Caselinktype_edit_columns = ['name', 'description', 'notes']
 
 
-Caselinktype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Caselinktype_list_columns = ['name', 'description', 'notes']
 
 
 Caselinktype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Caselinktype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Caselinktype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Celltype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Celltype_add_columns = ['name', 'description', 'notes']
 
 
-Celltype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Celltype_edit_columns = ['name', 'description', 'notes']
 
 
-Celltype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Celltype_list_columns = ['name', 'description', 'notes']
 
 
 Celltype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Celltype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Celltype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Commital_add_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'changed_by', 'changed_by_fk', 'changed_on', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children']
+Commital_add_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children']
 
 
-Commital_edit_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'changed_by', 'changed_by_fk', 'changed_on', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children']
+Commital_edit_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children']
 
 
-Commital_list_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'changed_by', 'changed_by_fk', 'changed_on', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children']
+Commital_list_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children']
 
 
 Commital_add_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'changed_by', 'changed_by_fk', 'changed_on', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Commital_edit_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'changed_by', 'changed_by_fk', 'changed_on', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Commital_show_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'changed_by', 'changed_by_fk', 'changed_on', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'arrest_date', 'arrival_date', 'balance_avail', 'budget', 'casecomplete', 'cell_number', 'cell_type', 'celltype', 'commit_date', 'commital', 'commital_type', 'commitaltype', 'completed', 'concurrent', 'contingency_plan', 'court_case', 'courtcase', 'deadline', 'deviation_expected', 'duration', 'early_end', 'early_start', 'end_delay', 'end_notes', 'exit_date', 'goal', 'late_end', 'late_start', 'life_imprisonment', 'not_started', 'over_budget', 'parent', 'parties', 'party', 'planned_end', 'planned_start', 'police_station', 'policestation', 'priority', 'prison', 'prisonofficer', 'prisonofficer1', 'prisons', 'purpose', 'reason_for_release', 'receiving_officer', 'release_date', 'release_type', 'releasetype', 'releasing_officer', 'remaining_days', 'remaining_months', 'remaining_years', 'segment', 'sentence_start_date', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'warrant_date_attached', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_type', 'warranttype', 'with_children'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Commitaltype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'maxduration', 'name', 'notes']
+Commitaltype_add_columns = ['name', 'description', 'notes', 'maxduration']
 
 
-Commitaltype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'maxduration', 'name', 'notes']
+Commitaltype_edit_columns = ['name', 'description', 'notes', 'maxduration']
 
 
-Commitaltype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'maxduration', 'name', 'notes']
+Commitaltype_list_columns = ['name', 'description', 'notes', 'maxduration']
 
 
 Commitaltype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'maxduration', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'maxduration'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Commitaltype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'maxduration', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'maxduration'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Commitaltype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'maxduration', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'maxduration'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Complaint_add_columns = ['active', 'casefileinformation', 'casesummary', 'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer']
+Complaint_add_columns = ['active', 'casefileinformation', 'casesummary', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer']
 
 
-Complaint_edit_columns = ['active', 'casefileinformation', 'casesummary', 'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer']
+Complaint_edit_columns = ['active', 'casefileinformation', 'casesummary', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer']
 
 
-Complaint_list_columns = ['active', 'casefileinformation', 'casesummary', 'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer']
+Complaint_list_columns = ['active', 'casefileinformation', 'casesummary', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer']
 
 
 Complaint_add_field_set = [
-    ('Data', {'fields': ['active', 'casefileinformation', 'casesummary', 'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer'], 'expanded': True}),
+    ('Data', {'fields': ['active', 'casefileinformation', 'casesummary', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaint_edit_field_set = [
-    ('Data', {'fields': ['active', 'casefileinformation', 'casesummary', 'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer'], 'expanded': True}),
+    ('Data', {'fields': ['active', 'casefileinformation', 'casesummary', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaint_show_field_set = [
-    ('Data', {'fields': ['active', 'casefileinformation', 'casesummary', 'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer'], 'expanded': True}),
+    ('Data', {'fields': ['active', 'casefileinformation', 'casesummary', 'charge_sheet', 'charge_sheet_docx', 'circumstances', 'close_date', 'close_reason', 'closed', 'complaintcategory', 'complaintstatement', 'courtcase', 'datecaseopened', 'datefiled', 'daterecvd', 'evaluating_prosecutor_team', 'judicialofficer', 'magistrate_report_date', 'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', 'p_recommend_charge', 'p_request_help', 'p_submission_date', 'p_submission_notes', 'p_submitted', 'police_station', 'policeofficer', 'policestation', 'prosecutorteam', 'reported_to_judicial_officer', 'reportingofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Complaintcategory_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent']
+Complaintcategory_add_columns = ['name', 'description', 'notes', 'complaint_category_parent', 'parent']
 
 
-Complaintcategory_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent']
+Complaintcategory_edit_columns = ['name', 'description', 'notes', 'complaint_category_parent', 'parent']
 
 
-Complaintcategory_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent']
+Complaintcategory_list_columns = ['name', 'description', 'notes', 'complaint_category_parent', 'parent']
 
 
 Complaintcategory_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'complaint_category_parent', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintcategory_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'complaint_category_parent', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintcategory_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'complaint_category_parent', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Complaintrole_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Complaintrole_add_columns = ['name', 'description', 'notes']
 
 
-Complaintrole_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Complaintrole_edit_columns = ['name', 'description', 'notes']
 
 
-Complaintrole_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Complaintrole_list_columns = ['name', 'description', 'notes']
 
 
 Complaintrole_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintrole_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintrole_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Country_add_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea']
+Country_add_columns = ['name', 'capital', 'code', 'code2', 'continent', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'population', 'region', 'surfacearea']
 
 
-Country_edit_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea']
+Country_edit_columns = ['name', 'capital', 'code', 'code2', 'continent', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'population', 'region', 'surfacearea']
 
 
-Country_list_columns = ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea']
+Country_list_columns = ['name', 'capital', 'code', 'code2', 'continent', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'population', 'region', 'surfacearea']
 
 
 Country_add_field_set = [
-    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'capital', 'code', 'code2', 'continent', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'population', 'region', 'surfacearea'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Country_edit_field_set = [
-    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'capital', 'code', 'code2', 'continent', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'population', 'region', 'surfacearea'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Country_show_field_set = [
-    ('Data', {'fields': ['capital', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'code2', 'continent', 'created_by', 'created_by_fk', 'created_on', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'name', 'population', 'region', 'surfacearea'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'capital', 'code', 'code2', 'continent', 'dial_prefix', 'gnp', 'gnpold', 'governmentform', 'headofstate', 'indepyear', 'lifeexpectancy', 'localname', 'population', 'region', 'surfacearea'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-County_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'country1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+County_add_columns = ['name', 'description', 'notes', 'code', 'country', 'country1']
 
 
-County_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'country1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+County_edit_columns = ['name', 'description', 'notes', 'code', 'country', 'country1']
 
 
-County_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'country1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+County_list_columns = ['name', 'description', 'notes', 'code', 'country', 'country1']
 
 
 County_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'country1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'code', 'country', 'country1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 County_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'country1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'code', 'country', 'country1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 County_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'country1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'code', 'country', 'country1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Court_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1']
+Court_add_columns = ['alt', 'centered', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1']
 
 
-Court_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1']
+Court_edit_columns = ['alt', 'centered', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1']
 
 
-Court_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1']
+Court_list_columns = ['alt', 'centered', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1']
 
 
 Court_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Court_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Court_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'court_rank', 'court_station', 'courtrank', 'courtstation', 'info', 'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Courtaccount_add_columns = ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'courts', 'created_by', 'created_by_fk', 'created_on', 'short_code']
+Courtaccount_add_columns = ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'court', 'courts', 'short_code']
 
 
-Courtaccount_edit_columns = ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'courts', 'created_by', 'created_by_fk', 'created_on', 'short_code']
+Courtaccount_edit_columns = ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'court', 'courts', 'short_code']
 
 
-Courtaccount_list_columns = ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'courts', 'created_by', 'created_by_fk', 'created_on', 'short_code']
+Courtaccount_list_columns = ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'court', 'courts', 'short_code']
 
 
 Courtaccount_add_field_set = [
-    ('Data', {'fields': ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'courts', 'created_by', 'created_by_fk', 'created_on', 'short_code'], 'expanded': True}),
+    ('Data', {'fields': ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'court', 'courts', 'short_code'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtaccount_edit_field_set = [
-    ('Data', {'fields': ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'courts', 'created_by', 'created_by_fk', 'created_on', 'short_code'], 'expanded': True}),
+    ('Data', {'fields': ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'court', 'courts', 'short_code'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtaccount_show_field_set = [
-    ('Data', {'fields': ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'changed_by', 'changed_by_fk', 'changed_on', 'court', 'courts', 'created_by', 'created_by_fk', 'created_on', 'short_code'], 'expanded': True}),
+    ('Data', {'fields': ['account__types', 'account_name', 'account_number', 'accounttype', 'bank_name', 'court', 'courts', 'short_code'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Courtcase_add_columns = ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', 'combined_case', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute']
+Courtcase_add_columns = ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'combined_case', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute']
 
 
-Courtcase_edit_columns = ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', 'combined_case', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute']
+Courtcase_edit_columns = ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'combined_case', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute']
 
 
-Courtcase_list_columns = ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', 'combined_case', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute']
+Courtcase_list_columns = ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'combined_case', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute']
 
 
 Courtcase_add_field_set = [
-    ('Data', {'fields': ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', 'combined_case', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'combined_case', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtcase_edit_field_set = [
-    ('Data', {'fields': ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', 'combined_case', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'combined_case', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtcase_show_field_set = [
-    ('Data', {'fields': ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', 'combined_case', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'active_date', 'activity_description', 'actual_end', 'actual_start', 'adr', 'appeal_number', 'appealed', 'award', 'balance_avail', 'budget', 'case_admissible', 'case_filed_date', 'case_link_type', 'case_number', 'case_received_date', 'case_summary', 'caselinktype', 'combined_case', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'docket_number', 'early_end', 'early_start', 'end_delay', 'end_notes', 'fast_track', 'filing_prosecutor', 'goal', 'govt_liability', 'grounds', 'indictment_date', 'interlocutory_judgement', 'inventory_of_docket', 'judgement', 'judgement_docx', 'judicialofficer', 'judicialofficer1', 'late_end', 'late_start', 'lawfirm', 'linked_cases', 'mediation_proposal', 'next_hearing_date', 'not_started', 'object_of_litigation', 'over_budget', 'parent', 'planned_end', 'planned_start', 'pretrial_date', 'pretrial_notes', 'pretrial_registrar', 'priority', 'prosecution_prayer', 'prosecutor', 'reopen', 'reopen_reason', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'status', 'task_group', 'under_budget', 'value_in_dispute'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Courtrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Courtrank_add_columns = ['name', 'description', 'notes']
 
 
-Courtrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Courtrank_edit_columns = ['name', 'description', 'notes']
 
 
-Courtrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Courtrank_list_columns = ['name', 'description', 'notes']
 
 
 Courtrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Courtstation_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'pay_bill', 'till_number']
+Courtstation_add_columns = ['name', 'description', 'notes', 'pay_bill', 'till_number']
 
 
-Courtstation_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'pay_bill', 'till_number']
+Courtstation_edit_columns = ['name', 'description', 'notes', 'pay_bill', 'till_number']
 
 
-Courtstation_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'pay_bill', 'till_number']
+Courtstation_list_columns = ['name', 'description', 'notes', 'pay_bill', 'till_number']
 
 
 Courtstation_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtstation_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtstation_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Crime_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law']
+Crime_add_columns = ['description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law']
 
 
-Crime_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law']
+Crime_edit_columns = ['description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law']
 
 
-Crime_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law']
+Crime_list_columns = ['description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law']
 
 
 Crime_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law'], 'expanded': True}),
+    ('Data', {'fields': ['description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Crime_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law'], 'expanded': True}),
+    ('Data', {'fields': ['description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Crime_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law'], 'expanded': True}),
+    ('Data', {'fields': ['description', 'law', 'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', 'ref_law'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Csiequipment_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigationdiary']
+Csiequipment_add_columns = ['name', 'description', 'notes', 'investigationdiary']
 
 
-Csiequipment_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigationdiary']
+Csiequipment_edit_columns = ['name', 'description', 'notes', 'investigationdiary']
 
 
-Csiequipment_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigationdiary']
+Csiequipment_list_columns = ['name', 'description', 'notes', 'investigationdiary']
 
 
 Csiequipment_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'investigationdiary'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Csiequipment_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'investigationdiary'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Csiequipment_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'investigationdiary'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Diagram_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'docx', 'image', 'investigation_diary', 'investigationdiary']
+Diagram_add_columns = ['description', 'docx', 'image', 'investigation_diary', 'investigationdiary']
 
 
-Diagram_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'docx', 'image', 'investigation_diary', 'investigationdiary']
+Diagram_edit_columns = ['description', 'docx', 'image', 'investigation_diary', 'investigationdiary']
 
 
-Diagram_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'docx', 'image', 'investigation_diary', 'investigationdiary']
+Diagram_list_columns = ['description', 'docx', 'image', 'investigation_diary', 'investigationdiary']
 
 
 Diagram_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'docx', 'image', 'investigation_diary', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['description', 'docx', 'image', 'investigation_diary', 'investigationdiary'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Diagram_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'docx', 'image', 'investigation_diary', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['description', 'docx', 'image', 'investigation_diary', 'investigationdiary'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Diagram_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'docx', 'image', 'investigation_diary', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['description', 'docx', 'image', 'investigation_diary', 'investigationdiary'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Discipline_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+Discipline_add_columns = ['name', 'description', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 
-Discipline_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+Discipline_edit_columns = ['name', 'description', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 
-Discipline_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+Discipline_list_columns = ['name', 'description', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 
 Discipline_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Discipline_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Discipline_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Docpart_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt']
+Docpart_add_columns = ['document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt']
 
 
-Docpart_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt']
+Docpart_edit_columns = ['document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt']
 
 
-Docpart_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt']
+Docpart_list_columns = ['document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt']
 
 
 Docpart_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt'], 'expanded': True}),
+    ('Data', {'fields': ['document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Docpart_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt'], 'expanded': True}),
+    ('Data', {'fields': ['document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Docpart_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt'], 'expanded': True}),
+    ('Data', {'fields': ['document', 'document1', 'file_accepted', 'file_assessed', 'file_bin', 'file_byte_count', 'file_create_date', 'file_ext', 'file_fee_amount', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_text', 'file_update_date', 'file_upload_date', 'image_height', 'image_width', 'is_image', 'language', 'page_count', 'page_no', 'page_text', 'upload_dt'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Doctemplate_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'docx', 'icon', 'name', 'summary', 'template', 'template_type', 'templatetype', 'title']
+Doctemplate_add_columns = ['name', 'docx', 'icon', 'summary', 'template', 'template_type', 'templatetype', 'title']
 
 
-Doctemplate_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'docx', 'icon', 'name', 'summary', 'template', 'template_type', 'templatetype', 'title']
+Doctemplate_edit_columns = ['name', 'docx', 'icon', 'summary', 'template', 'template_type', 'templatetype', 'title']
 
 
-Doctemplate_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'docx', 'icon', 'name', 'summary', 'template', 'template_type', 'templatetype', 'title']
+Doctemplate_list_columns = ['name', 'docx', 'icon', 'summary', 'template', 'template_type', 'templatetype', 'title']
 
 
 Doctemplate_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'docx', 'icon', 'name', 'summary', 'template', 'template_type', 'templatetype', 'title'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'docx', 'icon', 'summary', 'template', 'template_type', 'templatetype', 'title'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Doctemplate_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'docx', 'icon', 'name', 'summary', 'template', 'template_type', 'templatetype', 'title'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'docx', 'icon', 'summary', 'template', 'template_type', 'templatetype', 'title'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Doctemplate_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'docx', 'icon', 'name', 'summary', 'template', 'template_type', 'templatetype', 'title'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'docx', 'icon', 'summary', 'template', 'template_type', 'templatetype', 'title'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Document_add_columns = ['admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'name', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count']
+Document_add_columns = ['name', 'admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count']
 
 
-Document_edit_columns = ['admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'name', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count']
+Document_edit_columns = ['name', 'admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count']
 
 
-Document_list_columns = ['admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'name', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count']
+Document_list_columns = ['name', 'admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count']
 
 
 Document_add_field_set = [
-    ('Data', {'fields': ['admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'name', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Document_edit_field_set = [
-    ('Data', {'fields': ['admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'name', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Document_show_field_set = [
-    ('Data', {'fields': ['admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'name', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'admisibility_notes', 'admitted', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certify_date', 'certify_urgent', 'certifying_judicial_officer', 'char_count', 'citation', 'comments', 'court_case', 'courtcase', 'doc', 'doc_binary', 'doc_placed_by', 'doc_room', 'doc_row', 'doc_shelf', 'doc_template', 'doc_text', 'doc_title', 'doc_type', 'doctemplate', 'document_admissibility', 'document_text', 'documenttype', 'docx', 'expiry_date', 'file_byte_count', 'file_create_date', 'file_ext', 'file_hash', 'file_last_opened_date', 'file_load_path', 'file_parse_status', 'file_size_bytes', 'file_text', 'file_update_date', 'file_upload_date', 'filing_date', 'hashx', 'immutable', 'is_image', 'is_public', 'issue', 'issue1', 'judicialofficer', 'judicialofficer1', 'judicialofficer2', 'keywords', 'language', 'lines', 'lock_date', 'locked', 'mime_type', 'page_count', 'page_size', 'paid', 'paragraphs', 'producer_prog', 'publish_date', 'publish_newspaper', 'published', 'receive_date', 'receiving_registrar', 'request_urgent', 'review_date', 'review_registrar', 'search_vector', 'subject', 'validated', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Documenttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Documenttype_add_columns = ['name', 'description', 'notes']
 
 
-Documenttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Documenttype_edit_columns = ['name', 'description', 'notes']
 
 
-Documenttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Documenttype_list_columns = ['name', 'description', 'notes']
 
 
 Documenttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Documenttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Documenttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Economicclass_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Economicclass_add_columns = ['name', 'description', 'notes']
 
 
-Economicclass_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Economicclass_edit_columns = ['name', 'description', 'notes']
 
 
-Economicclass_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Economicclass_list_columns = ['name', 'description', 'notes']
 
 
 Economicclass_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Economicclass_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Economicclass_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Exhibit_add_columns = ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count']
+Exhibit_add_columns = ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count']
 
 
-Exhibit_edit_columns = ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count']
+Exhibit_edit_columns = ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count']
 
 
-Exhibit_list_columns = ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count']
+Exhibit_list_columns = ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count']
 
 
 Exhibit_add_field_set = [
-    ('Data', {'fields': ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Exhibit_edit_field_set = [
-    ('Data', {'fields': ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Exhibit_show_field_set = [
-    ('Data', {'fields': ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', 'immutable', 'investigation_entry', 'investigationdiary', 'keywords', 'lines', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'seizure', 'seizure1', 'subject', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Expert_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'credentials', 'experttype', 'institution', 'jobtitle']
+Expert_add_columns = ['credentials', 'experttype', 'institution', 'jobtitle']
 
 
-Expert_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'credentials', 'experttype', 'institution', 'jobtitle']
+Expert_edit_columns = ['credentials', 'experttype', 'institution', 'jobtitle']
 
 
-Expert_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'credentials', 'experttype', 'institution', 'jobtitle']
+Expert_list_columns = ['credentials', 'experttype', 'institution', 'jobtitle']
 
 
 Expert_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'credentials', 'experttype', 'institution', 'jobtitle'], 'expanded': True}),
+    ('Data', {'fields': ['credentials', 'experttype', 'institution', 'jobtitle'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Expert_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'credentials', 'experttype', 'institution', 'jobtitle'], 'expanded': True}),
+    ('Data', {'fields': ['credentials', 'experttype', 'institution', 'jobtitle'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Expert_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'credentials', 'experttype', 'institution', 'jobtitle'], 'expanded': True}),
+    ('Data', {'fields': ['credentials', 'experttype', 'institution', 'jobtitle'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Experttestimony_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated']
+Experttestimony_add_columns = ['court_case', 'courtcase', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated']
 
 
-Experttestimony_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated']
+Experttestimony_edit_columns = ['court_case', 'courtcase', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated']
 
 
-Experttestimony_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated']
+Experttestimony_list_columns = ['court_case', 'courtcase', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated']
 
 
 Experttestimony_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['court_case', 'courtcase', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Experttestimony_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['court_case', 'courtcase', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Experttestimony_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['court_case', 'courtcase', 'expert', 'experts', 'investigation_entries', 'investigationdiary', 'policeofficer', 'requesting_police_officer', 'statement', 'summary_of_facts', 'task_given', 'task_request_date', 'testimony_date', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Experttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'name', 'notes', 'parent']
+Experttype_add_columns = ['name', 'description', 'notes', 'expert_type', 'parent']
 
 
-Experttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'name', 'notes', 'parent']
+Experttype_edit_columns = ['name', 'description', 'notes', 'expert_type', 'parent']
 
 
-Experttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'name', 'notes', 'parent']
+Experttype_list_columns = ['name', 'description', 'notes', 'expert_type', 'parent']
 
 
 Experttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'expert_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Experttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'expert_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Experttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'expert_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Feeclass_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'name', 'notes', 'parent']
+Feeclass_add_columns = ['name', 'description', 'notes', 'fee_type', 'parent']
 
 
-Feeclass_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'name', 'notes', 'parent']
+Feeclass_edit_columns = ['name', 'description', 'notes', 'fee_type', 'parent']
 
 
-Feeclass_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'name', 'notes', 'parent']
+Feeclass_list_columns = ['name', 'description', 'notes', 'fee_type', 'parent']
 
 
 Feeclass_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'fee_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feeclass_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'fee_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feeclass_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'fee_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Feetype_add_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+Feetype_add_columns = ['name', 'description', 'notes', 'account_type', 'accounttype', 'amount', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'unit']
 
 
-Feetype_edit_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+Feetype_edit_columns = ['name', 'description', 'notes', 'account_type', 'accounttype', 'amount', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'unit']
 
 
-Feetype_list_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+Feetype_list_columns = ['name', 'description', 'notes', 'account_type', 'accounttype', 'amount', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'unit']
 
 
 Feetype_add_field_set = [
-    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'account_type', 'accounttype', 'amount', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'unit'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feetype_edit_field_set = [
-    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'account_type', 'accounttype', 'amount', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'unit'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feetype_show_field_set = [
-    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'account_type', 'accounttype', 'amount', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'max_fee', 'min_fee', 'unit'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Healthevent_add_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'notes', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget']
+Healthevent_add_columns = ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget']
 
 
-Healthevent_edit_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'notes', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget']
+Healthevent_edit_columns = ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget']
 
 
-Healthevent_list_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'notes', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget']
+Healthevent_list_columns = ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget']
 
 
 Healthevent_add_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'notes', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Healthevent_edit_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'notes', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Healthevent_show_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'notes', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'goal', 'health_event_type', 'healtheventtype', 'late_end', 'late_start', 'not_started', 'over_budget', 'party', 'party1', 'planned_end', 'planned_start', 'priority', 'prisonofficer', 'reporting_prison_officer', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'task_group', 'under_budget'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Healtheventtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Healtheventtype_add_columns = ['name', 'description', 'notes']
 
 
-Healtheventtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Healtheventtype_edit_columns = ['name', 'description', 'notes']
 
 
-Healtheventtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Healtheventtype_list_columns = ['name', 'description', 'notes']
 
 
 Healtheventtype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Healtheventtype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Healtheventtype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Hearing_add_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'notes', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday']
+Hearing_add_columns = ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday']
 
 
-Hearing_edit_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'notes', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday']
+Hearing_edit_columns = ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday']
 
 
-Hearing_list_columns = ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'notes', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday']
+Hearing_list_columns = ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday']
 
 
 Hearing_add_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'notes', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Hearing_edit_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'notes', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Hearing_show_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'notes', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'action', 'active', 'activity_description', 'actual_end', 'actual_start', 'adjourned_to', 'adjournment_reason', 'atendance', 'balance_avail', 'budget', 'completed', 'contingency_plan', 'court_cases', 'courtcase', 'deadline', 'deviation_expected', 'early_end', 'early_start', 'end_delay', 'end_notes', 'endtime', 'goal', 'hearing_date', 'hearing_type', 'hearingtype', 'issue', 'judicialofficer', 'late_end', 'late_start', 'lawfirm', 'lawfirm1', 'next_hearing_date', 'not_started', 'over_budget', 'planned_end', 'planned_start', 'postponement_reason', 'priority', 'reason', 'schedule_status', 'schedulestatustype', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'starttime', 'status', 'task_group', 'transcript', 'under_budget', 'yearday'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Hearingtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'name', 'notes', 'parent']
+Hearingtype_add_columns = ['name', 'description', 'notes', 'hearing_type', 'parent']
 
 
-Hearingtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'name', 'notes', 'parent']
+Hearingtype_edit_columns = ['name', 'description', 'notes', 'hearing_type', 'parent']
 
 
-Hearingtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'name', 'notes', 'parent']
+Hearingtype_list_columns = ['name', 'description', 'notes', 'hearing_type', 'parent']
 
 
 Hearingtype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'hearing_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Hearingtype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'hearing_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Hearingtype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'hearing_type', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Instancecrime_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type']
+Instancecrime_add_columns = ['crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type']
 
 
-Instancecrime_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type']
+Instancecrime_edit_columns = ['crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type']
 
 
-Instancecrime_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type']
+Instancecrime_list_columns = ['crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type']
 
 
 Instancecrime_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type'], 'expanded': True}),
+    ('Data', {'fields': ['crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Instancecrime_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type'], 'expanded': True}),
+    ('Data', {'fields': ['crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Instancecrime_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type'], 'expanded': True}),
+    ('Data', {'fields': ['crime', 'crime_date', 'crime_detail', 'crimes', 'date_note', 'issue', 'parties', 'party', 'place_note', 'place_of_crime', 'tffender_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Interview_add_columns = ['answer', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated']
+Interview_add_columns = ['answer', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated']
 
 
-Interview_edit_columns = ['answer', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated']
+Interview_edit_columns = ['answer', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated']
 
 
-Interview_list_columns = ['answer', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated']
+Interview_list_columns = ['answer', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated']
 
 
 Interview_add_field_set = [
-    ('Data', {'fields': ['answer', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['answer', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Interview_edit_field_set = [
-    ('Data', {'fields': ['answer', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['answer', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Interview_show_field_set = [
-    ('Data', {'fields': ['answer', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['answer', 'investigation_entry', 'investigationdiary', 'language', 'question', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Investigationdiary_add_columns = ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype']
+Investigationdiary_add_columns = ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype']
 
 
-Investigationdiary_edit_columns = ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype']
+Investigationdiary_edit_columns = ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype']
 
 
-Investigationdiary_list_columns = ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype']
+Investigationdiary_list_columns = ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype']
 
 
 Investigationdiary_add_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Investigationdiary_edit_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Investigationdiary_show_field_set = [
-    ('Data', {'fields': ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'created_by', 'created_by_fk', 'created_on', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype'], 'expanded': True}),
+    ('Data', {'fields': ['action', 'active', 'activity', 'activity_description', 'actual_end', 'actual_start', 'advocate_present', 'arrest_statement', 'arrest_warrant', 'balance_avail', 'budget', 'complaint', 'complaint1', 'completed', 'contingency_plan', 'deadline', 'detained', 'detained_at', 'deviation_expected', 'docx', 'early_end', 'early_start', 'end_delay', 'end_notes', 'enddate', 'equipmentresults', 'goal', 'late_end', 'late_start', 'location', 'not_started', 'outcome', 'over_budget', 'party', 'planned_end', 'planned_start', 'policeofficer', 'priority', 'provisional_release_statement', 'search_seizure_statement', 'segment', 'sequence', 'spend_td', 'start_delay', 'start_notes', 'startdate', 'status', 'summons_statement', 'task_group', 'under_budget', 'vehicle', 'warrant_delivered_by', 'warrant_docx', 'warrant_issue_date', 'warrant_issued_by', 'warrant_received_by', 'warrant_serve_date', 'warrant_type', 'warrant_upload_date', 'warranttype'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Issue_add_columns = ['argument', 'argument_date', 'argument_docx', 'changed_by', 'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks']
+Issue_add_columns = ['argument', 'argument_date', 'argument_docx', 'counter_claim', 'court_case', 'courtcase', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks']
 
 
-Issue_edit_columns = ['argument', 'argument_date', 'argument_docx', 'changed_by', 'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks']
+Issue_edit_columns = ['argument', 'argument_date', 'argument_docx', 'counter_claim', 'court_case', 'courtcase', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks']
 
 
-Issue_list_columns = ['argument', 'argument_date', 'argument_docx', 'changed_by', 'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks']
+Issue_list_columns = ['argument', 'argument_date', 'argument_docx', 'counter_claim', 'court_case', 'courtcase', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks']
 
 
 Issue_add_field_set = [
-    ('Data', {'fields': ['argument', 'argument_date', 'argument_docx', 'changed_by', 'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks'], 'expanded': True}),
+    ('Data', {'fields': ['argument', 'argument_date', 'argument_docx', 'counter_claim', 'court_case', 'courtcase', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Issue_edit_field_set = [
-    ('Data', {'fields': ['argument', 'argument_date', 'argument_docx', 'changed_by', 'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks'], 'expanded': True}),
+    ('Data', {'fields': ['argument', 'argument_date', 'argument_docx', 'counter_claim', 'court_case', 'courtcase', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Issue_show_field_set = [
-    ('Data', {'fields': ['argument', 'argument_date', 'argument_docx', 'changed_by', 'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks'], 'expanded': True}),
+    ('Data', {'fields': ['argument', 'argument_date', 'argument_docx', 'counter_claim', 'court_case', 'courtcase', 'debt_amount', 'defense_lawyer', 'determination', 'determination_docx', 'dtermination_date', 'facts', 'hearing_date', 'is_criminal', 'issue', 'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', 'legal_element', 'legalreference', 'legalreference1', 'material_element', 'moral_element', 'party', 'party1', 'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', 'rebuttal_docx', 'resolved', 'tasks'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Judicialofficer_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'court_station', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname']
+Judicialofficer_add_columns = ['court_station', 'courtstation', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname']
 
 
-Judicialofficer_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'court_station', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname']
+Judicialofficer_edit_columns = ['court_station', 'courtstation', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname']
 
 
-Judicialofficer_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'court_station', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname']
+Judicialofficer_list_columns = ['court_station', 'courtstation', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname']
 
 
 Judicialofficer_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'court_station', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['court_station', 'courtstation', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialofficer_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'court_station', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['court_station', 'courtstation', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialofficer_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'court_station', 'courtstation', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['court_station', 'courtstation', 'dob', 'firstname', 'gender', 'judicial_role', 'judicialrank', 'judicialrole', 'marital_status', 'othernames', 'rank', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Judicialrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Judicialrank_add_columns = ['name', 'description', 'notes']
 
 
-Judicialrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Judicialrank_edit_columns = ['name', 'description', 'notes']
 
 
-Judicialrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Judicialrank_list_columns = ['name', 'description', 'notes']
 
 
 Judicialrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Judicialrole_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Judicialrole_add_columns = ['name', 'description', 'notes']
 
 
-Judicialrole_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Judicialrole_edit_columns = ['name', 'description', 'notes']
 
 
-Judicialrole_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Judicialrole_list_columns = ['name', 'description', 'notes']
 
 
 Judicialrole_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrole_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrole_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Law_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'name']
+Law_add_columns = ['name', 'description']
 
 
-Law_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'name']
+Law_edit_columns = ['name', 'description']
 
 
-Law_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'name']
+Law_list_columns = ['name', 'description']
 
 
 Law_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'name'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Law_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'name'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Law_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'name'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Lawfirm_add_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawfirm_add_columns = ['name', 'description', 'notes', 'address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'nearest_feature', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Lawfirm_edit_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawfirm_edit_columns = ['name', 'description', 'notes', 'address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'nearest_feature', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Lawfirm_list_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawfirm_list_columns = ['name', 'description', 'notes', 'address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'nearest_feature', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Lawfirm_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'nearest_feature', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Lawfirm_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'nearest_feature', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Lawfirm_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'nearest_feature', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Lawyer_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawyer_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Lawyer_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawyer_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Lawyer_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawyer_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Lawyer_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Lawyer_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Lawyer_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bar_date', 'bar_no', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'law_firm', 'lawfirm', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'party', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Legalreference_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'citation', 'commentary', 'created_by', 'created_by_fk', 'created_on', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim']
+Legalreference_add_columns = ['citation', 'commentary', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim']
 
 
-Legalreference_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'citation', 'commentary', 'created_by', 'created_by_fk', 'created_on', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim']
+Legalreference_edit_columns = ['citation', 'commentary', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim']
 
 
-Legalreference_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'citation', 'commentary', 'created_by', 'created_by_fk', 'created_on', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim']
+Legalreference_list_columns = ['citation', 'commentary', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim']
 
 
 Legalreference_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'citation', 'commentary', 'created_by', 'created_by_fk', 'created_on', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim'], 'expanded': True}),
+    ('Data', {'fields': ['citation', 'commentary', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Legalreference_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'citation', 'commentary', 'created_by', 'created_by_fk', 'created_on', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim'], 'expanded': True}),
+    ('Data', {'fields': ['citation', 'commentary', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Legalreference_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'citation', 'commentary', 'created_by', 'created_by_fk', 'created_on', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim'], 'expanded': True}),
+    ('Data', {'fields': ['citation', 'commentary', 'doc_id', 'interpretation', 'klr_rul_short', 'klr_url_full', 'public', 'quote', 'ref', 'validated', 'verbatim'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Nextofkin_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', 'childunder4', 'citizenship', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Nextofkin_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'childunder4', 'citizenship', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Nextofkin_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', 'childunder4', 'citizenship', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Nextofkin_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'childunder4', 'citizenship', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Nextofkin_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', 'childunder4', 'citizenship', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Nextofkin_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'childunder4', 'citizenship', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Nextofkin_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', 'childunder4', 'citizenship', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'childunder4', 'citizenship', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Nextofkin_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', 'childunder4', 'citizenship', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'childunder4', 'citizenship', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Nextofkin_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', 'childunder4', 'citizenship', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', 'biodata1', 'childunder4', 'citizenship', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', 'marital_status', 'mobile', 'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'pp_expiry_date', 'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Notification_add_columns = ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+Notification_add_columns = ['abandon', 'change_user_id', 'confirmation', 'contact_id', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 
-Notification_edit_columns = ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+Notification_edit_columns = ['abandon', 'change_user_id', 'confirmation', 'contact_id', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 
-Notification_list_columns = ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
+Notification_list_columns = ['abandon', 'change_user_id', 'confirmation', 'contact_id', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent']
 
 
 Notification_add_field_set = [
-    ('Data', {'fields': ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
+    ('Data', {'fields': ['abandon', 'change_user_id', 'confirmation', 'contact_id', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notification_edit_field_set = [
-    ('Data', {'fields': ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
+    ('Data', {'fields': ['abandon', 'change_user_id', 'confirmation', 'contact_id', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notification_show_field_set = [
-    ('Data', {'fields': ['abandon', 'change_user_id', 'changed_by', 'changed_by_fk', 'changed_on', 'confirmation', 'contact_id', 'created_by', 'created_by_fk', 'created_on', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
+    ('Data', {'fields': ['abandon', 'change_user_id', 'confirmation', 'contact_id', 'delivered', 'message', 'notification_register', 'notificationregister', 'retries', 'retry_count', 'send_date', 'sent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Notificationregister_add_columns = ['active', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify']
+Notificationregister_add_columns = ['active', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify']
 
 
-Notificationregister_edit_columns = ['active', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify']
+Notificationregister_edit_columns = ['active', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify']
 
 
-Notificationregister_list_columns = ['active', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify']
+Notificationregister_list_columns = ['active', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify']
 
 
 Notificationregister_add_field_set = [
-    ('Data', {'fields': ['active', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify'], 'expanded': True}),
+    ('Data', {'fields': ['active', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notificationregister_edit_field_set = [
-    ('Data', {'fields': ['active', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify'], 'expanded': True}),
+    ('Data', {'fields': ['active', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notificationregister_show_field_set = [
-    ('Data', {'fields': ['active', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify'], 'expanded': True}),
+    ('Data', {'fields': ['active', 'complaint', 'complaint1', 'complaint_category', 'complaintcategory', 'contact', 'court_case', 'courtcase', 'document', 'document1', 'health_event', 'healthevent', 'hearing', 'hearing1', 'notification_type', 'notificationtype', 'notify_event', 'notifyevent', 'party', 'party1', 'retry_count', 'sysuserextra', 'user_to_notify'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Notificationtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Notificationtype_add_columns = ['name', 'description', 'notes']
 
 
-Notificationtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Notificationtype_edit_columns = ['name', 'description', 'notes']
 
 
-Notificationtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Notificationtype_list_columns = ['name', 'description', 'notes']
 
 
 Notificationtype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notificationtype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notificationtype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Notifyevent_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on']
+Notifyevent_add_columns = []
 
 
-Notifyevent_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on']
+Notifyevent_edit_columns = []
 
 
-Notifyevent_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on']
+Notifyevent_list_columns = []
 
 
 Notifyevent_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on'], 'expanded': True}),
+    ('Data', {'fields': [], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notifyevent_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on'], 'expanded': True}),
+    ('Data', {'fields': [], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notifyevent_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on'], 'expanded': True}),
+    ('Data', {'fields': [], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Party_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'created_by', 'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Party_add_columns = ['notes', 'address_line_1', 'address_line_2', 'avatar', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Party_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'created_by', 'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Party_edit_columns = ['notes', 'address_line_1', 'address_line_2', 'avatar', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Party_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'created_by', 'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Party_list_columns = ['notes', 'address_line_1', 'address_line_2', 'avatar', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Party_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'created_by', 'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'address_line_1', 'address_line_2', 'avatar', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Party_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'created_by', 'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'address_line_1', 'address_line_2', 'avatar', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Party_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'created_by', 'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'address_line_1', 'address_line_2', 'avatar', 'complaint', 'complaint_role', 'complaintrole', 'complaints', 'country', 'dateofrepresentation', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'is_infant', 'is_minor', 'marital_status', 'miranda_date', 'miranda_read', 'miranda_witness', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'parent', 'party_type', 'partytype', 'relationship_type', 'relative', 'settlement', 'statement', 'statementdate', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Partytype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Partytype_add_columns = ['name', 'description', 'notes']
 
 
-Partytype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Partytype_edit_columns = ['name', 'description', 'notes']
 
 
-Partytype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Partytype_list_columns = ['name', 'description', 'notes']
 
 
 Partytype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Partytype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Partytype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Payment_add_columns = ['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated']
+Payment_add_columns = ['bill', 'bill1', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated']
 
 
-Payment_edit_columns = ['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated']
+Payment_edit_columns = ['bill', 'bill1', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated']
 
 
-Payment_list_columns = ['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated']
+Payment_list_columns = ['bill', 'bill1', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated']
 
 
 Payment_add_field_set = [
-    ('Data', {'fields': ['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['bill', 'bill1', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Payment_edit_field_set = [
-    ('Data', {'fields': ['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['bill', 'bill1', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Payment_show_field_set = [
-    ('Data', {'fields': ['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated'], 'expanded': True}),
+    ('Data', {'fields': ['bill', 'bill1', 'pay_amount', 'pay_date', 'pay_trans_cost', 'payment_description', 'payment_ref', 'phone_number', 'receipt_no', 'validate_date', 'validated'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Personaleffect_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'party', 'party1', 'personal_effects_category', 'personaleffectscategory']
+Personaleffect_add_columns = ['party', 'party1', 'personal_effects_category', 'personaleffectscategory']
 
 
-Personaleffect_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'party', 'party1', 'personal_effects_category', 'personaleffectscategory']
+Personaleffect_edit_columns = ['party', 'party1', 'personal_effects_category', 'personaleffectscategory']
 
 
-Personaleffect_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'party', 'party1', 'personal_effects_category', 'personaleffectscategory']
+Personaleffect_list_columns = ['party', 'party1', 'personal_effects_category', 'personaleffectscategory']
 
 
 Personaleffect_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'party', 'party1', 'personal_effects_category', 'personaleffectscategory'], 'expanded': True}),
+    ('Data', {'fields': ['party', 'party1', 'personal_effects_category', 'personaleffectscategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Personaleffect_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'party', 'party1', 'personal_effects_category', 'personaleffectscategory'], 'expanded': True}),
+    ('Data', {'fields': ['party', 'party1', 'personal_effects_category', 'personaleffectscategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Personaleffect_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'party', 'party1', 'personal_effects_category', 'personaleffectscategory'], 'expanded': True}),
+    ('Data', {'fields': ['party', 'party1', 'personal_effects_category', 'personaleffectscategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Personaleffectscategory_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Personaleffectscategory_add_columns = ['name', 'description', 'notes']
 
 
-Personaleffectscategory_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Personaleffectscategory_edit_columns = ['name', 'description', 'notes']
 
 
-Personaleffectscategory_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Personaleffectscategory_list_columns = ['name', 'description', 'notes']
 
 
 Personaleffectscategory_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Personaleffectscategory_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Personaleffectscategory_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Policeofficer_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname']
+Policeofficer_add_columns = ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname']
 
 
-Policeofficer_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname']
+Policeofficer_edit_columns = ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname']
 
 
-Policeofficer_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname']
+Policeofficer_list_columns = ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname']
 
 
 Policeofficer_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policeofficer_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policeofficer_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'police_rank', 'policeofficerrank', 'policestation', 'servicenumber', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Policeofficerrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sequence']
+Policeofficerrank_add_columns = ['name', 'description', 'notes', 'sequence']
 
 
-Policeofficerrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sequence']
+Policeofficerrank_edit_columns = ['name', 'description', 'notes', 'sequence']
 
 
-Policeofficerrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sequence']
+Policeofficerrank_list_columns = ['name', 'description', 'notes', 'sequence']
 
 
 Policeofficerrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sequence'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'sequence'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policeofficerrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sequence'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'sequence'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policeofficerrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sequence'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'sequence'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Policestation_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+Policestation_add_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 
-Policestation_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+Policestation_edit_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 
-Policestation_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+Policestation_list_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 
 Policestation_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestation_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestation_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Policestationrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Policestationrank_add_columns = ['name', 'description', 'notes']
 
 
-Policestationrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Policestationrank_edit_columns = ['name', 'description', 'notes']
 
 
-Policestationrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Policestationrank_list_columns = ['name', 'description', 'notes']
 
 
 Policestationrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestationrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestationrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Prison_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1']
+Prison_add_columns = ['alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1']
 
 
-Prison_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1']
+Prison_edit_columns = ['alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1']
 
 
-Prison_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1']
+Prison_list_columns = ['alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1']
 
 
 Prison_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prison_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prison_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Prisonofficer_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname']
+Prisonofficer_add_columns = ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname']
 
 
-Prisonofficer_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname']
+Prisonofficer_edit_columns = ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname']
 
 
-Prisonofficer_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname']
+Prisonofficer_list_columns = ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname']
 
 
 Prisonofficer_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prisonofficer_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prisonofficer_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname'], 'expanded': True}),
+    ('Data', {'fields': ['dob', 'firstname', 'gender', 'marital_status', 'othernames', 'prison', 'prison1', 'prison_officer_rank', 'prisonofficerrank', 'surname'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Prisonofficerrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Prisonofficerrank_add_columns = ['name', 'description', 'notes']
 
 
-Prisonofficerrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Prisonofficerrank_edit_columns = ['name', 'description', 'notes']
 
 
-Prisonofficerrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Prisonofficerrank_list_columns = ['name', 'description', 'notes']
 
 
 Prisonofficerrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prisonofficerrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prisonofficerrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Prosecutor_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Prosecutor_add_columns = ['address_line_1', 'address_line_2', 'avatar', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Prosecutor_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Prosecutor_edit_columns = ['address_line_1', 'address_line_2', 'avatar', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Prosecutor_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
+Prosecutor_list_columns = ['address_line_1', 'address_line_2', 'avatar', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Prosecutor_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prosecutor_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prosecutor_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'avatar', 'country', 'dob', 'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'instagram', 'lawyer', 'lawyer1', 'marital_status', 'mobile', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'othernames', 'prosecutor_team', 'prosecutorteam', 'surname', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Prosecutorteam_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Prosecutorteam_add_columns = ['name', 'description', 'notes']
 
 
-Prosecutorteam_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Prosecutorteam_edit_columns = ['name', 'description', 'notes']
 
 
-Prosecutorteam_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Prosecutorteam_list_columns = ['name', 'description', 'notes']
 
 
 Prosecutorteam_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prosecutorteam_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prosecutorteam_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Releasetype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Releasetype_add_columns = ['name', 'description', 'notes']
 
 
-Releasetype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Releasetype_edit_columns = ['name', 'description', 'notes']
 
 
-Releasetype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Releasetype_list_columns = ['name', 'description', 'notes']
 
 
 Releasetype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Releasetype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Releasetype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Religion_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on']
+Religion_add_columns = []
 
 
-Religion_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on']
+Religion_edit_columns = []
 
 
-Religion_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on']
+Religion_list_columns = []
 
 
 Religion_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on'], 'expanded': True}),
+    ('Data', {'fields': [], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Religion_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on'], 'expanded': True}),
+    ('Data', {'fields': [], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Religion_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on'], 'expanded': True}),
+    ('Data', {'fields': [], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Schedulestatustype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Schedulestatustype_add_columns = ['name', 'description', 'notes']
 
 
-Schedulestatustype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Schedulestatustype_edit_columns = ['name', 'description', 'notes']
 
 
-Schedulestatustype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Schedulestatustype_list_columns = ['name', 'description', 'notes']
 
 
 Schedulestatustype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Schedulestatustype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Schedulestatustype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Seizure_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'notes', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness']
+Seizure_add_columns = ['notes', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness']
 
 
-Seizure_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'notes', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness']
+Seizure_edit_columns = ['notes', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness']
 
 
-Seizure_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'notes', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness']
+Seizure_list_columns = ['notes', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness']
 
 
 Seizure_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'notes', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Seizure_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'notes', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Seizure_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'notes', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness'], 'expanded': True}),
+    ('Data', {'fields': ['notes', 'destroyed', 'destruction_date', 'destruction_notes', 'destruction_pic', 'destruction_witnesses', 'disposal_date', 'disposal_price', 'disposal_receipt', 'disposed', 'docx', 'immovable', 'investigation_diary', 'investigationdiary', 'is_evidence', 'item', 'item_description', 'item_packaging', 'item_pic', 'owner', 'premises', 'recovery_town', 'reg_no', 'return_date', 'return_notes', 'return_signed_receipt', 'returned', 'sold_to', 'town', 'witness'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Settlement_add_columns = ['amount', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'created_by', 'created_by_fk', 'created_on', 'docx', 'paid', 'party', 'settlor', 'terms']
+Settlement_add_columns = ['amount', 'complaint', 'complaint1', 'docx', 'paid', 'party', 'settlor', 'terms']
 
 
-Settlement_edit_columns = ['amount', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'created_by', 'created_by_fk', 'created_on', 'docx', 'paid', 'party', 'settlor', 'terms']
+Settlement_edit_columns = ['amount', 'complaint', 'complaint1', 'docx', 'paid', 'party', 'settlor', 'terms']
 
 
-Settlement_list_columns = ['amount', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'created_by', 'created_by_fk', 'created_on', 'docx', 'paid', 'party', 'settlor', 'terms']
+Settlement_list_columns = ['amount', 'complaint', 'complaint1', 'docx', 'paid', 'party', 'settlor', 'terms']
 
 
 Settlement_add_field_set = [
-    ('Data', {'fields': ['amount', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'created_by', 'created_by_fk', 'created_on', 'docx', 'paid', 'party', 'settlor', 'terms'], 'expanded': True}),
+    ('Data', {'fields': ['amount', 'complaint', 'complaint1', 'docx', 'paid', 'party', 'settlor', 'terms'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Settlement_edit_field_set = [
-    ('Data', {'fields': ['amount', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'created_by', 'created_by_fk', 'created_on', 'docx', 'paid', 'party', 'settlor', 'terms'], 'expanded': True}),
+    ('Data', {'fields': ['amount', 'complaint', 'complaint1', 'docx', 'paid', 'party', 'settlor', 'terms'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Settlement_show_field_set = [
-    ('Data', {'fields': ['amount', 'changed_by', 'changed_by_fk', 'changed_on', 'complaint', 'complaint1', 'created_by', 'created_by_fk', 'created_on', 'docx', 'paid', 'party', 'settlor', 'terms'], 'expanded': True}),
+    ('Data', {'fields': ['amount', 'complaint', 'complaint1', 'docx', 'paid', 'party', 'settlor', 'terms'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Subcounty_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Subcounty_add_columns = ['name', 'description', 'notes', 'county', 'county1']
 
 
-Subcounty_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Subcounty_edit_columns = ['name', 'description', 'notes', 'county', 'county1']
 
 
-Subcounty_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Subcounty_list_columns = ['name', 'description', 'notes', 'county', 'county1']
 
 
 Subcounty_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'county', 'county1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Subcounty_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'county', 'county1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Subcounty_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'county', 'county1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Sysuserextra_add_columns = ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
+Sysuserextra_add_columns = ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Sysuserextra_edit_columns = ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
+Sysuserextra_edit_columns = ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Sysuserextra_list_columns = ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
+Sysuserextra_list_columns = ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Sysuserextra_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysuserextra_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysuserextra_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt_email', 'avatar', 'country', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'instagram', 'mobile', 'off_email', 'off_phone', 'office_address', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'sys_birthday', 'sys_home_address', 'sys_job_grade', 'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Sysviewfld_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist']
+Sysviewfld_add_columns = ['fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist']
 
 
-Sysviewfld_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist']
+Sysviewfld_edit_columns = ['fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist']
 
 
-Sysviewfld_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist']
+Sysviewfld_list_columns = ['fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist']
 
 
 Sysviewfld_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist'], 'expanded': True}),
+    ('Data', {'fields': ['fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysviewfld_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist'], 'expanded': True}),
+    ('Data', {'fields': ['fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysviewfld_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist'], 'expanded': True}),
+    ('Data', {'fields': ['fld_choices', 'fld_default', 'fld_display_order', 'fld_label', 'fld_name', 'fld_type', 'fld_unique', 'fld_validator', 'fld_widget', 'sys__view', 'sysviewlist'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Sysviewlist_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+Sysviewlist_add_columns = ['name', 'description', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 
-Sysviewlist_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+Sysviewlist_edit_columns = ['name', 'description', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 
-Sysviewlist_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+Sysviewlist_list_columns = ['name', 'description', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 
 Sysviewlist_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysviewlist_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysviewlist_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Syswkflow_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1']
+Syswkflow_add_columns = ['sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1']
 
 
-Syswkflow_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1']
+Syswkflow_edit_columns = ['sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1']
 
 
-Syswkflow_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1']
+Syswkflow_list_columns = ['sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1']
 
 
 Syswkflow_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
+    ('Data', {'fields': ['sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Syswkflow_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
+    ('Data', {'fields': ['sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Syswkflow_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
+    ('Data', {'fields': ['sys_description', 'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', 'syswkflowgrp', 'syswkflowgrp1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Syswkflowgrp_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_cat_description', 'sys_cat_name', 'sys_cat_notes']
+Syswkflowgrp_add_columns = ['sys_cat_description', 'sys_cat_name', 'sys_cat_notes']
 
 
-Syswkflowgrp_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_cat_description', 'sys_cat_name', 'sys_cat_notes']
+Syswkflowgrp_edit_columns = ['sys_cat_description', 'sys_cat_name', 'sys_cat_notes']
 
 
-Syswkflowgrp_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_cat_description', 'sys_cat_name', 'sys_cat_notes']
+Syswkflowgrp_list_columns = ['sys_cat_description', 'sys_cat_name', 'sys_cat_notes']
 
 
 Syswkflowgrp_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_cat_description', 'sys_cat_name', 'sys_cat_notes'], 'expanded': True}),
+    ('Data', {'fields': ['sys_cat_description', 'sys_cat_name', 'sys_cat_notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Syswkflowgrp_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_cat_description', 'sys_cat_name', 'sys_cat_notes'], 'expanded': True}),
+    ('Data', {'fields': ['sys_cat_description', 'sys_cat_name', 'sys_cat_notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Syswkflowgrp_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys_cat_description', 'sys_cat_name', 'sys_cat_notes'], 'expanded': True}),
+    ('Data', {'fields': ['sys_cat_description', 'sys_cat_name', 'sys_cat_notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Syswkflowviewseq_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow']
+Syswkflowviewseq_add_columns = ['sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow']
 
 
-Syswkflowviewseq_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow']
+Syswkflowviewseq_edit_columns = ['sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow']
 
 
-Syswkflowviewseq_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow']
+Syswkflowviewseq_list_columns = ['sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow']
 
 
 Syswkflowviewseq_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow'], 'expanded': True}),
+    ('Data', {'fields': ['sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Syswkflowviewseq_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow'], 'expanded': True}),
+    ('Data', {'fields': ['sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Syswkflowviewseq_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow'], 'expanded': True}),
+    ('Data', {'fields': ['sys__view__lists', 'sys_is_terminal', 'sys_order', 'sys_wkflows', 'sysviewlist', 'syswkflow'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Templatetype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'template_type']
+Templatetype_add_columns = ['name', 'description', 'notes', 'parent', 'template_type']
 
 
-Templatetype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'template_type']
+Templatetype_edit_columns = ['name', 'description', 'notes', 'parent', 'template_type']
 
 
-Templatetype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'template_type']
+Templatetype_list_columns = ['name', 'description', 'notes', 'parent', 'template_type']
 
 
 Templatetype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'parent', 'template_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Templatetype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'parent', 'template_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Templatetype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'parent', 'template_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Town_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+Town_add_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 
-Town_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+Town_edit_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 
-Town_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+Town_list_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 
 Town_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Town_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Town_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Transcript_add_columns = ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count']
+Transcript_add_columns = ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count']
 
 
-Transcript_edit_columns = ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count']
+Transcript_edit_columns = ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count']
 
 
-Transcript_list_columns = ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count']
+Transcript_list_columns = ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count']
 
 
 Transcript_add_field_set = [
-    ('Data', {'fields': ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Transcript_edit_field_set = [
-    ('Data', {'fields': ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Transcript_show_field_set = [
-    ('Data', {'fields': ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'changed_by', 'changed_by_fk', 'changed_on', 'char_count', 'comments', 'created_by', 'created_by_fk', 'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count'], 'expanded': True}),
+    ('Data', {'fields': ['add_date', 'asr_date', 'asr_transcript', 'audio', 'audio_channels', 'audio_duration_secs', 'audio_frame_rate', 'author', 'certfiy_date', 'certified_transcript', 'char_count', 'comments', 'doc', 'doc_binary', 'doc_text', 'doc_title', 'doc_type', 'edit_date', 'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', 'hearing1', 'immutable', 'keywords', 'lines', 'locked', 'mime_type', 'page_count', 'page_size', 'paragraphs', 'producer_prog', 'search_vector', 'subject', 'video', 'word_count'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Vehicle_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'make', 'model', 'police_station', 'policestation', 'regno']
+Vehicle_add_columns = ['make', 'model', 'police_station', 'policestation', 'regno']
 
 
-Vehicle_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'make', 'model', 'police_station', 'policestation', 'regno']
+Vehicle_edit_columns = ['make', 'model', 'police_station', 'policestation', 'regno']
 
 
-Vehicle_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'make', 'model', 'police_station', 'policestation', 'regno']
+Vehicle_list_columns = ['make', 'model', 'police_station', 'policestation', 'regno']
 
 
 Vehicle_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'make', 'model', 'police_station', 'policestation', 'regno'], 'expanded': True}),
+    ('Data', {'fields': ['make', 'model', 'police_station', 'policestation', 'regno'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Vehicle_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'make', 'model', 'police_station', 'policestation', 'regno'], 'expanded': True}),
+    ('Data', {'fields': ['make', 'model', 'police_station', 'policestation', 'regno'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Vehicle_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'make', 'model', 'police_station', 'policestation', 'regno'], 'expanded': True}),
+    ('Data', {'fields': ['make', 'model', 'police_station', 'policestation', 'regno'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Ward_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+Ward_add_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 
-Ward_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+Ward_edit_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 
-Ward_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+Ward_list_columns = ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 
 Ward_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Ward_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Ward_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes', 'alt', 'centered', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Warranttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Warranttype_add_columns = ['name', 'description', 'notes']
 
 
-Warranttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Warranttype_edit_columns = ['name', 'description', 'notes']
 
 
-Warranttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes']
+Warranttype_list_columns = ['name', 'description', 'notes']
 
 
 Warranttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Warranttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Warranttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['name', 'description', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2686,7 +2690,7 @@ Warranttype_show_field_set = [
 ##############################
 #          Table Views          
 ####################
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class AccounttypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Accounttype, db.session)
@@ -2978,7 +2982,7 @@ class BiodataView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixi
 
 
 
-# FIELDS: ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
+# FIELDS: ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
 
 class CasecategoryView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Casecategory, db.session)
@@ -3051,7 +3055,7 @@ class CasecategoryView(ModelView):  # MasterDetailView, MultipleView, CompactCRU
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
 
 class CasechecklistView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Casechecklist, db.session)
@@ -3124,7 +3128,7 @@ class CasechecklistView(ModelView):  # MasterDetailView, MultipleView, CompactCR
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class CaselinktypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Caselinktype, db.session)
@@ -3197,7 +3201,7 @@ class CaselinktypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRU
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class CelltypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Celltype, db.session)
@@ -3343,7 +3347,7 @@ class CommitalView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMix
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
 
 class CommitaltypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Commitaltype, db.session)
@@ -3489,7 +3493,7 @@ class ComplaintView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMi
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
 
 class ComplaintcategoryView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Complaintcategory, db.session)
@@ -3562,7 +3566,7 @@ class ComplaintcategoryView(ModelView):  # MasterDetailView, MultipleView, Compa
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class ComplaintroleView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Complaintrole, db.session)
@@ -4000,7 +4004,7 @@ class CourtcaseView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMi
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class CourtrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Courtrank, db.session)
@@ -4073,7 +4077,7 @@ class CourtrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMi
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
 
 class CourtstationView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Courtstation, db.session)
@@ -4219,7 +4223,7 @@ class CrimeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes']
 
 class CsiequipmentView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Csiequipment, db.session)
@@ -4365,7 +4369,7 @@ class DiagramView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixi
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 class DisciplineView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Discipline, db.session)
@@ -4657,7 +4661,7 @@ class DocumentView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMix
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class DocumenttypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Documenttype, db.session)
@@ -4730,7 +4734,7 @@ class DocumenttypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRU
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class EconomicclassView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Economicclass, db.session)
@@ -5022,7 +5026,7 @@ class ExperttestimonyView(ModelView):  # MasterDetailView, MultipleView, Compact
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
 
 class ExperttypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Experttype, db.session)
@@ -5095,7 +5099,7 @@ class ExperttypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDM
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
 
 class FeeclassView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Feeclass, db.session)
@@ -5168,7 +5172,7 @@ class FeeclassView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMix
 
 
 
-# FIELDS: ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+# FIELDS: ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
 
 class FeetypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Feetype, db.session)
@@ -5314,7 +5318,7 @@ class HealtheventView(ModelView):  # MasterDetailView, MultipleView, CompactCRUD
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class HealtheventtypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Healtheventtype, db.session)
@@ -5460,7 +5464,7 @@ class HearingView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixi
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
 
 class HearingtypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Hearingtype, db.session)
@@ -5898,7 +5902,7 @@ class JudicialofficerView(ModelView):  # MasterDetailView, MultipleView, Compact
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class JudicialrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Judicialrank, db.session)
@@ -5971,7 +5975,7 @@ class JudicialrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRU
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class JudicialroleView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Judicialrole, db.session)
@@ -6117,7 +6121,7 @@ class LawView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
 
 
 
-# FIELDS: ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+# FIELDS: ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 class LawfirmView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Lawfirm, db.session)
@@ -6555,7 +6559,7 @@ class NotificationregisterView(ModelView):  # MasterDetailView, MultipleView, Co
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class NotificationtypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Notificationtype, db.session)
@@ -6774,7 +6778,7 @@ class PartyView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class PartytypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Partytype, db.session)
@@ -6993,7 +6997,7 @@ class PersonaleffectView(ModelView):  # MasterDetailView, MultipleView, CompactC
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class PersonaleffectscategoryView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Personaleffectscategory, db.session)
@@ -7139,7 +7143,7 @@ class PoliceofficerView(ModelView):  # MasterDetailView, MultipleView, CompactCR
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
 
 class PoliceofficerrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Policeofficerrank, db.session)
@@ -7212,7 +7216,7 @@ class PoliceofficerrankView(ModelView):  # MasterDetailView, MultipleView, Compa
 
 
 
-# FIELDS: ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+# FIELDS: ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 class PolicestationView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Policestation, db.session)
@@ -7285,7 +7289,7 @@ class PolicestationView(ModelView):  # MasterDetailView, MultipleView, CompactCR
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class PolicestationrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Policestationrank, db.session)
@@ -7504,7 +7508,7 @@ class PrisonofficerView(ModelView):  # MasterDetailView, MultipleView, CompactCR
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class PrisonofficerrankView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Prisonofficerrank, db.session)
@@ -7650,7 +7654,7 @@ class ProsecutorView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDM
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class ProsecutorteamView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Prosecutorteam, db.session)
@@ -7723,7 +7727,7 @@ class ProsecutorteamView(ModelView):  # MasterDetailView, MultipleView, CompactC
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class ReleasetypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Releasetype, db.session)
@@ -7869,7 +7873,7 @@ class ReligionView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMix
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class SchedulestatustypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Schedulestatustype, db.session)
@@ -8088,7 +8092,7 @@ class SettlementView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDM
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class SubcountyView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Subcounty, db.session)
@@ -8307,7 +8311,7 @@ class SysviewfldView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDM
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 class SysviewlistView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Sysviewlist, db.session)
@@ -8599,7 +8603,7 @@ class SyswkflowviewseqView(ModelView):  # MasterDetailView, MultipleView, Compac
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
 
 class TemplatetypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Templatetype, db.session)
@@ -8672,7 +8676,7 @@ class TemplatetypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRU
 
 
 
-# FIELDS: ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+# FIELDS: ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 class TownView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Town, db.session)
@@ -8891,7 +8895,7 @@ class VehicleView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixi
 
 
 
-# FIELDS: ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+# FIELDS: ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 class WardView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Ward, db.session)
@@ -8964,7 +8968,7 @@ class WardView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
 
 
 
-# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+# FIELDS: ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 class WarranttypeView(ModelView):  # MasterDetailView, MultipleView, CompactCRUDMixin
     datamodel = SQLAInterface(Warranttype, db.session)
@@ -14828,6 +14832,906 @@ appbuilder.add_view(WarranttypeChartView(), "Warranttype Age Chart", icon="fa-ba
 
 
 appbuilder.security_cleanup()
+############## WORKFLOWS ##############
+
+
+
+#-X-#### Table-Field Dictionary
+wz_metadata = \
+{   'Accounttype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', "
+                   "'description', 'id', 'name', 'notes']",
+    'Bill': "['assess_date', 'assessing_registrar', 'bill_balance', "
+            "'bill_code', 'bill_date', 'bill_total', 'changed_by', "
+            "'changed_by_fk', 'changed_on', 'court', 'court1', "
+            "'court_account_account__types', 'court_account_courts', "
+            "'courtaccount', 'created_by', 'created_by_fk', 'created_on', "
+            "'date_of_payment', 'document', 'documents', 'id', "
+            "'judicialofficer', 'judicialofficer1', 'lawyer', 'lawyer_paying', "
+            "'paid', 'paid_total', 'party', 'party_paying', 'receive_date', "
+            "'receiving_registrar', 'validated', 'validation_date']",
+    'Billdetail': "['amount', 'bd_date', 'changed_by', 'changed_by_fk', "
+                  "'changed_on', 'created_by', 'created_by_fk', 'created_on', "
+                  "'feetype', 'feetype1', 'id', 'purpose', 'qty', 'receipt', "
+                  "'receipt_id', 'unit', 'unit_cost']",
+    'Biodata': "['allergies', 'bc_id', 'bc_number', 'bc_place', 'bc_scan', "
+               "'bc_serial', 'blood_group', 'changed_by', 'changed_by_fk', "
+               "'changed_on', 'chronic_conditions', 'chronic_medications', "
+               "'citizenship', 'complexion', 'created_by', 'created_by_fk', "
+               "'created_on', 'current_health_status', 'diabetes', "
+               "'economic_class', 'economicclass', 'ethnicity', 'eye_colour', "
+               "'eye_left', 'eye_right', 'f_education', 'f_firstname', "
+               "'f_income', 'f_nat_id_num', 'f_occupation', 'f_othernames', "
+               "'f_prn', 'f_surname', 'fp_left2', 'fp_left3', 'fp_left4', "
+               "'fp_left5', 'fp_lthumb', 'fp_right2', 'fp_right3', "
+               "'fp_right4', 'fp_right5', 'fp_rthumb', 'hair_colour', 'hbp', "
+               "'health_status', 'height_m', 'hiv', 'id', 'kin1_addr', "
+               "'kin1_email', 'kin1_name', 'kin1_phone', 'kin1_relation', "
+               "'kin2_addr', 'kin2_email', 'kin2_name', 'kin2_phone', "
+               "'m_education', 'm_firstname', 'm_income', 'm_nat_id_num', "
+               "'m_occupation', 'm_othernames', 'm_prn', 'm_surname', "
+               "'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'palm_left', "
+               "'palm_right', 'party', 'party1', 'pp_expiry_date', "
+               "'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', "
+               "'religion', 'religion1', 'striking_features', 'weight_kg']",
+    'Casecategory': "['casechecklist', 'changed_by', 'changed_by_fk', "
+                    "'changed_on', 'courtcase', 'created_by', 'created_by_fk', "
+                    "'created_on', 'description', 'id', 'name', 'notes', "
+                    "'parent', 'subcategory']",
+    'Casechecklist': "['changed_by', 'changed_by_fk', 'changed_on', "
+                     "'check_list_item', 'created_by', 'created_by_fk', "
+                     "'created_on', 'description', 'id', 'is_mandatory', "
+                     "'name', 'notes', 'priority']",
+    'Caselinktype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'name', 'notes']",
+    'Celltype': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                "'created_by_fk', 'created_on', 'description', 'id', 'name', "
+                "'notes']",
+    'Commital': "['action', 'active', 'activity_description', 'actual_end', "
+                "'actual_start', 'arrest_date', 'arrival_date', "
+                "'balance_avail', 'budget', 'casecomplete', 'cell_number', "
+                "'cell_type', 'celltype', 'changed_by', 'changed_by_fk', "
+                "'changed_on', 'commit_date', 'commital', 'commital_type', "
+                "'commitaltype', 'completed', 'concurrent', "
+                "'contingency_plan', 'court_case', 'courtcase', 'created_by', "
+                "'created_by_fk', 'created_on', 'deadline', "
+                "'deviation_expected', 'duration', 'early_end', 'early_start', "
+                "'end_delay', 'end_notes', 'exit_date', 'goal', 'id', "
+                "'late_end', 'late_start', 'life_imprisonment', 'not_started', "
+                "'over_budget', 'parent', 'parties', 'party', 'planned_end', "
+                "'planned_start', 'police_station', 'policestation', "
+                "'priority', 'prison', 'prisonofficer', 'prisonofficer1', "
+                "'prisons', 'purpose', 'reason_for_release', "
+                "'receiving_officer', 'release_date', 'release_type', "
+                "'releasetype', 'releasing_officer', 'remaining_days', "
+                "'remaining_months', 'remaining_years', 'segment', "
+                "'sentence_start_date', 'sequence', 'spend_td', 'start_delay', "
+                "'start_notes', 'status', 'task_group', 'under_budget', "
+                "'warrant_date_attached', 'warrant_docx', "
+                "'warrant_issue_date', 'warrant_issued_by', 'warrant_type', "
+                "'warranttype', 'with_children']",
+    'Commitaltype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'maxduration', 'name', 'notes']",
+    'Complaint': "['active', 'casefileinformation', 'casesummary', "
+                 "'changed_by', 'changed_by_fk', 'changed_on', 'charge_sheet', "
+                 "'charge_sheet_docx', 'circumstances', 'close_date', "
+                 "'close_reason', 'closed', 'complaintcategory', "
+                 "'complaintstatement', 'courtcase', 'created_by', "
+                 "'created_by_fk', 'created_on', 'datecaseopened', "
+                 "'datefiled', 'daterecvd', 'evaluating_prosecutor_team', "
+                 "'id', 'judicialofficer', 'magistrate_report_date', "
+                 "'ob_number', 'p_closed', 'p_evaluation', 'p_instruction', "
+                 "'p_recommend_charge', 'p_request_help', 'p_submission_date', "
+                 "'p_submission_notes', 'p_submitted', 'police_station', "
+                 "'policeofficer', 'policestation', 'prosecutorteam', "
+                 "'reported_to_judicial_officer', 'reportingofficer']",
+    'Complaintcategory': "['changed_by', 'changed_by_fk', 'changed_on', "
+                         "'complaint_category_parent', 'created_by', "
+                         "'created_by_fk', 'created_on', 'description', 'id', "
+                         "'name', 'notes', 'parent']",
+    'Complaintrole': "['changed_by', 'changed_by_fk', 'changed_on', "
+                     "'created_by', 'created_by_fk', 'created_on', "
+                     "'description', 'id', 'name', 'notes']",
+    'Country': "['capital', 'changed_by', 'changed_by_fk', 'changed_on', "
+               "'code', 'code2', 'continent', 'created_by', 'created_by_fk', "
+               "'created_on', 'dial_prefix', 'gnp', 'gnpold', "
+               "'governmentform', 'headofstate', 'id', 'indepyear', "
+               "'lifeexpectancy', 'localname', 'name', 'population', 'region', "
+               "'surfacearea']",
+    'County': "['changed_by', 'changed_by_fk', 'changed_on', 'code', "
+              "'country', 'country1', 'created_by', 'created_by_fk', "
+              "'created_on', 'description', 'id', 'name', 'notes']",
+    'Court': "['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', "
+             "'court_rank', 'court_station', 'courtrank', 'courtstation', "
+             "'created_by', 'created_by_fk', 'created_on', 'id', 'info', "
+             "'judicialofficer', 'lat', 'lng', 'map', 'nearest_feature', "
+             "'pin', 'pin_color', 'pin_icon', 'place_name', 'till_number', "
+             "'town', 'town1']",
+    'Courtaccount': "['account__types', 'account_name', 'account_number', "
+                    "'accounttype', 'bank_name', 'changed_by', "
+                    "'changed_by_fk', 'changed_on', 'court', 'courts', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'short_code']",
+    'Courtcase': "['action', 'active', 'active_date', 'activity_description', "
+                 "'actual_end', 'actual_start', 'adr', 'appeal_number', "
+                 "'appealed', 'award', 'balance_avail', 'budget', "
+                 "'case_admissible', 'case_filed_date', 'case_link_type', "
+                 "'case_number', 'case_received_date', 'case_summary', "
+                 "'caselinktype', 'changed_by', 'changed_by_fk', 'changed_on', "
+                 "'combined_case', 'completed', 'contingency_plan', "
+                 "'created_by', 'created_by_fk', 'created_on', 'deadline', "
+                 "'deviation_expected', 'docket_number', 'early_end', "
+                 "'early_start', 'end_delay', 'end_notes', 'fast_track', "
+                 "'filing_prosecutor', 'goal', 'govt_liability', 'grounds', "
+                 "'id', 'indictment_date', 'interlocutory_judgement', "
+                 "'inventory_of_docket', 'judgement', 'judgement_docx', "
+                 "'judicialofficer', 'judicialofficer1', 'late_end', "
+                 "'late_start', 'lawfirm', 'linked_cases', "
+                 "'mediation_proposal', 'next_hearing_date', 'not_started', "
+                 "'object_of_litigation', 'over_budget', 'parent', "
+                 "'planned_end', 'planned_start', 'pretrial_date', "
+                 "'pretrial_notes', 'pretrial_registrar', 'priority', "
+                 "'prosecution_prayer', 'prosecutor', 'reopen', "
+                 "'reopen_reason', 'segment', 'sequence', 'spend_td', "
+                 "'start_delay', 'start_notes', 'status', 'task_group', "
+                 "'under_budget', 'value_in_dispute']",
+    'Courtrank': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                 "'created_by_fk', 'created_on', 'description', 'id', 'name', "
+                 "'notes']",
+    'Courtstation': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'name', 'notes', 'pay_bill', "
+                    "'till_number']",
+    'Crime': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+             "'created_by_fk', 'created_on', 'description', 'id', 'law', "
+             "'law1', 'max_fine', 'max_sentence', 'min_sentence', 'ref', "
+             "'ref_law']",
+    'Csiequipment': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'investigationdiary', 'name', "
+                    "'notes']",
+    'Diagram': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+               "'created_by_fk', 'created_on', 'description', 'docx', 'id', "
+               "'image', 'investigation_diary', 'investigationdiary']",
+    'Discipline': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                  "'created_by_fk', 'created_on', 'description', 'id', 'name', "
+                  "'notes', 'party', 'party1', 'prison_officer', "
+                  "'prisonofficer']",
+    'Docpart': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+               "'created_by_fk', 'created_on', 'document', 'document1', "
+               "'file_accepted', 'file_assessed', 'file_bin', "
+               "'file_byte_count', 'file_create_date', 'file_ext', "
+               "'file_fee_amount', 'file_hash', 'file_last_opened_date', "
+               "'file_load_path', 'file_parse_status', 'file_text', "
+               "'file_update_date', 'file_upload_date', 'id', 'image_height', "
+               "'image_width', 'is_image', 'language', 'page_count', "
+               "'page_no', 'page_text', 'upload_dt']",
+    'Doctemplate': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', 'docx', "
+                   "'icon', 'id', 'name', 'summary', 'template', "
+                   "'template_type', 'templatetype', 'title']",
+    'Document': "['admisibility_notes', 'admitted', 'audio_channels', "
+                "'audio_duration_secs', 'audio_frame_rate', 'author', "
+                "'certify_date', 'certify_urgent', "
+                "'certifying_judicial_officer', 'changed_by', 'changed_by_fk', "
+                "'changed_on', 'char_count', 'citation', 'comments', "
+                "'court_case', 'courtcase', 'created_by', 'created_by_fk', "
+                "'created_on', 'doc', 'doc_binary', 'doc_placed_by', "
+                "'doc_room', 'doc_row', 'doc_shelf', 'doc_template', "
+                "'doc_text', 'doc_title', 'doc_type', 'doctemplate', "
+                "'document_admissibility', 'document_text', 'documenttype', "
+                "'docx', 'expiry_date', 'file_byte_count', 'file_create_date', "
+                "'file_ext', 'file_hash', 'file_last_opened_date', "
+                "'file_load_path', 'file_parse_status', 'file_size_bytes', "
+                "'file_text', 'file_update_date', 'file_upload_date', "
+                "'filing_date', 'hashx', 'id', 'immutable', 'is_image', "
+                "'is_public', 'issue', 'issue1', 'judicialofficer', "
+                "'judicialofficer1', 'judicialofficer2', 'keywords', "
+                "'language', 'lines', 'lock_date', 'locked', 'mime_type', "
+                "'name', 'page_count', 'page_size', 'paid', 'paragraphs', "
+                "'producer_prog', 'publish_date', 'publish_newspaper', "
+                "'published', 'receive_date', 'receiving_registrar', "
+                "'request_urgent', 'review_date', 'review_registrar', "
+                "'search_vector', 'subject', 'validated', 'word_count']",
+    'Documenttype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'name', 'notes']",
+    'Economicclass': "['changed_by', 'changed_by_fk', 'changed_on', "
+                     "'created_by', 'created_by_fk', 'created_on', "
+                     "'description', 'id', 'name', 'notes']",
+    'Exhibit': "['audio_channels', 'audio_duration_secs', 'audio_frame_rate', "
+               "'author', 'changed_by', 'changed_by_fk', 'changed_on', "
+               "'char_count', 'comments', 'created_by', 'created_by_fk', "
+               "'created_on', 'doc', 'doc_binary', 'doc_text', 'doc_title', "
+               "'doc_type', 'docx', 'exhibit_no', 'file_size_bytes', 'hashx', "
+               "'id', 'immutable', 'investigation_entry', "
+               "'investigationdiary', 'keywords', 'lines', 'mime_type', "
+               "'page_count', 'page_size', 'paragraphs', 'producer_prog', "
+               "'search_vector', 'seizure', 'seizure1', 'subject', "
+               "'word_count']",
+    'Expert': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+              "'created_by_fk', 'created_on', 'credentials', 'experttype', "
+              "'id', 'institution', 'jobtitle']",
+    'Experttestimony': "['changed_by', 'changed_by_fk', 'changed_on', "
+                       "'court_case', 'courtcase', 'created_by', "
+                       "'created_by_fk', 'created_on', 'expert', 'experts', "
+                       "'investigation_entries', 'investigationdiary', "
+                       "'policeofficer', 'requesting_police_officer', "
+                       "'statement', 'summary_of_facts', 'task_given', "
+                       "'task_request_date', 'testimony_date', 'validated']",
+    'Experttype': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                  "'created_by_fk', 'created_on', 'description', "
+                  "'expert_type', 'id', 'name', 'notes', 'parent']",
+    'Feeclass': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                "'created_by_fk', 'created_on', 'description', 'fee_type', "
+                "'id', 'name', 'notes', 'parent']",
+    'Feetype': "['account_type', 'accounttype', 'amount', 'changed_by', "
+               "'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', "
+               "'created_on', 'description', 'feeclass', 'filing_fee_type', "
+               "'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', "
+               "'name', 'notes', 'unit']",
+    'Healthevent': "['action', 'active', 'activity_description', 'actual_end', "
+                   "'actual_start', 'balance_avail', 'budget', 'changed_by', "
+                   "'changed_by_fk', 'changed_on', 'completed', "
+                   "'contingency_plan', 'created_by', 'created_by_fk', "
+                   "'created_on', 'deadline', 'deviation_expected', "
+                   "'early_end', 'early_start', 'end_delay', 'end_notes', "
+                   "'enddate', 'goal', 'health_event_type', 'healtheventtype', "
+                   "'id', 'late_end', 'late_start', 'not_started', 'notes', "
+                   "'over_budget', 'party', 'party1', 'planned_end', "
+                   "'planned_start', 'priority', 'prisonofficer', "
+                   "'reporting_prison_officer', 'segment', 'sequence', "
+                   "'spend_td', 'start_delay', 'start_notes', 'startdate', "
+                   "'status', 'task_group', 'under_budget']",
+    'Healtheventtype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                       "'created_by', 'created_by_fk', 'created_on', "
+                       "'description', 'id', 'name', 'notes']",
+    'Hearing': "['action', 'active', 'activity_description', 'actual_end', "
+               "'actual_start', 'adjourned_to', 'adjournment_reason', "
+               "'atendance', 'balance_avail', 'budget', 'changed_by', "
+               "'changed_by_fk', 'changed_on', 'completed', "
+               "'contingency_plan', 'court_cases', 'courtcase', 'created_by', "
+               "'created_by_fk', 'created_on', 'deadline', "
+               "'deviation_expected', 'early_end', 'early_start', 'end_delay', "
+               "'end_notes', 'endtime', 'goal', 'hearing_date', "
+               "'hearing_type', 'hearingtype', 'id', 'issue', "
+               "'judicialofficer', 'late_end', 'late_start', 'lawfirm', "
+               "'lawfirm1', 'next_hearing_date', 'not_started', 'notes', "
+               "'over_budget', 'planned_end', 'planned_start', "
+               "'postponement_reason', 'priority', 'reason', "
+               "'schedule_status', 'schedulestatustype', 'segment', "
+               "'sequence', 'spend_td', 'start_delay', 'start_notes', "
+               "'starttime', 'status', 'task_group', 'transcript', "
+               "'under_budget', 'yearday']",
+    'Hearingtype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', "
+                   "'description', 'hearing_type', 'id', 'name', 'notes', "
+                   "'parent']",
+    'Instancecrime': "['changed_by', 'changed_by_fk', 'changed_on', "
+                     "'created_by', 'created_by_fk', 'created_on', 'crime', "
+                     "'crime_date', 'crime_detail', 'crimes', 'date_note', "
+                     "'id', 'issue', 'parties', 'party', 'place_note', "
+                     "'place_of_crime', 'tffender_type']",
+    'Interview': "['answer', 'changed_by', 'changed_by_fk', 'changed_on', "
+                 "'created_by', 'created_by_fk', 'created_on', 'id', "
+                 "'investigation_entry', 'investigationdiary', 'language', "
+                 "'question', 'validated']",
+    'Investigationdiary': "['action', 'active', 'activity', "
+                          "'activity_description', 'actual_end', "
+                          "'actual_start', 'advocate_present', "
+                          "'arrest_statement', 'arrest_warrant', "
+                          "'balance_avail', 'budget', 'changed_by', "
+                          "'changed_by_fk', 'changed_on', 'complaint', "
+                          "'complaint1', 'completed', 'contingency_plan', "
+                          "'created_by', 'created_by_fk', 'created_on', "
+                          "'deadline', 'detained', 'detained_at', "
+                          "'deviation_expected', 'docx', 'early_end', "
+                          "'early_start', 'end_delay', 'end_notes', 'enddate', "
+                          "'equipmentresults', 'goal', 'id', 'late_end', "
+                          "'late_start', 'location', 'not_started', 'outcome', "
+                          "'over_budget', 'party', 'planned_end', "
+                          "'planned_start', 'policeofficer', 'priority', "
+                          "'provisional_release_statement', "
+                          "'search_seizure_statement', 'segment', 'sequence', "
+                          "'spend_td', 'start_delay', 'start_notes', "
+                          "'startdate', 'status', 'summons_statement', "
+                          "'task_group', 'under_budget', 'vehicle', "
+                          "'warrant_delivered_by', 'warrant_docx', "
+                          "'warrant_issue_date', 'warrant_issued_by', "
+                          "'warrant_received_by', 'warrant_serve_date', "
+                          "'warrant_type', 'warrant_upload_date', "
+                          "'warranttype']",
+    'Issue': "['argument', 'argument_date', 'argument_docx', 'changed_by', "
+             "'changed_by_fk', 'changed_on', 'counter_claim', 'court_case', "
+             "'courtcase', 'created_by', 'created_by_fk', 'created_on', "
+             "'debt_amount', 'defense_lawyer', 'determination', "
+             "'determination_docx', 'dtermination_date', 'facts', "
+             "'hearing_date', 'id', 'is_criminal', 'issue', "
+             "'judicial_officer', 'judicialofficer', 'lawyer', 'lawyer1', "
+             "'legal_element', 'legalreference', 'legalreference1', "
+             "'material_element', 'moral_element', 'party', 'party1', "
+             "'prosecutor', 'prosecutor1', 'rebuttal', 'rebuttal_date', "
+             "'rebuttal_docx', 'resolved', 'tasks']",
+    'Judicialofficer': "['changed_by', 'changed_by_fk', 'changed_on', "
+                       "'court_station', 'courtstation', 'created_by', "
+                       "'created_by_fk', 'created_on', 'dob', 'firstname', "
+                       "'gender', 'id', 'judicial_role', 'judicialrank', "
+                       "'judicialrole', 'marital_status', 'othernames', "
+                       "'rank', 'surname']",
+    'Judicialrank': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'name', 'notes']",
+    'Judicialrole': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'name', 'notes']",
+    'Law': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+           "'created_by_fk', 'created_on', 'description', 'id', 'name']",
+    'Lawfirm': "['address_line_1', 'address_line_2', 'alt', 'avatar', "
+               "'centered', 'changed_by', 'changed_by_fk', 'changed_on', "
+               "'country', 'created_by', 'created_by_fk', 'created_on', "
+               "'description', 'email', 'facebook', 'fax', 'fixed_line', "
+               "'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', "
+               "'mobile', 'name', 'nearest_feature', 'notes', 'okhi', "
+               "'other_email', 'other_fixed_line', 'other_mobile', "
+               "'other_whatsapp', 'pin', 'pin_color', 'pin_icon', "
+               "'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']",
+    'Lawyer': "['address_line_1', 'address_line_2', 'avatar', 'bar_date', "
+              "'bar_no', 'changed_by', 'changed_by_fk', 'changed_on', "
+              "'country', 'created_by', 'created_by_fk', 'created_on', 'dob', "
+              "'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', "
+              "'gender', 'id', 'instagram', 'law_firm', 'lawfirm', "
+              "'marital_status', 'mobile', 'okhi', 'other_email', "
+              "'other_fixed_line', 'other_mobile', 'other_whatsapp', "
+              "'othernames', 'party', 'surname', 'town', 'twitter', "
+              "'whatsapp', 'zipcode']",
+    'Legalreference': "['changed_by', 'changed_by_fk', 'changed_on', "
+                      "'citation', 'commentary', 'created_by', "
+                      "'created_by_fk', 'created_on', 'doc_id', 'id', "
+                      "'interpretation', 'klr_rul_short', 'klr_url_full', "
+                      "'public', 'quote', 'ref', 'validated', 'verbatim']",
+    'Nextofkin': "['address_line_1', 'address_line_2', 'avatar', 'bc_id', "
+                 "'bc_number', 'bc_place', 'bc_scan', 'bc_serial', 'biodata', "
+                 "'biodata1', 'changed_by', 'changed_by_fk', 'changed_on', "
+                 "'childunder4', 'citizenship', 'country', 'created_by', "
+                 "'created_by_fk', 'created_on', 'dob', 'email', 'facebook', "
+                 "'fax', 'firstname', 'fixed_line', 'gcode', 'gender', 'id', "
+                 "'instagram', 'kin1_addr', 'kin1_email', 'kin1_name', "
+                 "'kin1_phone', 'kin1_relation', 'kin2_addr', 'kin2_email', "
+                 "'kin2_name', 'kin2_phone', 'marital_status', 'mobile', "
+                 "'nat_id_num', 'nat_id_scan', 'nat_id_serial', 'okhi', "
+                 "'other_email', 'other_fixed_line', 'other_mobile', "
+                 "'other_whatsapp', 'othernames', 'pp_expiry_date', "
+                 "'pp_issue_date', 'pp_issue_place', 'pp_no', 'pp_scan', "
+                 "'surname', 'town', 'twitter', 'whatsapp', 'zipcode']",
+    'Notification': "['abandon', 'change_user_id', 'changed_by', "
+                    "'changed_by_fk', 'changed_on', 'confirmation', "
+                    "'contact_id', 'created_by', 'created_by_fk', "
+                    "'created_on', 'delivered', 'id', 'message', "
+                    "'notification_register', 'notificationregister', "
+                    "'retries', 'retry_count', 'send_date', 'sent']",
+    'Notificationregister': "['active', 'changed_by', 'changed_by_fk', "
+                            "'changed_on', 'complaint', 'complaint1', "
+                            "'complaint_category', 'complaintcategory', "
+                            "'contact', 'court_case', 'courtcase', "
+                            "'created_by', 'created_by_fk', 'created_on', "
+                            "'document', 'document1', 'health_event', "
+                            "'healthevent', 'hearing', 'hearing1', 'id', "
+                            "'notification_type', 'notificationtype', "
+                            "'notify_event', 'notifyevent', 'party', 'party1', "
+                            "'retry_count', 'sysuserextra', 'user_to_notify']",
+    'Notificationtype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                        "'created_by', 'created_by_fk', 'created_on', "
+                        "'description', 'id', 'name', 'notes']",
+    'Notifyevent': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', 'id']",
+    'Party': "['address_line_1', 'address_line_2', 'avatar', 'changed_by', "
+             "'changed_by_fk', 'changed_on', 'complaint', 'complaint_role', "
+             "'complaintrole', 'complaints', 'country', 'created_by', "
+             "'created_by_fk', 'created_on', 'dateofrepresentation', 'dob', "
+             "'email', 'facebook', 'fax', 'firstname', 'fixed_line', 'gcode', "
+             "'gender', 'id', 'instagram', 'is_infant', 'is_minor', "
+             "'marital_status', 'miranda_date', 'miranda_read', "
+             "'miranda_witness', 'mobile', 'notes', 'okhi', 'other_email', "
+             "'other_fixed_line', 'other_mobile', 'other_whatsapp', "
+             "'othernames', 'parent', 'party_type', 'partytype', "
+             "'relationship_type', 'relative', 'settlement', 'statement', "
+             "'statementdate', 'surname', 'town', 'twitter', 'whatsapp', "
+             "'zipcode']",
+    'Partytype': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                 "'created_by_fk', 'created_on', 'description', 'id', 'name', "
+                 "'notes']",
+    'Payment': "['bill', 'bill1', 'changed_by', 'changed_by_fk', 'changed_on', "
+               "'created_by', 'created_by_fk', 'created_on', 'id', "
+               "'pay_amount', 'pay_date', 'pay_trans_cost', "
+               "'payment_description', 'payment_ref', 'phone_number', "
+               "'receipt_no', 'validate_date', 'validated']",
+    'Personaleffect': "['changed_by', 'changed_by_fk', 'changed_on', "
+                      "'created_by', 'created_by_fk', 'created_on', 'id', "
+                      "'party', 'party1', 'personal_effects_category', "
+                      "'personaleffectscategory']",
+    'Personaleffectscategory': "['changed_by', 'changed_by_fk', 'changed_on', "
+                               "'created_by', 'created_by_fk', 'created_on', "
+                               "'description', 'id', 'name', 'notes']",
+    'Policeofficer': "['changed_by', 'changed_by_fk', 'changed_on', "
+                     "'created_by', 'created_by_fk', 'created_on', 'dob', "
+                     "'firstname', 'gender', 'id', 'marital_status', "
+                     "'othernames', 'police_rank', 'policeofficerrank', "
+                     "'policestation', 'servicenumber', 'surname']",
+    'Policeofficerrank': "['changed_by', 'changed_by_fk', 'changed_on', "
+                         "'created_by', 'created_by_fk', 'created_on', "
+                         "'description', 'id', 'name', 'notes', 'sequence']",
+    'Policestation': "['alt', 'centered', 'changed_by', 'changed_by_fk', "
+                     "'changed_on', 'created_by', 'created_by_fk', "
+                     "'created_on', 'description', 'id', 'info', 'lat', 'lng', "
+                     "'map', 'name', 'nearest_feature', 'notes', "
+                     "'officer_commanding', 'pin', 'pin_color', 'pin_icon', "
+                     "'place_name', 'police_station_rank', 'policeofficer', "
+                     "'policestationrank', 'town', 'town1']",
+    'Policestationrank': "['changed_by', 'changed_by_fk', 'changed_on', "
+                         "'created_by', 'created_by_fk', 'created_on', "
+                         "'description', 'id', 'name', 'notes']",
+    'Prison': "['alt', 'centered', 'changed_by', 'changed_by_fk', "
+              "'changed_on', 'created_by', 'created_by_fk', 'created_on', "
+              "'id', 'info', 'lat', 'lng', 'map', 'nearest_feature', 'pin', "
+              "'pin_color', 'pin_icon', 'place_name', 'town', 'town1']",
+    'Prisonofficer': "['changed_by', 'changed_by_fk', 'changed_on', "
+                     "'created_by', 'created_by_fk', 'created_on', 'dob', "
+                     "'firstname', 'gender', 'id', 'marital_status', "
+                     "'othernames', 'prison', 'prison1', "
+                     "'prison_officer_rank', 'prisonofficerrank', 'surname']",
+    'Prisonofficerrank': "['changed_by', 'changed_by_fk', 'changed_on', "
+                         "'created_by', 'created_by_fk', 'created_on', "
+                         "'description', 'id', 'name', 'notes']",
+    'Prosecutor': "['address_line_1', 'address_line_2', 'avatar', "
+                  "'changed_by', 'changed_by_fk', 'changed_on', 'country', "
+                  "'created_by', 'created_by_fk', 'created_on', 'dob', "
+                  "'email', 'facebook', 'fax', 'firstname', 'fixed_line', "
+                  "'gcode', 'gender', 'id', 'instagram', 'lawyer', 'lawyer1', "
+                  "'marital_status', 'mobile', 'okhi', 'other_email', "
+                  "'other_fixed_line', 'other_mobile', 'other_whatsapp', "
+                  "'othernames', 'prosecutor_team', 'prosecutorteam', "
+                  "'surname', 'town', 'twitter', 'whatsapp', 'zipcode']",
+    'Prosecutorteam': "['changed_by', 'changed_by_fk', 'changed_on', "
+                      "'created_by', 'created_by_fk', 'created_on', "
+                      "'description', 'id', 'name', 'notes']",
+    'Releasetype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', "
+                   "'description', 'id', 'name', 'notes']",
+    'Religion': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                "'created_by_fk', 'created_on', 'id']",
+    'Schedulestatustype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                          "'created_by', 'created_by_fk', 'created_on', "
+                          "'description', 'id', 'name', 'notes']",
+    'Seizure': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+               "'created_by_fk', 'created_on', 'destroyed', "
+               "'destruction_date', 'destruction_notes', 'destruction_pic', "
+               "'destruction_witnesses', 'disposal_date', 'disposal_price', "
+               "'disposal_receipt', 'disposed', 'docx', 'id', 'immovable', "
+               "'investigation_diary', 'investigationdiary', 'is_evidence', "
+               "'item', 'item_description', 'item_packaging', 'item_pic', "
+               "'notes', 'owner', 'premises', 'recovery_town', 'reg_no', "
+               "'return_date', 'return_notes', 'return_signed_receipt', "
+               "'returned', 'sold_to', 'town', 'witness']",
+    'Settlement': "['amount', 'changed_by', 'changed_by_fk', 'changed_on', "
+                  "'complaint', 'complaint1', 'created_by', 'created_by_fk', "
+                  "'created_on', 'docx', 'id', 'paid', 'party', 'settlor', "
+                  "'terms']",
+    'Subcounty': "['changed_by', 'changed_by_fk', 'changed_on', 'county', "
+                 "'county1', 'created_by', 'created_by_fk', 'created_on', "
+                 "'description', 'id', 'name', 'notes']",
+    'Sysuserextra': "['address_line_1', 'address_line_2', 'alt_email', "
+                    "'avatar', 'changed_by', 'changed_by_fk', 'changed_on', "
+                    "'country', 'created_by', 'created_by_fk', 'created_on', "
+                    "'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', "
+                    "'instagram', 'mobile', 'off_email', 'off_phone', "
+                    "'office_address', 'okhi', 'other_email', "
+                    "'other_fixed_line', 'other_mobile', 'other_whatsapp', "
+                    "'sys_birthday', 'sys_home_address', 'sys_job_grade', "
+                    "'sys_notes', 'syswkflowgrp', 'syswkflowgrp1', 'town', "
+                    "'twitter', 'whatsapp', 'zipcode']",
+    'Sysviewfld': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                  "'created_by_fk', 'created_on', 'fld_choices', "
+                  "'fld_default', 'fld_display_order', 'fld_label', "
+                  "'fld_name', 'fld_type', 'fld_unique', 'fld_validator', "
+                  "'fld_widget', 'id', 'sys__view', 'sysviewlist']",
+    'Sysviewlist': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', "
+                   "'description', 'id', 'name', 'notes', 'sys_name', "
+                   "'sys_perms', 'sys_route', 'sys_table_name', "
+                   "'sys_template', 'sys_title', 'sys_wtf']",
+    'Syswkflow': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+                 "'created_by_fk', 'created_on', 'id', 'sys_description', "
+                 "'sys_name', 'sys_notes', 'sys_steps', 'sys_wkflow_template', "
+                 "'syswkflowgrp', 'syswkflowgrp1']",
+    'Syswkflowgrp': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', 'id', "
+                    "'sys_cat_description', 'sys_cat_name', 'sys_cat_notes']",
+    'Syswkflowviewseq': "['changed_by', 'changed_by_fk', 'changed_on', "
+                        "'created_by', 'created_by_fk', 'created_on', "
+                        "'sys__view__lists', 'sys_is_terminal', 'sys_order', "
+                        "'sys_wkflows', 'sysviewlist', 'syswkflow']",
+    'Templatetype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                    "'created_by', 'created_by_fk', 'created_on', "
+                    "'description', 'id', 'name', 'notes', 'parent', "
+                    "'template_type']",
+    'Town': "['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', "
+            "'created_by', 'created_by_fk', 'created_on', 'description', 'id', "
+            "'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', "
+            "'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']",
+    'Transcript': "['add_date', 'asr_date', 'asr_transcript', 'audio', "
+                  "'audio_channels', 'audio_duration_secs', "
+                  "'audio_frame_rate', 'author', 'certfiy_date', "
+                  "'certified_transcript', 'changed_by', 'changed_by_fk', "
+                  "'changed_on', 'char_count', 'comments', 'created_by', "
+                  "'created_by_fk', 'created_on', 'doc', 'doc_binary', "
+                  "'doc_text', 'doc_title', 'doc_type', 'edit_date', "
+                  "'edited_transcript', 'file_size_bytes', 'hashx', 'hearing', "
+                  "'hearing1', 'id', 'immutable', 'keywords', 'lines', "
+                  "'locked', 'mime_type', 'page_count', 'page_size', "
+                  "'paragraphs', 'producer_prog', 'search_vector', 'subject', "
+                  "'video', 'word_count']",
+    'Vehicle': "['changed_by', 'changed_by_fk', 'changed_on', 'created_by', "
+               "'created_by_fk', 'created_on', 'id', 'make', 'model', "
+               "'police_station', 'policestation', 'regno']",
+    'Ward': "['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', "
+            "'created_by', 'created_by_fk', 'created_on', 'description', 'id', "
+            "'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', "
+            "'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', "
+            "'subcounty1']",
+    'Warranttype': "['changed_by', 'changed_by_fk', 'changed_on', "
+                   "'created_by', 'created_by_fk', 'created_on', "
+                   "'description', 'id', 'name', 'notes']"}
+
+
+
+
+#-X-#### Table List
+wz_table_list = ['Accounttype',
+ 'Bill',
+ 'Billdetail',
+ 'Biodata',
+ 'Casecategory',
+ 'Casechecklist',
+ 'Caselinktype',
+ 'Celltype',
+ 'Commital',
+ 'Commitaltype',
+ 'Complaint',
+ 'Complaintcategory',
+ 'Complaintrole',
+ 'Country',
+ 'County',
+ 'Court',
+ 'Courtaccount',
+ 'Courtcase',
+ 'Courtrank',
+ 'Courtstation',
+ 'Crime',
+ 'Csiequipment',
+ 'Diagram',
+ 'Discipline',
+ 'Docpart',
+ 'Doctemplate',
+ 'Document',
+ 'Documenttype',
+ 'Economicclass',
+ 'Exhibit',
+ 'Expert',
+ 'Experttestimony',
+ 'Experttype',
+ 'Feeclass',
+ 'Feetype',
+ 'Healthevent',
+ 'Healtheventtype',
+ 'Hearing',
+ 'Hearingtype',
+ 'Instancecrime',
+ 'Interview',
+ 'Investigationdiary',
+ 'Issue',
+ 'Judicialofficer',
+ 'Judicialrank',
+ 'Judicialrole',
+ 'Law',
+ 'Lawfirm',
+ 'Lawyer',
+ 'Legalreference',
+ 'Nextofkin',
+ 'Notification',
+ 'Notificationregister',
+ 'Notificationtype',
+ 'Notifyevent',
+ 'Party',
+ 'Partytype',
+ 'Payment',
+ 'Personaleffect',
+ 'Personaleffectscategory',
+ 'Policeofficer',
+ 'Policeofficerrank',
+ 'Policestation',
+ 'Policestationrank',
+ 'Prison',
+ 'Prisonofficer',
+ 'Prisonofficerrank',
+ 'Prosecutor',
+ 'Prosecutorteam',
+ 'Releasetype',
+ 'Religion',
+ 'Schedulestatustype',
+ 'Seizure',
+ 'Settlement',
+ 'Subcounty',
+ 'Sysuserextra',
+ 'Sysviewfld',
+ 'Sysviewlist',
+ 'Syswkflow',
+ 'Syswkflowgrp',
+ 'Syswkflowviewseq',
+ 'Templatetype',
+ 'Town',
+ 'Transcript',
+ 'Vehicle',
+ 'Ward',
+ 'Warranttype']
+
+
+
+
+#-X-#### Join Tables
+wz_join_tables = \
+['T_Casecategory_Casechecklist',
+ 'T_Casecategory_Courtcase',
+ 'T_Complaint_Complaintcategory',
+ 'T_Complaint_Courtcase',
+ 'T_Court_Judicialofficer',
+ 'T_Courtcase_Judicialofficer',
+ 'T_Courtcase_Lawfirm',
+ 'T_Csiequipment_Investigationdiary',
+ 'T_Document_Documenttype',
+ 'T_Expert_Experttype',
+ 'T_Hearing_Issue',
+ 'T_Hearing_Judicialofficer',
+ 'T_Hearing_Lawfirm',
+ 'T_Hearing_Lawfirm_',
+ 'T_Instancecrime_Issue',
+ 'T_Investigationdiary_Party',
+ 'T_Investigationdiary_Policeofficer',
+ 'T_Investigationdiary_Vehicle',
+ 'T_Issue_Lawyer',
+ 'T_Issue_Legalreference',
+ 'T_Issue_Legalreference_',
+ 'T_Issue_Party',
+ 'T_Issue_Party_',
+ 'T_Lawyer_Party',
+ 'T_Party_Settlement',
+ 'T_Policeofficer_Policestation',
+ 'T_Town_Ward']
+
+
+
+
+#-X-#### View List
+wz_view_list = \
+['AccounttypeView',
+ 'BillView',
+ 'BilldetailView',
+ 'BiodataView',
+ 'CasecategoryView',
+ 'CasechecklistView',
+ 'CaselinktypeView',
+ 'CelltypeView',
+ 'CommitalView',
+ 'CommitaltypeView',
+ 'ComplaintView',
+ 'ComplaintcategoryView',
+ 'ComplaintroleView',
+ 'CountryView',
+ 'CountyView',
+ 'CourtView',
+ 'CourtaccountView',
+ 'CourtcaseView',
+ 'CourtrankView',
+ 'CourtstationView',
+ 'CrimeView',
+ 'CsiequipmentView',
+ 'DiagramView',
+ 'DisciplineView',
+ 'DocpartView',
+ 'DoctemplateView',
+ 'DocumentView',
+ 'DocumenttypeView',
+ 'EconomicclassView',
+ 'ExhibitView',
+ 'ExpertView',
+ 'ExperttestimonyView',
+ 'ExperttypeView',
+ 'FeeclassView',
+ 'FeetypeView',
+ 'HealtheventView',
+ 'HealtheventtypeView',
+ 'HearingView',
+ 'HearingtypeView',
+ 'InstancecrimeView',
+ 'InterviewView',
+ 'InvestigationdiaryView',
+ 'IssueView',
+ 'JudicialofficerView',
+ 'JudicialrankView',
+ 'JudicialroleView',
+ 'LawView',
+ 'LawfirmView',
+ 'LawyerView',
+ 'LegalreferenceView',
+ 'NextofkinView',
+ 'NotificationView',
+ 'NotificationregisterView',
+ 'NotificationtypeView',
+ 'NotifyeventView',
+ 'PartyView',
+ 'PartytypeView',
+ 'PaymentView',
+ 'PersonaleffectView',
+ 'PersonaleffectscategoryView',
+ 'PoliceofficerView',
+ 'PoliceofficerrankView',
+ 'PolicestationView',
+ 'PolicestationrankView',
+ 'PrisonView',
+ 'PrisonofficerView',
+ 'PrisonofficerrankView',
+ 'ProsecutorView',
+ 'ProsecutorteamView',
+ 'ReleasetypeView',
+ 'ReligionView',
+ 'SchedulestatustypeView',
+ 'SeizureView',
+ 'SettlementView',
+ 'SubcountyView',
+ 'SysuserextraView',
+ 'SysviewfldView',
+ 'SysviewlistView',
+ 'SyswkflowView',
+ 'SyswkflowgrpView',
+ 'SyswkflowviewseqView',
+ 'TemplatetypeView',
+ 'TownView',
+ 'TranscriptView',
+ 'VehicleView',
+ 'WardView',
+ 'WarranttypeView']
+
+
+
+
+#-X-#### WTF Form List
+wz_wtf_list = \
+['wtf_AccounttypeForm',
+ 'wtf_BillForm',
+ 'wtf_BilldetailForm',
+ 'wtf_BiodataForm',
+ 'wtf_CasecategoryForm',
+ 'wtf_CasechecklistForm',
+ 'wtf_CaselinktypeForm',
+ 'wtf_CelltypeForm',
+ 'wtf_CommitalForm',
+ 'wtf_CommitaltypeForm',
+ 'wtf_ComplaintForm',
+ 'wtf_ComplaintcategoryForm',
+ 'wtf_ComplaintroleForm',
+ 'wtf_CountryForm',
+ 'wtf_CountyForm',
+ 'wtf_CourtForm',
+ 'wtf_CourtaccountForm',
+ 'wtf_CourtcaseForm',
+ 'wtf_CourtrankForm',
+ 'wtf_CourtstationForm',
+ 'wtf_CrimeForm',
+ 'wtf_CsiequipmentForm',
+ 'wtf_DiagramForm',
+ 'wtf_DisciplineForm',
+ 'wtf_DocpartForm',
+ 'wtf_DoctemplateForm',
+ 'wtf_DocumentForm',
+ 'wtf_DocumenttypeForm',
+ 'wtf_EconomicclassForm',
+ 'wtf_ExhibitForm',
+ 'wtf_ExpertForm',
+ 'wtf_ExperttestimonyForm',
+ 'wtf_ExperttypeForm',
+ 'wtf_FeeclassForm',
+ 'wtf_FeetypeForm',
+ 'wtf_HealtheventForm',
+ 'wtf_HealtheventtypeForm',
+ 'wtf_HearingForm',
+ 'wtf_HearingtypeForm',
+ 'wtf_InstancecrimeForm',
+ 'wtf_InterviewForm',
+ 'wtf_InvestigationdiaryForm',
+ 'wtf_IssueForm',
+ 'wtf_JudicialofficerForm',
+ 'wtf_JudicialrankForm',
+ 'wtf_JudicialroleForm',
+ 'wtf_LawForm',
+ 'wtf_LawfirmForm',
+ 'wtf_LawyerForm',
+ 'wtf_LegalreferenceForm',
+ 'wtf_NextofkinForm',
+ 'wtf_NotificationForm',
+ 'wtf_NotificationregisterForm',
+ 'wtf_NotificationtypeForm',
+ 'wtf_NotifyeventForm',
+ 'wtf_PartyForm',
+ 'wtf_PartytypeForm',
+ 'wtf_PaymentForm',
+ 'wtf_PersonaleffectForm',
+ 'wtf_PersonaleffectscategoryForm',
+ 'wtf_PoliceofficerForm',
+ 'wtf_PoliceofficerrankForm',
+ 'wtf_PolicestationForm',
+ 'wtf_PolicestationrankForm',
+ 'wtf_PrisonForm',
+ 'wtf_PrisonofficerForm',
+ 'wtf_PrisonofficerrankForm',
+ 'wtf_ProsecutorForm',
+ 'wtf_ProsecutorteamForm',
+ 'wtf_ReleasetypeForm',
+ 'wtf_ReligionForm',
+ 'wtf_SchedulestatustypeForm',
+ 'wtf_SeizureForm',
+ 'wtf_SettlementForm',
+ 'wtf_SubcountyForm',
+ 'wtf_SysuserextraForm',
+ 'wtf_SysviewfldForm',
+ 'wtf_SysviewlistForm',
+ 'wtf_SyswkflowForm',
+ 'wtf_SyswkflowgrpForm',
+ 'wtf_SyswkflowviewseqForm',
+ 'wtf_TemplatetypeForm',
+ 'wtf_TownForm',
+ 'wtf_TranscriptForm',
+ 'wtf_VehicleForm',
+ 'wtf_WardForm',
+ 'wtf_WarranttypeForm']
+
+
+
+
+#-X-#### Join View List
+wz_join_view_list = \
+['T_Casecategory_CasechecklistView',
+ 'T_Casecategory_CourtcaseView',
+ 'T_Complaint_ComplaintcategoryView',
+ 'T_Complaint_CourtcaseView',
+ 'T_Court_JudicialofficerView',
+ 'T_Courtcase_JudicialofficerView',
+ 'T_Courtcase_LawfirmView',
+ 'T_Csiequipment_InvestigationdiaryView',
+ 'T_Document_DocumenttypeView',
+ 'T_Expert_ExperttypeView',
+ 'T_Hearing_IssueView',
+ 'T_Hearing_JudicialofficerView',
+ 'T_Hearing_LawfirmView',
+ 'T_Hearing_Lawfirm_View',
+ 'T_Instancecrime_IssueView',
+ 'T_Investigationdiary_PartyView',
+ 'T_Investigationdiary_PoliceofficerView',
+ 'T_Investigationdiary_VehicleView',
+ 'T_Issue_LawyerView',
+ 'T_Issue_LegalreferenceView',
+ 'T_Issue_Legalreference_View',
+ 'T_Issue_PartyView',
+ 'T_Issue_Party_View',
+ 'T_Lawyer_PartyView',
+ 'T_Party_SettlementView',
+ 'T_Policeofficer_PolicestationView',
+ 'T_Town_WardView']
+
+
+
+
+############## END NOTES AND COMMENTS ##############
 ##############################
 # Programming Notes and things of interest
 ####################

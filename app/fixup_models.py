@@ -179,6 +179,7 @@ if __name__ == '__main__':
     # RefTpeMixin
     add_mixin('Lawfirm',   'RefTypeMixin, ContactMixin')
     add_mixin('Discipline','RefTypeMixin')
+    add_mixin('Csiequipment','RefTypeMixin')
     
     # PersonMixin
     add_mixin('Party','PersonMixin, ContactMixin')

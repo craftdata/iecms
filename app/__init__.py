@@ -11,6 +11,7 @@ from flask_appbuilder import SQLA, AppBuilder
 from flask_debugtoolbar import DebugToolbarExtension
 from flask_pymongo import PyMongo
 from flask_humanize import Humanize
+from flask_ckeditor import CKEditor
 from app.index import MyIndexView
 from app.sec import MySecurityManager
 
@@ -41,7 +42,7 @@ logging.getLogger().setLevel(logging.DEBUG)
 app = Flask(__name__)
 app.config.from_object('config')
 humanize = Humanize(app)
-
+# ckeditor = CKEditor(app)
 
 # Enable Debug Toolbar
 toolbar = DebugToolbarExtension(app)

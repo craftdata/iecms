@@ -4,6 +4,7 @@
 
 import os, sys, string, inspect, importlib, datetime
 import inflect
+import pprint
 
 infl = inflect.engine()
 
@@ -34,8 +35,13 @@ from flask_babel import gettext
 from flask_appbuilder.filemanager import get_file_original_name
 from flask_appbuilder.models.mixins import AuditMixin, FileColumn
 
+from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, EqualTo, Email
-from wtforms_alchemy import ModelForm
+from wtforms_alchemy import ModelForm, ClassMap
+from wtforms_alchemy import model_form_factory
+
+# For decoding the md_metadata
+import ast
 
 # To Extend the User Model
 from flask_appbuilder.security.views import UserDBModelView
@@ -44,8 +50,15 @@ from flask_appbuilder.security.views import UserDBModelView
 from app import appbuilder, db
 from .models import *
 
+BaseModelForm = model_form_factory(FlaskForm)
 
-audit_exclude_columns = hide_list = ['created_by', 'changed_by', 'created_on', 'changed_on']
+class ModelForm(BaseModelForm):
+    @classmethod
+    def get_session(self):
+        return db.session
+
+
+audit_exclude_columns = hide_list = ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk','created_by_fk']
 
 #To pretty Print from PersonMixin
 def pretty_month_year(value):
@@ -81,6 +94,8 @@ wtf_form = """
 class wtf_{}Form(ModelForm):
     class Meta:
         model = {}
+        strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -95,7 +110,6 @@ class wtf_{}Form(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 """  # .format(x,x)
 
@@ -397,11 +411,12 @@ f_column = """
 """
 
 f_exclusions = """
-audit_exclude_columns = ['created_by', 'created_on', 'changed_by', 'changed_on']
+audit_exclude_columns = ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk','created_by_fk']
 add_exclude_columns = edit_exclude_columns = audit_exclude_columns
 person_search_exclude_columns = ['photo', 'photo_img', 'photo_img_thumbnail', 'fp_l1', 'fp_l2', 'fp_l3', 'fp_l4',
                                  'fp_l5', 'fp_r1', 'fp_r2', 'fp_r3', 'fp_r4',
                                  'fp_r5'] + ['finger_palm_left', 'finger_palm_right', 'eye_left', 'eye_right']
+                                 
 biometric_columns = ['fp_lthumb', 'fp_left2', 'fp_left3', 'fp_left4', 'fp_left5',
                      'fp_rthumb', 'fp_right2', 'fp_right3', 'fp_right4', 'fp_right5',
                      'palm_left', 'palm_right', 'eye_left', 'eye_right']
@@ -461,13 +476,23 @@ def gen_code(model_filename):
     code = []
     fld_set = []
     
+    md_view_list = []
+    md_join_view_list =[]
+    md_wtf_list = []
+    md_table_list = []
+    md_join_tables = []
+    md_metadata = {}
+    
     # For reasons of introspection we import models.py or such other
     modl = importlib.import_module(model_filename)
     
     # The fixup_models.py should have created a class_names.txt
     # where we get these details
     cls_list = get_class_names()
+    md_table_list = cls_list
+    
     join_tables = get_join_tables()
+    md_join_tables = join_tables
     
     def section_preamble(text):
         code.append('#' * 30)
@@ -483,17 +508,30 @@ def gen_code(model_filename):
     
     
     ############## Field Sets ##############
-    exclude_list = ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail']
+    exclude_list = ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail'] +\
+         ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk', 'created_by_fk']
     exclude_list += []
     section_preamble('Field Sets and Columns')
     code.append(f_exclusions)
+    
     for x in cls_list:
         # To get the field names for reference we do
         print(x)
         class_ = getattr(modl, str(x))
-        s = str([attrname for attrname in dir(class_) if
+        filds = [attrname for attrname in dir(class_) if
                  not callable(getattr(class_, attrname)) and not attrname.startswith(
-                     '_') and (attrname not in ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail'])])
+                     # '_') and (attrname not in ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail'])])
+                     '_') and (attrname not in exclude_list)]
+        
+        # Put name. description first
+        if 'notes' in filds:
+            filds.insert(0, filds.pop(filds.index('notes')))
+        if 'description' in filds:
+            filds.insert(0, filds.pop(filds.index('description')))
+        if 'name' in filds:
+            filds.insert(0, filds.pop(filds.index('name')))
+            
+        s = str(filds)
         for ed in ['add', 'edit', 'list']:
             code.append(f_column.format(x, ed, s))
         for ed in ['add', 'edit', 'show']:
@@ -517,6 +555,8 @@ def gen_code(model_filename):
             fld_set.append(f_set.format(x, ed, s) + '\n')
         
         code.append('# FIELDS: ' + s)
+        md_view_list.append(x+'View')
+        md_metadata[x] = s
         code.append(view_head.format(x, x, ))
         # Set the columns and fieldsets in the view
         a = x + '_add_columns'
@@ -534,13 +574,17 @@ def gen_code(model_filename):
     ############## Join Table Views ##############
     # Not going to be of much use except for reports
     # Generate Join Table Views
+    # {}View
     section_preamble('Join Table Views')
     for x in join_tables:
         code.append('# View Table for:' + x)
         code.append(jointbl_code.format(x, x))
+        md_join_view_list.append(x+'View')
         space(2)
+        
 
     ############## Join MultiViews ##############
+    # {}MultiView
     section_preamble('Join MultipleViews')
     for x in join_tables:
         code.append('\n# MultiView for:' + x)
@@ -563,10 +607,12 @@ def gen_code(model_filename):
 
     ############## WTF FORMS ##############
     # Generate wtfForms
+    # wtf_{}Form
     section_preamble('WTForms-Alchemy Forms')
     section_preamble('Just in case we ever need them')
     for x in cls_list:
         code.append(wtf_form.format(x, x))
+        md_wtf_list.append('wtf_'+x+'Form')
         space(2)
 
     ############## REGISTRATIONS ##############
@@ -611,9 +657,41 @@ def gen_code(model_filename):
     space(2)
     code.append('appbuilder.security_cleanup()')
 
+    ############## WORKFLOWS ##############
+    code.append('############## WORKFLOWS ##############')
+    space(2)
+    code.append('#-X-#### Table-Field Dictionary')
+    sx = pprint.pformat(md_metadata, indent=4, depth=1 )
+    code.append('wz_metadata = \\\n' + sx) #('md_metadata = ' + s.getvalue())
 
+    space(3)
+    code.append('#-X-#### Table List')
+    sx = pprint.pformat(md_table_list)
+    code.append('wz_table_list = '+ sx)
 
+    space(3)
+    code.append('#-X-#### Join Tables')
+    sx = pprint.pformat(md_join_tables)
+    code.append('wz_join_tables = \\\n' + sx)
+
+    space(3)
+    code.append('#-X-#### View List')
+    sx = pprint.pformat(md_view_list)
+    code.append('wz_view_list = \\\n'+ sx)
+
+    space(3)
+    code.append('#-X-#### WTF Form List')
+    sx = pprint.pformat(md_wtf_list)
+    code.append('wz_wtf_list = \\\n' + sx)
+
+    space(3)
+    code.append('#-X-#### Join View List')
+    sx = pprint.pformat(md_join_view_list)
+    code.append('wz_join_view_list = \\\n' + sx)
+
+    space(3)
     ############## END NOTES AND COMMENTS ##############
+    code.append('############## END NOTES AND COMMENTS ##############')
     section_preamble('Programming Notes and things of interest')
     code.append(end_notes)
     

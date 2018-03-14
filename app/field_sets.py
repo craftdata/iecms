@@ -1,29 +1,29 @@
 
-Accounttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Accounttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Accounttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Accounttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Accounttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Accounttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Accounttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Accounttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Accounttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -119,121 +119,121 @@ Biodata_show_field_set = [
 
 
 
-Casecategory_add_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
+Casecategory_add_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
 
 
-Casecategory_edit_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
+Casecategory_edit_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
 
 
-Casecategory_list_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
+Casecategory_list_columns = ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory']
 
 
 Casecategory_add_field_set = [
-    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
+    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casecategory_edit_field_set = [
-    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
+    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casecategory_show_field_set = [
-    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
+    ('Data', {'fields': ['casechecklist', 'changed_by', 'changed_by_fk', 'changed_on', 'courtcase', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'subcategory'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Casechecklist_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
+Casechecklist_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
 
 
-Casechecklist_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
+Casechecklist_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
 
 
-Casechecklist_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
+Casechecklist_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority']
 
 
 Casechecklist_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casechecklist_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Casechecklist_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'check_list_item', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'is_mandatory', 'name', 'notes', 'priority'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Caselinktype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Caselinktype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Caselinktype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Caselinktype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Caselinktype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Caselinktype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Caselinktype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Caselinktype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Caselinktype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Celltype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Celltype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Celltype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Celltype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Celltype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Celltype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Celltype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Celltype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Celltype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -269,31 +269,31 @@ Commital_show_field_set = [
 
 
 
-Commitaltype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
+Commitaltype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
 
 
-Commitaltype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
+Commitaltype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
 
 
-Commitaltype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
+Commitaltype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes']
 
 
 Commitaltype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Commitaltype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Commitaltype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'maxduration', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -329,61 +329,61 @@ Complaint_show_field_set = [
 
 
 
-Complaintcategory_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
+Complaintcategory_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
 
 
-Complaintcategory_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
+Complaintcategory_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
 
 
-Complaintcategory_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
+Complaintcategory_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent']
 
 
 Complaintcategory_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintcategory_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintcategory_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'complaint_category_parent', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Complaintrole_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Complaintrole_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Complaintrole_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Complaintrole_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Complaintrole_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Complaintrole_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Complaintrole_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintrole_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Complaintrole_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -539,61 +539,61 @@ Courtcase_show_field_set = [
 
 
 
-Courtrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Courtrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Courtrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Courtrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Courtrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Courtrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Courtrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Courtstation_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
+Courtstation_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
 
 
-Courtstation_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
+Courtstation_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
 
 
-Courtstation_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
+Courtstation_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number']
 
 
 Courtstation_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtstation_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Courtstation_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'pay_bill', 'till_number'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -629,31 +629,31 @@ Crime_show_field_set = [
 
 
 
-Csiequipment_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary']
+Csiequipment_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes']
 
 
-Csiequipment_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary']
+Csiequipment_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes']
 
 
-Csiequipment_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary']
+Csiequipment_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes']
 
 
 Csiequipment_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Csiequipment_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Csiequipment_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'id', 'investigationdiary'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'investigationdiary', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -689,31 +689,31 @@ Diagram_show_field_set = [
 
 
 
-Discipline_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+Discipline_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 
-Discipline_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+Discipline_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 
-Discipline_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
+Discipline_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer']
 
 
 Discipline_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Discipline_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Discipline_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'party', 'party1', 'prison_officer', 'prisonofficer'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -809,61 +809,61 @@ Document_show_field_set = [
 
 
 
-Documenttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Documenttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Documenttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Documenttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Documenttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Documenttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Documenttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Documenttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Documenttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Economicclass_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Economicclass_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Economicclass_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Economicclass_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Economicclass_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Economicclass_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Economicclass_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Economicclass_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Economicclass_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -959,91 +959,91 @@ Experttestimony_show_field_set = [
 
 
 
-Experttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
+Experttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
 
 
-Experttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
+Experttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
 
 
-Experttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
+Experttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent']
 
 
 Experttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Experttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Experttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'expert_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Feeclass_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
+Feeclass_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
 
 
-Feeclass_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
+Feeclass_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
 
 
-Feeclass_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
+Feeclass_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent']
 
 
 Feeclass_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feeclass_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feeclass_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'fee_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Feetype_add_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+Feetype_add_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
 
 
-Feetype_edit_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+Feetype_edit_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
 
 
-Feetype_list_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
+Feetype_list_columns = ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit']
 
 
 Feetype_add_field_set = [
-    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
+    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feetype_edit_field_set = [
-    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
+    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Feetype_show_field_set = [
-    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
+    ('Data', {'fields': ['account_type', 'accounttype', 'amount', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'feeclass', 'filing_fee_type', 'guide_clause', 'guide_sec', 'id', 'max_fee', 'min_fee', 'name', 'notes', 'unit'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1079,31 +1079,31 @@ Healthevent_show_field_set = [
 
 
 
-Healtheventtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Healtheventtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Healtheventtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Healtheventtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Healtheventtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Healtheventtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Healtheventtype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Healtheventtype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Healtheventtype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1139,31 +1139,31 @@ Hearing_show_field_set = [
 
 
 
-Hearingtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
+Hearingtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
 
 
-Hearingtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
+Hearingtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
 
 
-Hearingtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
+Hearingtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent']
 
 
 Hearingtype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Hearingtype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Hearingtype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'hearing_type', 'id', 'name', 'notes', 'parent'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1319,61 +1319,61 @@ Judicialofficer_show_field_set = [
 
 
 
-Judicialrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Judicialrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Judicialrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Judicialrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Judicialrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Judicialrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Judicialrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Judicialrole_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Judicialrole_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Judicialrole_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Judicialrole_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Judicialrole_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Judicialrole_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Judicialrole_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrole_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Judicialrole_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1409,31 +1409,31 @@ Law_show_field_set = [
 
 
 
-Lawfirm_add_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawfirm_add_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Lawfirm_edit_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawfirm_edit_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
-Lawfirm_list_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
+Lawfirm_list_columns = ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode']
 
 
 Lawfirm_add_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Lawfirm_edit_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Lawfirm_show_field_set = [
-    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
+    ('Data', {'fields': ['address_line_1', 'address_line_2', 'alt', 'avatar', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'country', 'created_by', 'created_by_fk', 'created_on', 'description', 'email', 'facebook', 'fax', 'fixed_line', 'gcode', 'id', 'info', 'instagram', 'lat', 'lng', 'map', 'mobile', 'name', 'nearest_feature', 'notes', 'okhi', 'other_email', 'other_fixed_line', 'other_mobile', 'other_whatsapp', 'pin', 'pin_color', 'pin_icon', 'place_name', 'town', 'twitter', 'whatsapp', 'zipcode'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1589,31 +1589,31 @@ Notificationregister_show_field_set = [
 
 
 
-Notificationtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Notificationtype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Notificationtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Notificationtype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Notificationtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Notificationtype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Notificationtype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notificationtype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Notificationtype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1679,31 +1679,31 @@ Party_show_field_set = [
 
 
 
-Partytype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Partytype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Partytype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Partytype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Partytype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Partytype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Partytype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Partytype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Partytype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1769,31 +1769,31 @@ Personaleffect_show_field_set = [
 
 
 
-Personaleffectscategory_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Personaleffectscategory_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Personaleffectscategory_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Personaleffectscategory_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Personaleffectscategory_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Personaleffectscategory_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Personaleffectscategory_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Personaleffectscategory_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Personaleffectscategory_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1829,91 +1829,91 @@ Policeofficer_show_field_set = [
 
 
 
-Policeofficerrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
+Policeofficerrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
 
 
-Policeofficerrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
+Policeofficerrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
 
 
-Policeofficerrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
+Policeofficerrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence']
 
 
 Policeofficerrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policeofficerrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policeofficerrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sequence'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Policestation_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+Policestation_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 
-Policestation_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+Policestation_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 
-Policestation_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
+Policestation_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1']
 
 
 Policestation_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestation_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestation_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'officer_commanding', 'pin', 'pin_color', 'pin_icon', 'place_name', 'police_station_rank', 'policeofficer', 'policestationrank', 'town', 'town1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Policestationrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Policestationrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Policestationrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Policestationrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Policestationrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Policestationrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Policestationrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestationrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Policestationrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -1979,31 +1979,31 @@ Prisonofficer_show_field_set = [
 
 
 
-Prisonofficerrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Prisonofficerrank_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Prisonofficerrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Prisonofficerrank_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Prisonofficerrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Prisonofficerrank_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Prisonofficerrank_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prisonofficerrank_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prisonofficerrank_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2039,61 +2039,61 @@ Prosecutor_show_field_set = [
 
 
 
-Prosecutorteam_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Prosecutorteam_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Prosecutorteam_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Prosecutorteam_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Prosecutorteam_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Prosecutorteam_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Prosecutorteam_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prosecutorteam_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Prosecutorteam_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Releasetype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Releasetype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Releasetype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Releasetype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Releasetype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Releasetype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Releasetype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Releasetype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Releasetype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2129,31 +2129,31 @@ Religion_show_field_set = [
 
 
 
-Schedulestatustype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Schedulestatustype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Schedulestatustype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Schedulestatustype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Schedulestatustype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Schedulestatustype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Schedulestatustype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Schedulestatustype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Schedulestatustype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2219,31 +2219,31 @@ Settlement_show_field_set = [
 
 
 
-Subcounty_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Subcounty_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Subcounty_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Subcounty_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Subcounty_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Subcounty_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Subcounty_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Subcounty_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Subcounty_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'county', 'county1', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2309,31 +2309,31 @@ Sysviewfld_show_field_set = [
 
 
 
-Sysviewlist_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+Sysviewlist_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 
-Sysviewlist_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+Sysviewlist_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 
-Sysviewlist_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
+Sysviewlist_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf']
 
 
 Sysviewlist_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysviewlist_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Sysviewlist_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'sys_name', 'sys_perms', 'sys_route', 'sys_table_name', 'sys_template', 'sys_title', 'sys_wtf'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2429,61 +2429,61 @@ Syswkflowviewseq_show_field_set = [
 
 
 
-Templatetype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
+Templatetype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
 
 
-Templatetype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
+Templatetype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
 
 
-Templatetype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
+Templatetype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type']
 
 
 Templatetype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Templatetype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Templatetype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes', 'parent', 'template_type'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Town_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+Town_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 
-Town_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+Town_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 
-Town_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
+Town_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward']
 
 
 Town_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Town_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Town_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'ward'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
@@ -2549,61 +2549,61 @@ Vehicle_show_field_set = [
 
 
 
-Ward_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+Ward_add_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 
-Ward_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+Ward_edit_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 
-Ward_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
+Ward_list_columns = ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1']
 
 
 Ward_add_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Ward_edit_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Ward_show_field_set = [
-    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
+    ('Data', {'fields': ['alt', 'centered', 'changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'info', 'lat', 'lng', 'map', 'name', 'nearest_feature', 'notes', 'pin', 'pin_color', 'pin_icon', 'place_name', 'subcounty', 'subcounty1'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
-Warranttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Warranttype_add_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Warranttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Warranttype_edit_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
-Warranttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
+Warranttype_list_columns = ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes']
 
 
 Warranttype_add_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Warranttype_edit_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 
 
 
 Warranttype_show_field_set = [
-    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'code', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
+    ('Data', {'fields': ['changed_by', 'changed_by_fk', 'changed_on', 'created_by', 'created_by_fk', 'created_on', 'description', 'id', 'name', 'notes'], 'expanded': True}),
     # ('Other', {'fields': ['file','photo','photo_img', 'photo_img_thumbnail'], 'expanded': False})
 ]
 

@@ -160,7 +160,7 @@ ref_columns = ['name', 'description']
 class RefTypeMixin(object):
     # id = Column(Integer, autoincrement=True, primary_key=True)
     name = Column(String(100), unique=True, nullable=False, index=True)
-    code = Column(String(20), default='0000')
+    # code = Column(String(20), default='0000')
     description = Column(String(100))
     notes = Column(Text, default='')
     
@@ -431,7 +431,7 @@ class PersonMixin(object):
     othernames = Column(String(40), nullable=True, index=True)
     dob = Column(Date, default=func.now())
     gender = Column(Enum('Male', 'Female', 'Other', name = 'gender_type'))
-    marital_status = Column(Enum('Single', 'Married', 'Divorced', 'Widowed', 'Other', name='marital_status_type'))
+    marital_status = Column(Enum('Single', 'Married', 'Divorced', 'Widowed', 'Separated', 'Other', name='marital_status_type'))
     # photo = Column(ImageColumn(thumbnail_size=(30, 30, True), size=(300, 300, True)))
 
     # @declared_attr
