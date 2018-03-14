@@ -115,7 +115,12 @@ photo_hdr = """
     file = Column(FileColumn, nullable=False)
 
     # mindate = datetime.date(MINYEAR, 1, 1)
-
+    
+    # def __repr__(self):
+    #     return self.name
+    
+    
+    
     def view_name(self):
         return self.__class__.__name__ +'View'
 

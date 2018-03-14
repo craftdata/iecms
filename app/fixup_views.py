@@ -94,8 +94,8 @@ wtf_form = """
 class wtf_{}Form(ModelForm):
     class Meta:
         model = {}
-        strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
-        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({{sa.Enum: [DataRequired()]}})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -615,6 +615,40 @@ def gen_code(model_filename):
         md_wtf_list.append('wtf_'+x+'Form')
         space(2)
 
+    ############## WORKFLOWS ##############
+    code.append('############## WORKFLOWS ##############')
+    space(2)
+    code.append('#-X-#### Table-Field Dictionary')
+    sx = pprint.pformat(md_metadata, indent=4, depth=1)
+    code.append('wz_metadata = \\\n' + sx)  # ('md_metadata = ' + s.getvalue())
+
+    space(3)
+    code.append('#-X-#### Table List')
+    sx = pprint.pformat(md_table_list)
+    code.append('wz_table_list = ' + sx)
+
+    space(3)
+    code.append('#-X-#### Join Tables')
+    sx = pprint.pformat(md_join_tables)
+    code.append('wz_join_tables = \\\n' + sx)
+
+    space(3)
+    code.append('#-X-#### View List')
+    sx = pprint.pformat(md_view_list)
+    code.append('wz_view_list = \\\n' + sx)
+
+    space(3)
+    code.append('#-X-#### WTF Form List')
+    sx = pprint.pformat(md_wtf_list)
+    code.append('wz_wtf_list = \\\n' + sx)
+
+    space(3)
+    code.append('#-X-#### Join View List')
+    sx = pprint.pformat(md_join_view_list)
+    code.append('wz_join_view_list = \\\n' + sx)
+
+    space(3)
+    
     ############## REGISTRATIONS ##############
     space(2)
     section_preamble('View Registrations')
@@ -657,39 +691,7 @@ def gen_code(model_filename):
     space(2)
     code.append('appbuilder.security_cleanup()')
 
-    ############## WORKFLOWS ##############
-    code.append('############## WORKFLOWS ##############')
-    space(2)
-    code.append('#-X-#### Table-Field Dictionary')
-    sx = pprint.pformat(md_metadata, indent=4, depth=1 )
-    code.append('wz_metadata = \\\n' + sx) #('md_metadata = ' + s.getvalue())
-
-    space(3)
-    code.append('#-X-#### Table List')
-    sx = pprint.pformat(md_table_list)
-    code.append('wz_table_list = '+ sx)
-
-    space(3)
-    code.append('#-X-#### Join Tables')
-    sx = pprint.pformat(md_join_tables)
-    code.append('wz_join_tables = \\\n' + sx)
-
-    space(3)
-    code.append('#-X-#### View List')
-    sx = pprint.pformat(md_view_list)
-    code.append('wz_view_list = \\\n'+ sx)
-
-    space(3)
-    code.append('#-X-#### WTF Form List')
-    sx = pprint.pformat(md_wtf_list)
-    code.append('wz_wtf_list = \\\n' + sx)
-
-    space(3)
-    code.append('#-X-#### Join View List')
-    sx = pprint.pformat(md_join_view_list)
-    code.append('wz_join_view_list = \\\n' + sx)
-
-    space(3)
+  
     ############## END NOTES AND COMMENTS ##############
     code.append('############## END NOTES AND COMMENTS ##############')
     section_preamble('Programming Notes and things of interest')

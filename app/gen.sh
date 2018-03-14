@@ -2,6 +2,8 @@
 
 # Backup any changes to sqlacodegen, so that it is in git
 rsync -avrumP /Users/nyimbi/.bin/anaconda3/lib/python3.6/site-packages/flask_sqlacodegen-1.1.6.1-py3.6.egg/sqlacodegen/ /Users/nyimbi/Dropbox/src/pjs/iecms/codegen/sqlacodegen
+
+
 echo "Drop Database ctmp"
 dropdb ctmp
 
@@ -39,7 +41,6 @@ cp views_template.py views.py
 (
 # Inside a subshell
 cd ..
-#fabmanager create-db
 echo "GO FIX:   wtf_PageForm, exclude[]"
 # Back to where we started from
 # cd app

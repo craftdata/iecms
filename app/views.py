@@ -1,6 +1,6 @@
 # coding: utf-8
 # Copyright (C) Nyimbi Odero, 2017-2018
-# Generated on 2018-03-14 17:06:13
+# Generated on 2018-03-14 21:36:55
 
 
 import calendar
@@ -20,8 +20,10 @@ from flask_babel import gettext
 from flask_appbuilder.filemanager import get_file_original_name
 from flask_appbuilder.models.mixins import AuditMixin, FileColumn
 
+from flask_wtf import FlaskForm
 from wtforms.validators import DataRequired, EqualTo, Email
-from wtforms_alchemy import ModelForm
+from wtforms_alchemy import ModelForm, ClassMap
+from wtforms_alchemy import model_form_factory
 
 # For decoding the md_metadata
 import ast
@@ -32,6 +34,13 @@ from flask_appbuilder.security.views import UserDBModelView
 
 from app import appbuilder, db
 from .models import *
+
+BaseModelForm = model_form_factory(FlaskForm)
+
+class ModelForm(BaseModelForm):
+    @classmethod
+    def get_session(self):
+        return db.session
 
 
 audit_exclude_columns = hide_list = ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk','created_by_fk']
@@ -12330,6 +12339,8 @@ class WarranttypeChartView(GroupByChartView):
 class wtf_AccounttypeForm(ModelForm):
     class Meta:
         model = Accounttype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12344,7 +12355,6 @@ class wtf_AccounttypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12354,6 +12364,8 @@ class wtf_AccounttypeForm(ModelForm):
 class wtf_BillForm(ModelForm):
     class Meta:
         model = Bill
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12368,7 +12380,6 @@ class wtf_BillForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12378,6 +12389,8 @@ class wtf_BillForm(ModelForm):
 class wtf_BilldetailForm(ModelForm):
     class Meta:
         model = Billdetail
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12392,7 +12405,6 @@ class wtf_BilldetailForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12402,6 +12414,8 @@ class wtf_BilldetailForm(ModelForm):
 class wtf_BiodataForm(ModelForm):
     class Meta:
         model = Biodata
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12416,7 +12430,6 @@ class wtf_BiodataForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12426,6 +12439,8 @@ class wtf_BiodataForm(ModelForm):
 class wtf_CasecategoryForm(ModelForm):
     class Meta:
         model = Casecategory
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12440,7 +12455,6 @@ class wtf_CasecategoryForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12450,6 +12464,8 @@ class wtf_CasecategoryForm(ModelForm):
 class wtf_CasechecklistForm(ModelForm):
     class Meta:
         model = Casechecklist
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12464,7 +12480,6 @@ class wtf_CasechecklistForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12474,6 +12489,8 @@ class wtf_CasechecklistForm(ModelForm):
 class wtf_CaselinktypeForm(ModelForm):
     class Meta:
         model = Caselinktype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12488,7 +12505,6 @@ class wtf_CaselinktypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12498,6 +12514,8 @@ class wtf_CaselinktypeForm(ModelForm):
 class wtf_CelltypeForm(ModelForm):
     class Meta:
         model = Celltype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12512,7 +12530,6 @@ class wtf_CelltypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12522,6 +12539,8 @@ class wtf_CelltypeForm(ModelForm):
 class wtf_CommitalForm(ModelForm):
     class Meta:
         model = Commital
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12536,7 +12555,6 @@ class wtf_CommitalForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12546,6 +12564,8 @@ class wtf_CommitalForm(ModelForm):
 class wtf_CommitaltypeForm(ModelForm):
     class Meta:
         model = Commitaltype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12560,7 +12580,6 @@ class wtf_CommitaltypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12570,6 +12589,8 @@ class wtf_CommitaltypeForm(ModelForm):
 class wtf_ComplaintForm(ModelForm):
     class Meta:
         model = Complaint
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12584,7 +12605,6 @@ class wtf_ComplaintForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12594,6 +12614,8 @@ class wtf_ComplaintForm(ModelForm):
 class wtf_ComplaintcategoryForm(ModelForm):
     class Meta:
         model = Complaintcategory
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12608,7 +12630,6 @@ class wtf_ComplaintcategoryForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12618,6 +12639,8 @@ class wtf_ComplaintcategoryForm(ModelForm):
 class wtf_ComplaintroleForm(ModelForm):
     class Meta:
         model = Complaintrole
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12632,7 +12655,6 @@ class wtf_ComplaintroleForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12642,6 +12664,8 @@ class wtf_ComplaintroleForm(ModelForm):
 class wtf_CountryForm(ModelForm):
     class Meta:
         model = Country
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12656,7 +12680,6 @@ class wtf_CountryForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12666,6 +12689,8 @@ class wtf_CountryForm(ModelForm):
 class wtf_CountyForm(ModelForm):
     class Meta:
         model = County
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12680,7 +12705,6 @@ class wtf_CountyForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12690,6 +12714,8 @@ class wtf_CountyForm(ModelForm):
 class wtf_CourtForm(ModelForm):
     class Meta:
         model = Court
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12704,7 +12730,6 @@ class wtf_CourtForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12714,6 +12739,8 @@ class wtf_CourtForm(ModelForm):
 class wtf_CourtaccountForm(ModelForm):
     class Meta:
         model = Courtaccount
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12728,7 +12755,6 @@ class wtf_CourtaccountForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12738,6 +12764,8 @@ class wtf_CourtaccountForm(ModelForm):
 class wtf_CourtcaseForm(ModelForm):
     class Meta:
         model = Courtcase
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12752,7 +12780,6 @@ class wtf_CourtcaseForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12762,6 +12789,8 @@ class wtf_CourtcaseForm(ModelForm):
 class wtf_CourtrankForm(ModelForm):
     class Meta:
         model = Courtrank
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12776,7 +12805,6 @@ class wtf_CourtrankForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12786,6 +12814,8 @@ class wtf_CourtrankForm(ModelForm):
 class wtf_CourtstationForm(ModelForm):
     class Meta:
         model = Courtstation
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12800,7 +12830,6 @@ class wtf_CourtstationForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12810,6 +12839,8 @@ class wtf_CourtstationForm(ModelForm):
 class wtf_CrimeForm(ModelForm):
     class Meta:
         model = Crime
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12824,7 +12855,6 @@ class wtf_CrimeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12834,6 +12864,8 @@ class wtf_CrimeForm(ModelForm):
 class wtf_CsiequipmentForm(ModelForm):
     class Meta:
         model = Csiequipment
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12848,7 +12880,6 @@ class wtf_CsiequipmentForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12858,6 +12889,8 @@ class wtf_CsiequipmentForm(ModelForm):
 class wtf_DiagramForm(ModelForm):
     class Meta:
         model = Diagram
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12872,7 +12905,6 @@ class wtf_DiagramForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12882,6 +12914,8 @@ class wtf_DiagramForm(ModelForm):
 class wtf_DisciplineForm(ModelForm):
     class Meta:
         model = Discipline
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12896,7 +12930,6 @@ class wtf_DisciplineForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12906,6 +12939,8 @@ class wtf_DisciplineForm(ModelForm):
 class wtf_DocpartForm(ModelForm):
     class Meta:
         model = Docpart
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12920,7 +12955,6 @@ class wtf_DocpartForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12930,6 +12964,8 @@ class wtf_DocpartForm(ModelForm):
 class wtf_DoctemplateForm(ModelForm):
     class Meta:
         model = Doctemplate
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12944,7 +12980,6 @@ class wtf_DoctemplateForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12954,6 +12989,8 @@ class wtf_DoctemplateForm(ModelForm):
 class wtf_DocumentForm(ModelForm):
     class Meta:
         model = Document
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12968,7 +13005,6 @@ class wtf_DocumentForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -12978,6 +13014,8 @@ class wtf_DocumentForm(ModelForm):
 class wtf_DocumenttypeForm(ModelForm):
     class Meta:
         model = Documenttype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -12992,7 +13030,6 @@ class wtf_DocumenttypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13002,6 +13039,8 @@ class wtf_DocumenttypeForm(ModelForm):
 class wtf_EconomicclassForm(ModelForm):
     class Meta:
         model = Economicclass
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13016,7 +13055,6 @@ class wtf_EconomicclassForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13026,6 +13064,8 @@ class wtf_EconomicclassForm(ModelForm):
 class wtf_ExhibitForm(ModelForm):
     class Meta:
         model = Exhibit
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13040,7 +13080,6 @@ class wtf_ExhibitForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13050,6 +13089,8 @@ class wtf_ExhibitForm(ModelForm):
 class wtf_ExpertForm(ModelForm):
     class Meta:
         model = Expert
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13064,7 +13105,6 @@ class wtf_ExpertForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13074,6 +13114,8 @@ class wtf_ExpertForm(ModelForm):
 class wtf_ExperttestimonyForm(ModelForm):
     class Meta:
         model = Experttestimony
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13088,7 +13130,6 @@ class wtf_ExperttestimonyForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13098,6 +13139,8 @@ class wtf_ExperttestimonyForm(ModelForm):
 class wtf_ExperttypeForm(ModelForm):
     class Meta:
         model = Experttype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13112,7 +13155,6 @@ class wtf_ExperttypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13122,6 +13164,8 @@ class wtf_ExperttypeForm(ModelForm):
 class wtf_FeeclassForm(ModelForm):
     class Meta:
         model = Feeclass
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13136,7 +13180,6 @@ class wtf_FeeclassForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13146,6 +13189,8 @@ class wtf_FeeclassForm(ModelForm):
 class wtf_FeetypeForm(ModelForm):
     class Meta:
         model = Feetype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13160,7 +13205,6 @@ class wtf_FeetypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13170,6 +13214,8 @@ class wtf_FeetypeForm(ModelForm):
 class wtf_HealtheventForm(ModelForm):
     class Meta:
         model = Healthevent
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13184,7 +13230,6 @@ class wtf_HealtheventForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13194,6 +13239,8 @@ class wtf_HealtheventForm(ModelForm):
 class wtf_HealtheventtypeForm(ModelForm):
     class Meta:
         model = Healtheventtype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13208,7 +13255,6 @@ class wtf_HealtheventtypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13218,6 +13264,8 @@ class wtf_HealtheventtypeForm(ModelForm):
 class wtf_HearingForm(ModelForm):
     class Meta:
         model = Hearing
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13232,7 +13280,6 @@ class wtf_HearingForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13242,6 +13289,8 @@ class wtf_HearingForm(ModelForm):
 class wtf_HearingtypeForm(ModelForm):
     class Meta:
         model = Hearingtype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13256,7 +13305,6 @@ class wtf_HearingtypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13266,6 +13314,8 @@ class wtf_HearingtypeForm(ModelForm):
 class wtf_InstancecrimeForm(ModelForm):
     class Meta:
         model = Instancecrime
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13280,7 +13330,6 @@ class wtf_InstancecrimeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13290,6 +13339,8 @@ class wtf_InstancecrimeForm(ModelForm):
 class wtf_InterviewForm(ModelForm):
     class Meta:
         model = Interview
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13304,7 +13355,6 @@ class wtf_InterviewForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13314,6 +13364,8 @@ class wtf_InterviewForm(ModelForm):
 class wtf_InvestigationdiaryForm(ModelForm):
     class Meta:
         model = Investigationdiary
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13328,7 +13380,6 @@ class wtf_InvestigationdiaryForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13338,6 +13389,8 @@ class wtf_InvestigationdiaryForm(ModelForm):
 class wtf_IssueForm(ModelForm):
     class Meta:
         model = Issue
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13352,7 +13405,6 @@ class wtf_IssueForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13362,6 +13414,8 @@ class wtf_IssueForm(ModelForm):
 class wtf_JudicialofficerForm(ModelForm):
     class Meta:
         model = Judicialofficer
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13376,7 +13430,6 @@ class wtf_JudicialofficerForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13386,6 +13439,8 @@ class wtf_JudicialofficerForm(ModelForm):
 class wtf_JudicialrankForm(ModelForm):
     class Meta:
         model = Judicialrank
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13400,7 +13455,6 @@ class wtf_JudicialrankForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13410,6 +13464,8 @@ class wtf_JudicialrankForm(ModelForm):
 class wtf_JudicialroleForm(ModelForm):
     class Meta:
         model = Judicialrole
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13424,7 +13480,6 @@ class wtf_JudicialroleForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13434,6 +13489,8 @@ class wtf_JudicialroleForm(ModelForm):
 class wtf_LawForm(ModelForm):
     class Meta:
         model = Law
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13448,7 +13505,6 @@ class wtf_LawForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13458,6 +13514,8 @@ class wtf_LawForm(ModelForm):
 class wtf_LawfirmForm(ModelForm):
     class Meta:
         model = Lawfirm
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13472,7 +13530,6 @@ class wtf_LawfirmForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13482,6 +13539,8 @@ class wtf_LawfirmForm(ModelForm):
 class wtf_LawyerForm(ModelForm):
     class Meta:
         model = Lawyer
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13496,7 +13555,6 @@ class wtf_LawyerForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13506,6 +13564,8 @@ class wtf_LawyerForm(ModelForm):
 class wtf_LegalreferenceForm(ModelForm):
     class Meta:
         model = Legalreference
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13520,7 +13580,6 @@ class wtf_LegalreferenceForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13530,6 +13589,8 @@ class wtf_LegalreferenceForm(ModelForm):
 class wtf_NextofkinForm(ModelForm):
     class Meta:
         model = Nextofkin
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13544,7 +13605,6 @@ class wtf_NextofkinForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13554,6 +13614,8 @@ class wtf_NextofkinForm(ModelForm):
 class wtf_NotificationForm(ModelForm):
     class Meta:
         model = Notification
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13568,7 +13630,6 @@ class wtf_NotificationForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13578,6 +13639,8 @@ class wtf_NotificationForm(ModelForm):
 class wtf_NotificationregisterForm(ModelForm):
     class Meta:
         model = Notificationregister
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13592,7 +13655,6 @@ class wtf_NotificationregisterForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13602,6 +13664,8 @@ class wtf_NotificationregisterForm(ModelForm):
 class wtf_NotificationtypeForm(ModelForm):
     class Meta:
         model = Notificationtype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13616,7 +13680,6 @@ class wtf_NotificationtypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13626,6 +13689,8 @@ class wtf_NotificationtypeForm(ModelForm):
 class wtf_NotifyeventForm(ModelForm):
     class Meta:
         model = Notifyevent
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13640,7 +13705,6 @@ class wtf_NotifyeventForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13650,6 +13714,8 @@ class wtf_NotifyeventForm(ModelForm):
 class wtf_PartyForm(ModelForm):
     class Meta:
         model = Party
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13664,7 +13730,6 @@ class wtf_PartyForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13674,6 +13739,8 @@ class wtf_PartyForm(ModelForm):
 class wtf_PartytypeForm(ModelForm):
     class Meta:
         model = Partytype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13688,7 +13755,6 @@ class wtf_PartytypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13698,6 +13764,8 @@ class wtf_PartytypeForm(ModelForm):
 class wtf_PaymentForm(ModelForm):
     class Meta:
         model = Payment
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13712,7 +13780,6 @@ class wtf_PaymentForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13722,6 +13789,8 @@ class wtf_PaymentForm(ModelForm):
 class wtf_PersonaleffectForm(ModelForm):
     class Meta:
         model = Personaleffect
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13736,7 +13805,6 @@ class wtf_PersonaleffectForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13746,6 +13814,8 @@ class wtf_PersonaleffectForm(ModelForm):
 class wtf_PersonaleffectscategoryForm(ModelForm):
     class Meta:
         model = Personaleffectscategory
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13760,7 +13830,6 @@ class wtf_PersonaleffectscategoryForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13770,6 +13839,8 @@ class wtf_PersonaleffectscategoryForm(ModelForm):
 class wtf_PoliceofficerForm(ModelForm):
     class Meta:
         model = Policeofficer
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13784,7 +13855,6 @@ class wtf_PoliceofficerForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13794,6 +13864,8 @@ class wtf_PoliceofficerForm(ModelForm):
 class wtf_PoliceofficerrankForm(ModelForm):
     class Meta:
         model = Policeofficerrank
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13808,7 +13880,6 @@ class wtf_PoliceofficerrankForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13818,6 +13889,8 @@ class wtf_PoliceofficerrankForm(ModelForm):
 class wtf_PolicestationForm(ModelForm):
     class Meta:
         model = Policestation
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13832,7 +13905,6 @@ class wtf_PolicestationForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13842,6 +13914,8 @@ class wtf_PolicestationForm(ModelForm):
 class wtf_PolicestationrankForm(ModelForm):
     class Meta:
         model = Policestationrank
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13856,7 +13930,6 @@ class wtf_PolicestationrankForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13866,6 +13939,8 @@ class wtf_PolicestationrankForm(ModelForm):
 class wtf_PrisonForm(ModelForm):
     class Meta:
         model = Prison
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13880,7 +13955,6 @@ class wtf_PrisonForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13890,6 +13964,8 @@ class wtf_PrisonForm(ModelForm):
 class wtf_PrisonofficerForm(ModelForm):
     class Meta:
         model = Prisonofficer
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13904,7 +13980,6 @@ class wtf_PrisonofficerForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13914,6 +13989,8 @@ class wtf_PrisonofficerForm(ModelForm):
 class wtf_PrisonofficerrankForm(ModelForm):
     class Meta:
         model = Prisonofficerrank
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13928,7 +14005,6 @@ class wtf_PrisonofficerrankForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13938,6 +14014,8 @@ class wtf_PrisonofficerrankForm(ModelForm):
 class wtf_ProsecutorForm(ModelForm):
     class Meta:
         model = Prosecutor
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13952,7 +14030,6 @@ class wtf_ProsecutorForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13962,6 +14039,8 @@ class wtf_ProsecutorForm(ModelForm):
 class wtf_ProsecutorteamForm(ModelForm):
     class Meta:
         model = Prosecutorteam
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -13976,7 +14055,6 @@ class wtf_ProsecutorteamForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -13986,6 +14064,8 @@ class wtf_ProsecutorteamForm(ModelForm):
 class wtf_ReleasetypeForm(ModelForm):
     class Meta:
         model = Releasetype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14000,7 +14080,6 @@ class wtf_ReleasetypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14010,6 +14089,8 @@ class wtf_ReleasetypeForm(ModelForm):
 class wtf_ReligionForm(ModelForm):
     class Meta:
         model = Religion
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14024,7 +14105,6 @@ class wtf_ReligionForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14034,6 +14114,8 @@ class wtf_ReligionForm(ModelForm):
 class wtf_SchedulestatustypeForm(ModelForm):
     class Meta:
         model = Schedulestatustype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14048,7 +14130,6 @@ class wtf_SchedulestatustypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14058,6 +14139,8 @@ class wtf_SchedulestatustypeForm(ModelForm):
 class wtf_SeizureForm(ModelForm):
     class Meta:
         model = Seizure
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14072,7 +14155,6 @@ class wtf_SeizureForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14082,6 +14164,8 @@ class wtf_SeizureForm(ModelForm):
 class wtf_SettlementForm(ModelForm):
     class Meta:
         model = Settlement
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14096,7 +14180,6 @@ class wtf_SettlementForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14106,6 +14189,8 @@ class wtf_SettlementForm(ModelForm):
 class wtf_SubcountyForm(ModelForm):
     class Meta:
         model = Subcounty
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14120,7 +14205,6 @@ class wtf_SubcountyForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14130,6 +14214,8 @@ class wtf_SubcountyForm(ModelForm):
 class wtf_SysuserextraForm(ModelForm):
     class Meta:
         model = Sysuserextra
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14144,7 +14230,6 @@ class wtf_SysuserextraForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14154,6 +14239,8 @@ class wtf_SysuserextraForm(ModelForm):
 class wtf_SysviewfldForm(ModelForm):
     class Meta:
         model = Sysviewfld
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14168,7 +14255,6 @@ class wtf_SysviewfldForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14178,6 +14264,8 @@ class wtf_SysviewfldForm(ModelForm):
 class wtf_SysviewlistForm(ModelForm):
     class Meta:
         model = Sysviewlist
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14192,7 +14280,6 @@ class wtf_SysviewlistForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14202,6 +14289,8 @@ class wtf_SysviewlistForm(ModelForm):
 class wtf_SyswkflowForm(ModelForm):
     class Meta:
         model = Syswkflow
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14216,7 +14305,6 @@ class wtf_SyswkflowForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14226,6 +14314,8 @@ class wtf_SyswkflowForm(ModelForm):
 class wtf_SyswkflowgrpForm(ModelForm):
     class Meta:
         model = Syswkflowgrp
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14240,7 +14330,6 @@ class wtf_SyswkflowgrpForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14250,6 +14339,8 @@ class wtf_SyswkflowgrpForm(ModelForm):
 class wtf_SyswkflowviewseqForm(ModelForm):
     class Meta:
         model = Syswkflowviewseq
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14264,7 +14355,6 @@ class wtf_SyswkflowviewseqForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14274,6 +14364,8 @@ class wtf_SyswkflowviewseqForm(ModelForm):
 class wtf_TemplatetypeForm(ModelForm):
     class Meta:
         model = Templatetype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14288,7 +14380,6 @@ class wtf_TemplatetypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14298,6 +14389,8 @@ class wtf_TemplatetypeForm(ModelForm):
 class wtf_TownForm(ModelForm):
     class Meta:
         model = Town
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14312,7 +14405,6 @@ class wtf_TownForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14322,6 +14414,8 @@ class wtf_TownForm(ModelForm):
 class wtf_TranscriptForm(ModelForm):
     class Meta:
         model = Transcript
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14336,7 +14430,6 @@ class wtf_TranscriptForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14346,6 +14439,8 @@ class wtf_TranscriptForm(ModelForm):
 class wtf_VehicleForm(ModelForm):
     class Meta:
         model = Vehicle
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14360,7 +14455,6 @@ class wtf_VehicleForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14370,6 +14464,8 @@ class wtf_VehicleForm(ModelForm):
 class wtf_WardForm(ModelForm):
     class Meta:
         model = Ward
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14384,7 +14480,6 @@ class wtf_WardForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
@@ -14394,6 +14489,8 @@ class wtf_WardForm(ModelForm):
 class wtf_WarranttypeForm(ModelForm):
     class Meta:
         model = Warranttype
+        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
+        # not_null_validator_type_map = ClassMap({sa.Enum: [DataRequired()]})
         # include = ['author_id']
         # exclude = ['pgm', 'wsq', 'xyt', 'photo', 'file']
         # exclude = ['page_image']
@@ -14408,430 +14505,11 @@ class wtf_WarranttypeForm(ModelForm):
         # date_format = ‘%Y-%m-%d’      # default date format, which will be assigned to generated datetime fields.
         # all_fields_optional = False   # Defines all generated fields as optional (useful for update forms).
         # assign_required =  True       # Whether or not to assign non-nullable fields as required
-        # strip_string_fields = False   # Whether or not to add stripping filter to all string fields.
 #     location = ModelFormField(LocationForm)
 
 
 
 
-
-
-
-##############################
-#       View Registrations      
-####################
-appbuilder.add_view(AccounttypeView(), "Accounttype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(BillView(), "Bill", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(BilldetailView(), "Billdetail", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(BiodataView(), "Biodata", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(CasecategoryView(), "Casecategory", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CasechecklistView(), "Casechecklist", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CaselinktypeView(), "Caselinktype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CelltypeView(), "Celltype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CommitalView(), "Commital", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(CommitaltypeView(), "Commitaltype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(ComplaintView(), "Complaint", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(ComplaintcategoryView(), "Complaintcategory", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(ComplaintroleView(), "Complaintrole", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CountryView(), "Country", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CountyView(), "County", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CourtView(), "Court", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(CourtaccountView(), "Courtaccount", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(CourtcaseView(), "Courtcase", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(CourtrankView(), "Courtrank", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CourtstationView(), "Courtstation", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(CrimeView(), "Crime", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(CsiequipmentView(), "Csiequipment", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(DiagramView(), "Diagram", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(DisciplineView(), "Discipline", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(DocpartView(), "Docpart", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(DoctemplateView(), "Doctemplate", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(DocumentView(), "Document", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(DocumenttypeView(), "Documenttype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(EconomicclassView(), "Economicclass", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(ExhibitView(), "Exhibit", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(ExpertView(), "Expert", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(ExperttestimonyView(), "Experttestimony", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(ExperttypeView(), "Experttype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(FeeclassView(), "Feeclass", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(FeetypeView(), "Feetype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(HealtheventView(), "Healthevent", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(HealtheventtypeView(), "Healtheventtype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(HearingView(), "Hearing", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(HearingtypeView(), "Hearingtype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(InstancecrimeView(), "Instancecrime", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(InterviewView(), "Interview", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(InvestigationdiaryView(), "Investigationdiary", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(IssueView(), "Issue", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(JudicialofficerView(), "Judicialofficer", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(JudicialrankView(), "Judicialrank", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(JudicialroleView(), "Judicialrole", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(LawView(), "Law", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(LawfirmView(), "Lawfirm", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(LawyerView(), "Lawyer", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(LegalreferenceView(), "Legalreference", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(NextofkinView(), "Nextofkin", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(NotificationView(), "Notification", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(NotificationregisterView(), "Notificationregister", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(NotificationtypeView(), "Notificationtype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(NotifyeventView(), "Notifyevent", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(PartyView(), "Party", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(PartytypeView(), "Partytype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PaymentView(), "Payment", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(PersonaleffectView(), "Personaleffect", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(PersonaleffectscategoryView(), "Personaleffectscategory", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PoliceofficerView(), "Policeofficer", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PoliceofficerrankView(), "Policeofficerrank", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PolicestationView(), "Policestation", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PolicestationrankView(), "Policestationrank", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PrisonView(), "Prison", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(PrisonofficerView(), "Prisonofficer", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(PrisonofficerrankView(), "Prisonofficerrank", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(ProsecutorView(), "Prosecutor", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(ProsecutorteamView(), "Prosecutorteam", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(ReleasetypeView(), "Releasetype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(ReligionView(), "Religion", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SchedulestatustypeView(), "Schedulestatustype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(SeizureView(), "Seizure", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SettlementView(), "Settlement", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SubcountyView(), "Subcounty", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(SysuserextraView(), "Sysuserextra", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SysviewfldView(), "Sysviewfld", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SysviewlistView(), "Sysviewlist", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(SyswkflowView(), "Syswkflow", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SyswkflowgrpView(), "Syswkflowgrp", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(SyswkflowviewseqView(), "Syswkflowviewseq", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(TemplatetypeView(), "Templatetype", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(TownView(), "Town", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(TranscriptView(), "Transcript", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(VehicleView(), "Vehicle", icon="fa-folder-open-o", category="Setup")
-
-appbuilder.add_view(WardView(), "Ward", icon="fa-folder-open-o", category="Admin")
-
-appbuilder.add_view(WarranttypeView(), "Warranttype", icon="fa-folder-open-o", category="Admin")
-
-##############################
-# Register Join Table MultiViews Registrations
-####################
-appbuilder.add_view(T_Casecategory_CasechecklistMultiView(), "['Casecategory', 'Casechecklist'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Casecategory_CourtcaseMultiView(), "['Casecategory', 'Courtcase'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Complaint_ComplaintcategoryMultiView(), "['Complaint', 'Complaintcategory'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Complaint_CourtcaseMultiView(), "['Complaint', 'Courtcase'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Court_JudicialofficerMultiView(), "['Court', 'Judicialofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Courtcase_JudicialofficerMultiView(), "['Courtcase', 'Judicialofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Courtcase_LawfirmMultiView(), "['Courtcase', 'Lawfirm'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Csiequipment_InvestigationdiaryMultiView(), "['Csiequipment', 'Investigationdiary'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Document_DocumenttypeMultiView(), "['Document', 'Documenttype'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Expert_ExperttypeMultiView(), "['Expert', 'Experttype'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Hearing_IssueMultiView(), "['Hearing', 'Issue'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Hearing_JudicialofficerMultiView(), "['Hearing', 'Judicialofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Hearing_LawfirmMultiView(), "['Hearing', 'Lawfirm'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Hearing_Lawfirm_MultiView(), "['Hearing', 'Lawfirm', ''] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Instancecrime_IssueMultiView(), "['Instancecrime', 'Issue'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Investigationdiary_PartyMultiView(), "['Investigationdiary', 'Party'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Investigationdiary_PoliceofficerMultiView(), "['Investigationdiary', 'Policeofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Investigationdiary_VehicleMultiView(), "['Investigationdiary', 'Vehicle'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Issue_LawyerMultiView(), "['Issue', 'Lawyer'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Issue_LegalreferenceMultiView(), "['Issue', 'Legalreference'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Issue_Legalreference_MultiView(), "['Issue', 'Legalreference', ''] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Issue_PartyMultiView(), "['Issue', 'Party'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Issue_Party_MultiView(), "['Issue', 'Party', ''] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Lawyer_PartyMultiView(), "['Lawyer', 'Party'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Party_SettlementMultiView(), "['Party', 'Settlement'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Policeofficer_PolicestationMultiView(), "['Policeofficer', 'Policestation'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-appbuilder.add_view(T_Town_WardMultiView(), "['Town', 'Ward'] Multi View", icon="fa-address-card-o", category="MultiViews")
-
-##############################
-#    Chart View Registrations   
-####################
-appbuilder.add_view(AccounttypeChartView(), "Accounttype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(BillChartView(), "Bill Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(BilldetailChartView(), "Billdetail Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(BiodataChartView(), "Biodata Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CasecategoryChartView(), "Casecategory Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CasechecklistChartView(), "Casechecklist Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CaselinktypeChartView(), "Caselinktype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CelltypeChartView(), "Celltype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CommitalChartView(), "Commital Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CommitaltypeChartView(), "Commitaltype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ComplaintChartView(), "Complaint Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ComplaintcategoryChartView(), "Complaintcategory Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ComplaintroleChartView(), "Complaintrole Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CountryChartView(), "Country Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CountyChartView(), "County Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CourtChartView(), "Court Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CourtaccountChartView(), "Courtaccount Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CourtcaseChartView(), "Courtcase Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CourtrankChartView(), "Courtrank Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CourtstationChartView(), "Courtstation Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CrimeChartView(), "Crime Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(CsiequipmentChartView(), "Csiequipment Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(DiagramChartView(), "Diagram Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(DisciplineChartView(), "Discipline Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(DocpartChartView(), "Docpart Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(DoctemplateChartView(), "Doctemplate Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(DocumentChartView(), "Document Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(DocumenttypeChartView(), "Documenttype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(EconomicclassChartView(), "Economicclass Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ExhibitChartView(), "Exhibit Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ExpertChartView(), "Expert Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ExperttestimonyChartView(), "Experttestimony Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ExperttypeChartView(), "Experttype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(FeeclassChartView(), "Feeclass Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(FeetypeChartView(), "Feetype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(HealtheventChartView(), "Healthevent Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(HealtheventtypeChartView(), "Healtheventtype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(HearingChartView(), "Hearing Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(HearingtypeChartView(), "Hearingtype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(InstancecrimeChartView(), "Instancecrime Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(InterviewChartView(), "Interview Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(InvestigationdiaryChartView(), "Investigationdiary Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(IssueChartView(), "Issue Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(JudicialofficerChartView(), "Judicialofficer Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(JudicialrankChartView(), "Judicialrank Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(JudicialroleChartView(), "Judicialrole Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(LawChartView(), "Law Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(LawfirmChartView(), "Lawfirm Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(LawyerChartView(), "Lawyer Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(LegalreferenceChartView(), "Legalreference Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(NextofkinChartView(), "Nextofkin Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(NotificationChartView(), "Notification Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(NotificationregisterChartView(), "Notificationregister Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(NotificationtypeChartView(), "Notificationtype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(NotifyeventChartView(), "Notifyevent Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PartyChartView(), "Party Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PartytypeChartView(), "Partytype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PaymentChartView(), "Payment Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PersonaleffectChartView(), "Personaleffect Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PersonaleffectscategoryChartView(), "Personaleffectscategory Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PoliceofficerChartView(), "Policeofficer Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PoliceofficerrankChartView(), "Policeofficerrank Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PolicestationChartView(), "Policestation Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PolicestationrankChartView(), "Policestationrank Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PrisonChartView(), "Prison Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PrisonofficerChartView(), "Prisonofficer Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(PrisonofficerrankChartView(), "Prisonofficerrank Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ProsecutorChartView(), "Prosecutor Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ProsecutorteamChartView(), "Prosecutorteam Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ReleasetypeChartView(), "Releasetype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(ReligionChartView(), "Religion Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SchedulestatustypeChartView(), "Schedulestatustype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SeizureChartView(), "Seizure Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SettlementChartView(), "Settlement Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SubcountyChartView(), "Subcounty Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SysuserextraChartView(), "Sysuserextra Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SysviewfldChartView(), "Sysviewfld Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SysviewlistChartView(), "Sysviewlist Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SyswkflowChartView(), "Syswkflow Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SyswkflowgrpChartView(), "Syswkflowgrp Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(SyswkflowviewseqChartView(), "Syswkflowviewseq Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(TemplatetypeChartView(), "Templatetype Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(TownChartView(), "Town Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(TranscriptChartView(), "Transcript Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(VehicleChartView(), "Vehicle Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(WardChartView(), "Ward Age Chart", icon="fa-bar-chart", category="Charts")
-
-appbuilder.add_view(WarranttypeChartView(), "Warranttype Age Chart", icon="fa-bar-chart", category="Charts")
-
-
-
-
-appbuilder.security_cleanup()
 ############## WORKFLOWS ##############
 
 
@@ -15731,6 +15409,424 @@ wz_join_view_list = \
 
 
 
+
+
+
+##############################
+#       View Registrations      
+####################
+appbuilder.add_view(AccounttypeView(), "Accounttype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(BillView(), "Bill", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(BilldetailView(), "Billdetail", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(BiodataView(), "Biodata", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(CasecategoryView(), "Casecategory", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CasechecklistView(), "Casechecklist", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CaselinktypeView(), "Caselinktype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CelltypeView(), "Celltype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CommitalView(), "Commital", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(CommitaltypeView(), "Commitaltype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(ComplaintView(), "Complaint", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(ComplaintcategoryView(), "Complaintcategory", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(ComplaintroleView(), "Complaintrole", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CountryView(), "Country", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CountyView(), "County", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CourtView(), "Court", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(CourtaccountView(), "Courtaccount", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(CourtcaseView(), "Courtcase", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(CourtrankView(), "Courtrank", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CourtstationView(), "Courtstation", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(CrimeView(), "Crime", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(CsiequipmentView(), "Csiequipment", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(DiagramView(), "Diagram", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(DisciplineView(), "Discipline", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(DocpartView(), "Docpart", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(DoctemplateView(), "Doctemplate", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(DocumentView(), "Document", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(DocumenttypeView(), "Documenttype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(EconomicclassView(), "Economicclass", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(ExhibitView(), "Exhibit", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(ExpertView(), "Expert", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(ExperttestimonyView(), "Experttestimony", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(ExperttypeView(), "Experttype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(FeeclassView(), "Feeclass", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(FeetypeView(), "Feetype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(HealtheventView(), "Healthevent", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(HealtheventtypeView(), "Healtheventtype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(HearingView(), "Hearing", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(HearingtypeView(), "Hearingtype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(InstancecrimeView(), "Instancecrime", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(InterviewView(), "Interview", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(InvestigationdiaryView(), "Investigationdiary", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(IssueView(), "Issue", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(JudicialofficerView(), "Judicialofficer", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(JudicialrankView(), "Judicialrank", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(JudicialroleView(), "Judicialrole", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(LawView(), "Law", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(LawfirmView(), "Lawfirm", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(LawyerView(), "Lawyer", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(LegalreferenceView(), "Legalreference", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(NextofkinView(), "Nextofkin", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(NotificationView(), "Notification", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(NotificationregisterView(), "Notificationregister", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(NotificationtypeView(), "Notificationtype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(NotifyeventView(), "Notifyevent", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(PartyView(), "Party", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(PartytypeView(), "Partytype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PaymentView(), "Payment", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(PersonaleffectView(), "Personaleffect", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(PersonaleffectscategoryView(), "Personaleffectscategory", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PoliceofficerView(), "Policeofficer", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PoliceofficerrankView(), "Policeofficerrank", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PolicestationView(), "Policestation", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PolicestationrankView(), "Policestationrank", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PrisonView(), "Prison", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(PrisonofficerView(), "Prisonofficer", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(PrisonofficerrankView(), "Prisonofficerrank", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(ProsecutorView(), "Prosecutor", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(ProsecutorteamView(), "Prosecutorteam", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(ReleasetypeView(), "Releasetype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(ReligionView(), "Religion", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SchedulestatustypeView(), "Schedulestatustype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(SeizureView(), "Seizure", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SettlementView(), "Settlement", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SubcountyView(), "Subcounty", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(SysuserextraView(), "Sysuserextra", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SysviewfldView(), "Sysviewfld", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SysviewlistView(), "Sysviewlist", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(SyswkflowView(), "Syswkflow", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SyswkflowgrpView(), "Syswkflowgrp", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(SyswkflowviewseqView(), "Syswkflowviewseq", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(TemplatetypeView(), "Templatetype", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(TownView(), "Town", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(TranscriptView(), "Transcript", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(VehicleView(), "Vehicle", icon="fa-folder-open-o", category="Setup")
+
+appbuilder.add_view(WardView(), "Ward", icon="fa-folder-open-o", category="Admin")
+
+appbuilder.add_view(WarranttypeView(), "Warranttype", icon="fa-folder-open-o", category="Admin")
+
+##############################
+# Register Join Table MultiViews Registrations
+####################
+appbuilder.add_view(T_Casecategory_CasechecklistMultiView(), "['Casecategory', 'Casechecklist'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Casecategory_CourtcaseMultiView(), "['Casecategory', 'Courtcase'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Complaint_ComplaintcategoryMultiView(), "['Complaint', 'Complaintcategory'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Complaint_CourtcaseMultiView(), "['Complaint', 'Courtcase'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Court_JudicialofficerMultiView(), "['Court', 'Judicialofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Courtcase_JudicialofficerMultiView(), "['Courtcase', 'Judicialofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Courtcase_LawfirmMultiView(), "['Courtcase', 'Lawfirm'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Csiequipment_InvestigationdiaryMultiView(), "['Csiequipment', 'Investigationdiary'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Document_DocumenttypeMultiView(), "['Document', 'Documenttype'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Expert_ExperttypeMultiView(), "['Expert', 'Experttype'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Hearing_IssueMultiView(), "['Hearing', 'Issue'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Hearing_JudicialofficerMultiView(), "['Hearing', 'Judicialofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Hearing_LawfirmMultiView(), "['Hearing', 'Lawfirm'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Hearing_Lawfirm_MultiView(), "['Hearing', 'Lawfirm', ''] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Instancecrime_IssueMultiView(), "['Instancecrime', 'Issue'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Investigationdiary_PartyMultiView(), "['Investigationdiary', 'Party'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Investigationdiary_PoliceofficerMultiView(), "['Investigationdiary', 'Policeofficer'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Investigationdiary_VehicleMultiView(), "['Investigationdiary', 'Vehicle'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Issue_LawyerMultiView(), "['Issue', 'Lawyer'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Issue_LegalreferenceMultiView(), "['Issue', 'Legalreference'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Issue_Legalreference_MultiView(), "['Issue', 'Legalreference', ''] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Issue_PartyMultiView(), "['Issue', 'Party'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Issue_Party_MultiView(), "['Issue', 'Party', ''] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Lawyer_PartyMultiView(), "['Lawyer', 'Party'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Party_SettlementMultiView(), "['Party', 'Settlement'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Policeofficer_PolicestationMultiView(), "['Policeofficer', 'Policestation'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+appbuilder.add_view(T_Town_WardMultiView(), "['Town', 'Ward'] Multi View", icon="fa-address-card-o", category="MultiViews")
+
+##############################
+#    Chart View Registrations   
+####################
+appbuilder.add_view(AccounttypeChartView(), "Accounttype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(BillChartView(), "Bill Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(BilldetailChartView(), "Billdetail Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(BiodataChartView(), "Biodata Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CasecategoryChartView(), "Casecategory Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CasechecklistChartView(), "Casechecklist Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CaselinktypeChartView(), "Caselinktype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CelltypeChartView(), "Celltype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CommitalChartView(), "Commital Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CommitaltypeChartView(), "Commitaltype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ComplaintChartView(), "Complaint Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ComplaintcategoryChartView(), "Complaintcategory Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ComplaintroleChartView(), "Complaintrole Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CountryChartView(), "Country Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CountyChartView(), "County Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CourtChartView(), "Court Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CourtaccountChartView(), "Courtaccount Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CourtcaseChartView(), "Courtcase Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CourtrankChartView(), "Courtrank Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CourtstationChartView(), "Courtstation Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CrimeChartView(), "Crime Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(CsiequipmentChartView(), "Csiequipment Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(DiagramChartView(), "Diagram Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(DisciplineChartView(), "Discipline Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(DocpartChartView(), "Docpart Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(DoctemplateChartView(), "Doctemplate Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(DocumentChartView(), "Document Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(DocumenttypeChartView(), "Documenttype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(EconomicclassChartView(), "Economicclass Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ExhibitChartView(), "Exhibit Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ExpertChartView(), "Expert Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ExperttestimonyChartView(), "Experttestimony Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ExperttypeChartView(), "Experttype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(FeeclassChartView(), "Feeclass Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(FeetypeChartView(), "Feetype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(HealtheventChartView(), "Healthevent Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(HealtheventtypeChartView(), "Healtheventtype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(HearingChartView(), "Hearing Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(HearingtypeChartView(), "Hearingtype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(InstancecrimeChartView(), "Instancecrime Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(InterviewChartView(), "Interview Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(InvestigationdiaryChartView(), "Investigationdiary Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(IssueChartView(), "Issue Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(JudicialofficerChartView(), "Judicialofficer Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(JudicialrankChartView(), "Judicialrank Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(JudicialroleChartView(), "Judicialrole Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(LawChartView(), "Law Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(LawfirmChartView(), "Lawfirm Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(LawyerChartView(), "Lawyer Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(LegalreferenceChartView(), "Legalreference Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(NextofkinChartView(), "Nextofkin Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(NotificationChartView(), "Notification Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(NotificationregisterChartView(), "Notificationregister Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(NotificationtypeChartView(), "Notificationtype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(NotifyeventChartView(), "Notifyevent Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PartyChartView(), "Party Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PartytypeChartView(), "Partytype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PaymentChartView(), "Payment Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PersonaleffectChartView(), "Personaleffect Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PersonaleffectscategoryChartView(), "Personaleffectscategory Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PoliceofficerChartView(), "Policeofficer Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PoliceofficerrankChartView(), "Policeofficerrank Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PolicestationChartView(), "Policestation Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PolicestationrankChartView(), "Policestationrank Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PrisonChartView(), "Prison Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PrisonofficerChartView(), "Prisonofficer Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(PrisonofficerrankChartView(), "Prisonofficerrank Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ProsecutorChartView(), "Prosecutor Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ProsecutorteamChartView(), "Prosecutorteam Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ReleasetypeChartView(), "Releasetype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(ReligionChartView(), "Religion Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SchedulestatustypeChartView(), "Schedulestatustype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SeizureChartView(), "Seizure Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SettlementChartView(), "Settlement Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SubcountyChartView(), "Subcounty Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SysuserextraChartView(), "Sysuserextra Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SysviewfldChartView(), "Sysviewfld Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SysviewlistChartView(), "Sysviewlist Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SyswkflowChartView(), "Syswkflow Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SyswkflowgrpChartView(), "Syswkflowgrp Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(SyswkflowviewseqChartView(), "Syswkflowviewseq Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(TemplatetypeChartView(), "Templatetype Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(TownChartView(), "Town Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(TranscriptChartView(), "Transcript Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(VehicleChartView(), "Vehicle Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(WardChartView(), "Ward Age Chart", icon="fa-bar-chart", category="Charts")
+
+appbuilder.add_view(WarranttypeChartView(), "Warranttype Age Chart", icon="fa-bar-chart", category="Charts")
+
+
+
+
+appbuilder.security_cleanup()
 ############## END NOTES AND COMMENTS ##############
 ##############################
 # Programming Notes and things of interest
