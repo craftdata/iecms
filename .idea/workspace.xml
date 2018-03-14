@@ -6,19 +6,7 @@
   </component>
   <component name="ChangeListManager">
     <list default="true" id="862997ba-943a-4b8f-9ea0-84f2b0f9b64e" name="Default" comment="">
-      <change beforePath="$PROJECT_DIR$/.idea/dbnavigator.xml" afterPath="$PROJECT_DIR$/.idea/dbnavigator.xml" />
-      <change beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
-      <change beforePath="$PROJECT_DIR$/app/__init__.py" afterPath="$PROJECT_DIR$/app/__init__.py" />
-      <change beforePath="$PROJECT_DIR$/app/field_sets.py" afterPath="$PROJECT_DIR$/app/field_sets.py" />
-      <change beforePath="$PROJECT_DIR$/app/fixup_models.py" afterPath="$PROJECT_DIR$/app/fixup_models.py" />
-      <change beforePath="$PROJECT_DIR$/app/fixup_views.py" afterPath="$PROJECT_DIR$/app/fixup_views.py" />
-      <change beforePath="$PROJECT_DIR$/app/mixins.py" afterPath="$PROJECT_DIR$/app/mixins.py" />
-      <change beforePath="$PROJECT_DIR$/app/mod1.py" afterPath="$PROJECT_DIR$/app/mod1.py" />
-      <change beforePath="$PROJECT_DIR$/app/models.py" afterPath="$PROJECT_DIR$/app/models.py" />
-      <change beforePath="$PROJECT_DIR$/app/views.py" afterPath="$PROJECT_DIR$/app/views.py" />
-      <change beforePath="$PROJECT_DIR$/config.py" afterPath="$PROJECT_DIR$/config.py" />
-      <change beforePath="$PROJECT_DIR$/view_list.csv" afterPath="$PROJECT_DIR$/view_list.csv" />
-      <change beforePath="$PROJECT_DIR$/xview.txt" afterPath="$PROJECT_DIR$/xview.txt" />
+      <change beforePath="$PROJECT_DIR$/app/gen.sh" afterPath="$PROJECT_DIR$/app/gen.sh" />
     </list>
     <option name="EXCLUDED_CONVERTED_TO_IGNORED" value="true" />
     <option name="TRACKING_ENABLED" value="true" />
@@ -52,11 +40,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="gen.sh" pinned="false" current-in-tab="false">
+      <file leaf-file-name="gen.sh" pinned="false" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/app/gen.sh">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="85">
-              <caret line="5" column="26" lean-forward="false" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
+            <state relative-caret-position="34">
+              <caret line="2" column="57" lean-forward="false" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
               <folding />
             </state>
           </provider>
@@ -72,11 +60,11 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="fixup_views.py" pinned="false" current-in-tab="true">
+      <file leaf-file-name="fixup_views.py" pinned="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/app/fixup_views.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state relative-caret-position="935">
-              <caret line="659" column="4" lean-forward="false" selection-start-line="659" selection-start-column="4" selection-end-line="659" selection-end-column="4" />
+            <state relative-caret-position="170">
+              <caret line="614" column="43" lean-forward="false" selection-start-line="614" selection-start-column="43" selection-end-line="614" selection-end-column="43" />
               <folding>
                 <element signature="e#72#124#0" expanded="true" />
               </folding>
@@ -120,7 +108,7 @@
         <entry file="file://$PROJECT_DIR$/app/views.py">
           <provider selected="true" editor-type-id="text-editor">
             <state relative-caret-position="-252609">
-              <caret line="63" column="30" lean-forward="true" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+              <caret line="63" column="30" lean-forward="false" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
               <folding>
                 <element signature="e#93#108#0" expanded="true" />
               </folding>
@@ -225,7 +213,6 @@
         <option value="$PROJECT_DIR$/app/pony9.py" />
         <option value="$PROJECT_DIR$/../casegh/dbs/gen_script.sh" />
         <option value="$PROJECT_DIR$/app/mod1.py" />
-        <option value="$PROJECT_DIR$/app/gen.sh" />
         <option value="$PROJECT_DIR$/.gitignore" />
         <option value="$PROJECT_DIR$/docs/dev_notes/codegen_fixups.rst" />
         <option value="$PROJECT_DIR$/docs/dev_notes/mongo_fdw-enablement.rst" />
@@ -260,6 +247,7 @@
         <option value="$PROJECT_DIR$/config.py" />
         <option value="$PROJECT_DIR$/app/mixins.py" />
         <option value="$PROJECT_DIR$/app/fixup_views.py" />
+        <option value="$PROJECT_DIR$/app/gen.sh" />
       </list>
     </option>
   </component>
@@ -444,12 +432,12 @@
       <window_info id="Python Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Terminal" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="FAQ Robot" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
-      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.20135134" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.20135134" sideWeight="0.5" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Project Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Job Explorer" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.32957748" sideWeight="0.49361023" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Docker" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="false" weight="0.33" sideWeight="0.5" order="8" side_tool="false" content_ui="tabs" />
       <window_info id="Console" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
-      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" show_stripe_button="true" weight="0.15810812" sideWeight="0.49361023" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.15810812" sideWeight="0.49361023" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.39926404" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.2943662" sideWeight="0.5063898" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" show_stripe_button="true" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -738,14 +726,6 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/app/gen.sh">
-      <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="85">
-          <caret line="5" column="26" lean-forward="false" selection-start-line="5" selection-start-column="26" selection-end-line="5" selection-end-column="26" />
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/app/templates/appbuilder/footer.html">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="153">
@@ -809,7 +789,7 @@
     <entry file="file://$PROJECT_DIR$/app/views.py">
       <provider selected="true" editor-type-id="text-editor">
         <state relative-caret-position="-252609">
-          <caret line="63" column="30" lean-forward="true" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
+          <caret line="63" column="30" lean-forward="false" selection-start-line="63" selection-start-column="30" selection-end-line="63" selection-end-column="30" />
           <folding>
             <element signature="e#93#108#0" expanded="true" />
           </folding>
@@ -818,11 +798,19 @@
     </entry>
     <entry file="file://$PROJECT_DIR$/app/fixup_views.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state relative-caret-position="935">
-          <caret line="659" column="4" lean-forward="false" selection-start-line="659" selection-start-column="4" selection-end-line="659" selection-end-column="4" />
+        <state relative-caret-position="170">
+          <caret line="614" column="43" lean-forward="false" selection-start-line="614" selection-start-column="43" selection-end-line="614" selection-end-column="43" />
           <folding>
             <element signature="e#72#124#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/app/gen.sh">
+      <provider selected="true" editor-type-id="text-editor">
+        <state relative-caret-position="34">
+          <caret line="2" column="57" lean-forward="false" selection-start-line="2" selection-start-column="57" selection-end-line="2" selection-end-column="57" />
+          <folding />
         </state>
       </provider>
     </entry>
