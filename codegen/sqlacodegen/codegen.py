@@ -34,12 +34,15 @@ _flask_prepend = ' '
 ############### SNIPPETS ###########
 std_hdr = """
 from datetime import datetime, MINYEAR
+from flask import Markup, url_for
+
 from flask_appbuilder import Model
 from flask_appbuilder.models.mixins import AuditMixin, FileColumn, ImageColumn, UserExtensionMixin
 from flask_appbuilder.models.decorators import renders
-from flask_appbuilder.filemanager import ImageManager, FileManager i
+from flask_appbuilder.filemanager import ImageManager, FileManager
+
 from sqlalchemy_utils import aggregated, force_auto_coercion, observes
-from sqlalchemy.orm import column_property
+from sqlalchemy.orm import column_property, relationship
 from sqlalchemy.event import listens_for
 from flask import Markup, url_for
 
@@ -47,12 +50,9 @@ from sqlalchemy import ( BigInteger, Boolean, Column, Date, DateTime,
                 ForeignKey, ForeignKeyConstraint, Index, Integer, LargeBinary,
                 Numeric, String, Table, Text, Time, text, func, event, DDL)
                 
-from sqlalchemy.orm import relationship
-from sqlalchemy.dialects.postgresql.base import INTERVAL
 from sqlalchemy.ext.declarative import declarative_base
 from sqlalchemy.event import listens_for
 
-from flask import Markup, url_for
 # Versioning Mixin
 from sqlalchemy_continuum import make_versioned
 
@@ -66,6 +66,7 @@ from sqlalchemy_searchable import make_searchable
 from sqlalchemy_mixins import AllFeaturesMixin, ActiveRecordMixin
 
 from sqlalchemy.orm import relationship, query, defer, deferred
+
 # IMPORT Postgresql Specific Types
 from sqlalchemy.dialects.postgresql import (
     ARRAY, BIGINT, BIT, BOOLEAN, BYTEA, CHAR, CIDR, DATE,
@@ -74,7 +75,7 @@ from sqlalchemy.dialects.postgresql import (
     TIME, TIMESTAMP, UUID, VARCHAR, INT4RANGE, INT8RANGE, NUMRANGE,
     DATERANGE, TSRANGE, TSTZRANGE, TSVECTOR )
 
-from sqlalchemy.dialects.postgresql import aggregate_order_by, INTERVAL
+from sqlalchemy.dialects.postgresql import aggregate_order_by
 
 from sqlalchemy import (Column, Integer, String, ForeignKey,
     Sequence, Float, Text, BigInteger, Date,
@@ -611,7 +612,7 @@ class Relationship(object):
         # Check if backref already exists for relationship source_cls to target_cls and add suffix
         suffix = 0
         while (self.target_cls, backref) in [(x.target_cls, x.backref_name) for x in relationships]:
-            suffix = random.randint(1,100)
+            suffix = random.randint(1,1000) # Reduce the chance of a collision
             backref = original_backref + str('_{0}'.format(suffix))
             
 

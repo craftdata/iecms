@@ -1,6 +1,14 @@
 #!/usr/bin/env bash
+# vim:set ts=4 et st=4 sts=4
+# File              : gen.sh
+# Date              : 14.03.2018
+# Last Modified Date: 14.03.2018
+
+
+
 
 # Backup any changes to sqlacodegen, so that it is in git
+echo "Moving sqlacodegen:cogen.py"
 rsync -avrumP /Users/nyimbi/.bin/anaconda3/lib/python3.6/site-packages/flask_sqlacodegen-1.1.6.1-py3.6.egg/sqlacodegen/ /Users/nyimbi/Dropbox/src/pjs/iecms/codegen/sqlacodegen
 
 
@@ -41,7 +49,7 @@ cp views_template.py views.py
 (
 # Inside a subshell
 cd ..
-echo "GO FIX:   wtf_PageForm, exclude[]"
+echo "GO FIX:   wtf_PageForm, exclude[]"/
 # Back to where we started from
 # cd app
 )

@@ -19,6 +19,13 @@ SQLALCHEMY_TRACK_MODIFICATIONS = True
 # Flask-WTF flag for CSRF
 CSRF_ENABLED = True
 
+OPENID_PROVIDERS = [
+    {'name': 'Yahoo', 'url': 'https://me.yahoo.com'},
+    {'name': 'AOL', 'url': 'http://openid.aol.com/<username>'},
+    {'name': 'Flickr', 'url': 'http://www.flickr.com/<username>'},
+    {'name': 'MyOpenID', 'url': 'https://www.myopenid.com'}]
+
+
 #------------------------------
 # GLOBALS FOR APP Builder
 #------------------------------

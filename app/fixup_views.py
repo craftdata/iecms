@@ -57,9 +57,6 @@ class ModelForm(BaseModelForm):
     def get_session(self):
         return db.session
 
-
-audit_exclude_columns = hide_list = ['created_by', 'created_on', 'changed_by', 'changed_on', 'changed_by_fk','created_by_fk']
-
 #To pretty Print from PersonMixin
 def pretty_month_year(value):
     return calendar.month_name[value.month] + ' ' + str(value.year)
@@ -69,9 +66,7 @@ def get_user():
     
 def pretty_year(value):
     return str(value.year)
-    
-def pretty_month_year(value):
-    return calendar.month_name[value.month] + ' ' + str(value.year)
+
     
 # Class of readonly field widgets
 class BS3TextFieldROWidget(BS3TextFieldWidget):
@@ -128,7 +123,6 @@ view_body = """
     
     # search_form_query_rel_fields = [('group':[['name',FilterStartsWith,'W']]
     search_exclude_columns = ['file', 'photo', 'photo_img', 'photo_img_thumbnail','doc', 'doc_binary'] + person_exclude_columns + biometric_columns + person_search_exclude_columns
-    # search_form_query_rel_fields = [(group:[[name,FilterStartsWith,W]]
     add_exclude_columns = edit_exclude_columns = audit_exclude_columns
     # label_columns = {{"contact_group":"Contacts Group"}}
     # add_columns = person_list_columns + ref_columns + contact_columns
@@ -523,13 +517,19 @@ def gen_code(model_filename):
                      # '_') and (attrname not in ['id', 'file', 'photo', 'metadata','photo_img','photo_img_thumbnail'])])
                      '_') and (attrname not in exclude_list)]
         
-        # Put name. description first
+        # Put name. description, notes first
         if 'notes' in filds:
             filds.insert(0, filds.pop(filds.index('notes')))
         if 'description' in filds:
             filds.insert(0, filds.pop(filds.index('description')))
         if 'name' in filds:
             filds.insert(0, filds.pop(filds.index('name')))
+        
+        
+        # Remove country if country1 is there etc
+        for fld in filds:
+            if fld+'1' in filds:
+                filds.pop(filds.index(fld))
             
         s = str(filds)
         for ed in ['add', 'edit', 'list']:
